@@ -1,0 +1,8 @@
+"0","# Plot densities by similarity measure"
+"0","artifact_sims %>% stack() %>% "
+"0","  filter(values > 0) %>% # Exclude zeroes"
+"0","  ggplot(aes(x = values)) +"
+"0","  geom_density(color = ""blue"","
+"0","               alpha = 0.4) + "
+"0","  facet_grid(ind ~ ., scales = ""free"")"
+"0",""

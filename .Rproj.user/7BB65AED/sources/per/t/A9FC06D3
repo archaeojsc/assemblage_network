@@ -1,0 +1,27 @@
+{
+    "id": "A9FC06D3",
+    "path": "~/Documents/Python Projects/archaeojsc.github.io/docs/assemblage_network/assemblage_networks_bipartite3.R",
+    "project_path": "assemblage_networks_bipartite3.R",
+    "type": "r_source",
+    "hash": "1885055337",
+    "contents": "",
+    "dirty": false,
+    "created": 1665412288019.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "181,0",
+        "scrollLine": "0",
+        "docOutlineVisible": "1"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1666309572,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1666309572610,
+    "read_only": false,
+    "read_only_alternatives": []
+}

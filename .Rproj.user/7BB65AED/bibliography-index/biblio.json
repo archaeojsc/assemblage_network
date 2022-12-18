@@ -1,0 +1,31 @@
+{
+    "sources": [
+        {
+            "DOI": "10.5334/jcaa.16",
+            "URL": "http://dx.doi.org/10.5334/jcaa.16",
+            "author": [
+                {
+                    "family": "Cardinal",
+                    "given": "J. Scott"
+                }
+            ],
+            "container-title": "Journal of Computer Applications in Archaeology",
+            "id": "cardinal2019",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "56-78",
+            "title": "Sets, Graphs, and Things We Can See: A Formal Combinatorial Ontology for Empirical Intra-Site Analysis",
+            "title-short": "Sets, Graphs, and Things We Can See",
+            "type": "article-journal",
+            "volume": "2"
+        }
+    ],
+    "project_biblios": []
+}

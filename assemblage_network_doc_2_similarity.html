@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="James Scott Cardinal">
+<meta name="dcterms.date" content="2021-10-14">
+
+<title>Similarity Measures for Graph Adjacency with Sets</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="assemblage_network_doc_2_similarity_files/libs/clipboard/clipboard.min.js"></script>
+<script src="assemblage_network_doc_2_similarity_files/libs/quarto-html/quarto.js"></script>
+<script src="assemblage_network_doc_2_similarity_files/libs/quarto-html/popper.min.js"></script>
+<script src="assemblage_network_doc_2_similarity_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="assemblage_network_doc_2_similarity_files/libs/quarto-html/anchor.min.js"></script>
+<link href="assemblage_network_doc_2_similarity_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="assemblage_network_doc_2_similarity_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="assemblage_network_doc_2_similarity_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="assemblage_network_doc_2_similarity_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="assemblage_network_doc_2_similarity_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Similarity Measures for Graph Adjacency with Sets</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>James Scott Cardinal </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 14, 2021</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<p><img src="archaeo_DS_mine.png" class="img-fluid"></p>
+<p>In my last installment (<a href="https://medium.com/p/648a2f20d389">Part I</a>), I introduced you to a bit about the process of analyzing an archaeological site with data science. I talked about the frustratingly complex nature of “Old Things in Space” and how the network of artifacts and locations constitute a bipartite graph.</p>
+<p>As we worked through the process of creating a two-mode graph and projecting it into its constituent one-mode graphs, however, we ended on something of a cliff-hanger… <em>everything</em> ended up connected to <em>everything else</em>!</p>
+<p>Well, sort of. I have to confess that I intentionally lead you down a primrose path straight into a cul-de-sac. All part of my cunning plan, of course, to get to the much more interesting topic of thinking about just what it means for two things to be “similar” and similarity metrics for <em>sets.</em></p>
+<p>In my defense, I did briefly mention that <code>igraph</code> doesn’t really have the best of tools to actually <em>do</em> much of anything interesting with bipartite graphs. The problem is that the method it uses in its <code>bipartite_projection</code> simply sums the pairwise occurrences in the incidence matrix. That, as it turns out, is less than useful in a lot of cases.</p>
+<p>Instead, we need to explore some more robust methods for evaluating <em>similarity</em> between sets. Unlike numerical methods of calculating correlation or distance, there are some conceptual peculiarities when comparing correspondence and similarity between sets that need to be considered. In this article, we’ll look at some of the most commonly used set-based similarity metrics and reason through <em>how</em> to choose the appropriate metric for our goals.</p>
+<p>For those just joining in, this is the Part II of a series in archaeological data science covering:</p>
+<ul>
+<li><p><a href="https://medium.com/p/648a2f20d389">Part I</a> – Creating and exploring bipartite and one-mode graphs,</p></li>
+<li><p>Part II – Similarity measures for sets and graph adjacency,</p></li>
+<li><p>Part III – Graph structure and community detection methods,</p></li>
+<li><p>Part IV – Geo-spatial networks</p></li>
+</ul>
+<p>I’ll continue using R for the coding, but again all of this could be done with Python just as easily.</p>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Before we get into the weeds of metrics, methods, and combinatorics (i.e., the mathematics of <em>sets</em>) let’s stop to think for a moment about just what we mean when we say that two things are <em>similar</em>.</p>
+<p>In general, we refer to things as <em>similar</em> when they are neither the quite the same nor are they entirely different. Similar things are alike-<em>ish</em>. It means that some measure of shared features or attributes is suggesting <em>association</em> but not necessarily <em>commonality</em> or <em>identity</em>. It denotes a resemblance or correspondence, but there’s a certain fuzziness about it – i.e., similarity implies a subjective or qualitative assessment.</p>
+<p>Our goal, then, is twofold. Firstly, we need to determine what set similarity metric most closely reflects the <em>relationship</em> between set elements. Secondly, we have to determine an appropriate method for determining the <em>threshold</em> of similarity between those entities. In other words, we need to choose our criteria for <em>resemblance</em> and set the <em>limits</em> of what is (or isn’t) considered similar between our sets.</p>
+<p>In this installment, we’ll be looking at addressing the first goal by exploring some common algorithms for measuring similarity. I’ll discuss the intuitions behind them, their strengths, and the criteria for choosing appropriate metrics. SInce that involves somewhat lengthy discussion, I’ll hold off on talking about thresholds for the next article when we start looking at network structure and community detection.</p>
+<section id="sets-and-similarity" class="level2">
+<h2 class="anchored" data-anchor-id="sets-and-similarity">Sets and Similarity</h2>
+<p>Unlike real-valued vector spaces in which distance or similarity can be readily calculated, sets consist of an un-ordered collection of unique members or elements. Those member elements can be anything – e.g., numbers, letters, words, objects, categories – so there isn’t always an obvious numerical solution such as vector norms or coordinates that can be used for comparison of elements.</p>
+<p>Instead, we have to compare the membership of elements between sets. More specifically, we compare the size or <em>cardinality</em> of certain attributes of or operation on the sets such as their intersections and unions. Luckily, there are numerous metrics available for comparing similarity between sets. For our purposes, I will discuss only a few that are most common:</p>
+<ul>
+<li>Overlap or Szymkiewicz-Simpson coefficient</li>
+<li>Jaccard similarity coefficient (a.k.a. Tanimoto coefficient)</li>
+<li>Sørensen–Dice coefficient</li>
+</ul>
+<p>Each of these similarity measures was derived specifically to address the peculiarities of dealing with sets. The difference between them is just the way in which they weight common elements (i.e., intersections) against differences.</p>
+<p>It is important to consider, however, exactly what relationships between sets you are trying to capture before choosing a method. If your samples all contain approximately the same number of elements, you might choose differently than if each sample has widely different numbers of members. How likely are complete subsets, and are those important to capture? Are differences more important than commonalities, or the other way around?</p>
+<p>As with any data analysis, it’s necessary to explicitly consider your <em>methodology</em> as well as your methods. The rationale and justification for the selection of methods is a critical part of the process. That is, after all, why we call it data <em>science</em>.</p>
+</section>
+<section id="revisiting-bipartite-graphs-and-projections" class="level2">
+<h2 class="anchored" data-anchor-id="revisiting-bipartite-graphs-and-projections">Revisiting Bipartite Graphs and Projections</h2>
+<p>First, lets go back and recreate our bipartite graph of sampling locations (called “proveniences”) and artifact types found at those locations like we did in <a href="https://medium.com/p/648a2f20d389">Part I</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(igraph)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggraph)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in edgelist into data frame</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Catalog_SiteA.csv"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">col_select =</span> <span class="fu">c</span>(LEVEL_ID, CODE))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create graph</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>g_assemblages_bpg <span class="ot">&lt;-</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">graph_from_data_frame</span>(<span class="fu">unique.data.frame</span>(dat),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">directed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign bipartite node types</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(g_assemblages_bpg)<span class="sc">$</span>type <span class="ot">&lt;-</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bipartite_mapping</span>(g_assemblages_bpg)<span class="sc">$</span>type</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Again, we have our graph of connections between artifact types and locations, and can already see some rough grouping in each of the vertex types (one type at the top and one at the bottom of the plot). The graph is densely connected, with many nodes and edges.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot bipartite graph</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>g_assemblages_bpg <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">"bipartite"</span>) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> <span class="st">"gray"</span>, <span class="at">alpha =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> type), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"green"</span>, <span class="st">"blue"</span>),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Node Type"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Provenience"</span>, <span class="st">"Artifact"</span>)) <span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Bipartite network of Provenience and Artifact Type"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assemblage_network_doc_2_similarity_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="768"></p>
+<p></p><figcaption class="figure-caption">Bipartite graph of artifact-provenience connections.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now we retrieve the binary incidence matrix of proveniences and artifact types from the graph, which we will use as the data for our similarity measures. Remember, we are only considering presence (<code>1</code>) or absence (<code>0</code>) of an artifact type at each provenience.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>g_assemblages_bpg_inc <span class="ot">&lt;-</span> <span class="fu">as_incidence_matrix</span>(g_assemblages_bpg)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows and columns</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>g_assemblages_bpg_inc[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     UDB TOOT CS OCH BNUT UIS TWN UWN MCN UCN CWN BLT CAP SCR TACK
+1726   1    1  1   0    1   1   0   1   1   1   1   1   0   1    1
+1725   1    1  0   1    0   1   1   0   1   1   0   0   1   0    1
+1306   0    0  0   1    0   1   0   1   1   1   1   0   0   0    1
+1307   0    0  0   1    0   1   0   0   0   0   1   0   0   0    0
+1737   1    0  0   0    1   1   0   0   1   1   1   1   0   1    0</code></pre>
+</div>
+</div>
+<p>Depending on which way we orient our incidence matrix, we now have a collection of the sets of artifact types found at each provenience (by row) or sets of proveniences at which each artifact type was found (by column).</p>
+<p>The goal is to find a partitioning of this system of sets such that each subset of provenience contains a coherent collection of artifact types (i.e., what archaeologists call an <em>assemblage</em>) and each subset of artifact types are found together in a coherent spatial collection of proveniences (we call those a <em>context</em>).</p>
+<p>What we’re trying to do now is to look at the ways we compute that “coherence” within the projected modes of our bipartite graph. In order to project our bipartite node types into two separate one-mode graphs, we want to evaluate similarity measures between pairwise comparisons of these sets.</p>
+</section>
+<section id="archaeological-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="archaeological-objectives">Archaeological Objectives</h2>
+<p>In my last <a href="https://link.medium.com/DrRhVKZIItb">article</a>, I introduced you to a couple archaeological concepts as well as a few concepts about sets and graphs. Now I’d like to pause to explain why we’re so interested in finding these subsets and partitions. You see, archaeologists don’t really interpret artifacts <em>per se</em>.</p>
+<p>We’re interested in interpreting human activities across time and space, which gives us a window into far more abstract concepts like <em>behavior</em> or <em>culture</em>. The way we do that, since we don’t have a time machine to go back and observe what people were actually doing, is by looking for patterns of associations between the physical remnants (i.e., the debris or <em>trash</em>) left behind by those activities. Weird, I know, but it works surprisingly well.</p>
+<p>Just think for a moment about what your trash might show about <em>your</em> daily behavior!</p>
+<p>Anyway, the reason we’re so interested in finding groupings in artifacts (the things) and provenience (the location in 3-dimensional space) is that those are just the samples we collect. We want to know about the <em>populations</em> from which those samples are drawn. In this case, those populations are the <em>assemblages</em> and <em>contexts</em>. We want to see if we can differentiate one assemblage or context from another, then see what patterns that reveals.</p>
+<p>For example, does an identified assemblage of artifacts have a specific range of dates so that it uniquely identifies <em>when</em> or <em>how long</em> a site was occupied? Does one assemblage relate to domestic activities while another reflects economic activities, and are those spaces (i.e., their contexts) separate or commingled? If the site was occupied multiple times or by multiple households, were they continuous or intermittent? Different assemblages might be mixed into the same context if they were continuous.</p>
+<p>So many questions, but parsing the artifact and provenience data into assemblages and contexts is the first step. We want to be sure that our analytic methods are appropriate.</p>
+</section>
+</section>
+<section id="similarity-measures-for-projections" class="level1">
+<h1>Similarity Measures for Projections</h1>
+<p>We found out in <a href="https://medium.com/p/648a2f20d389">Part I</a> that the <code>bipartite_projection</code> method in <code>igraph</code> only sums the number of pairwise coincidences. That means, though, that even one shared element between sets is enough to link them. It doesn’t, at all, factor in how many elements of the sets are <em>different</em> or the <em>total</em> number of elements being considered.</p>
+<p>In the end, every node in each projection was linked to almost every other node with no good way to evaluate the <em>strength</em> of those connections. Not particularly useful.</p>
+<p>Now we can start looking more closely at set-based similarity measures, and how use them to project our bipartite graph. We could use existing packages for these, but I’d like instead to build our own functions in order to get a better sense of what is going on “under the hood” so to speak.</p>
+<p>Do note that these functions are intended for binary incidence matrices. Different approaches would be needed for sets with multiplicities or counts (i.e., multisets or m-sets).</p>
+<section id="overlap-or-szymkiewicz-simpson-coefficient" class="level2">
+<h2 class="anchored" data-anchor-id="overlap-or-szymkiewicz-simpson-coefficient">Overlap or Szymkiewicz-Simpson Coefficient</h2>
+<p>This similarity measure is simply the number of common elements of the intersection between two sets divided by the total number of members in the <em>smaller</em> of the two sets. Remember, the number of unique members or elements that make up a set are its size or (more formally) its cardinality.</p>
+<p><span class="math display">\[
+Overlap(A, B) = \frac{|A \cap B |}{\min ({|A|,|B|})}
+\]</span></p>
+<p>For example, say we have two sets: <span class="math inline">\(X=\{a, b, c\}\)</span> and <span class="math inline">\(Y = \{b, c, d, e, f\}\)</span>. Their intersection is <span class="math inline">\(X \cap Y = \{b, c\}\)</span> and the sets have cardinality <span class="math inline">\(|X|=3\)</span> and <span class="math inline">\(|Y| = 5\)</span>. Their overlap coefficient would be:</p>
+<p><span class="math display">\[
+\begin{aligned}
+Overlap(X, Y) &amp;= \frac{|\{b, c\}|}{\min(|\{a, b, c\}|, |\{b, c, d, e, f\}|)}\\
+&amp;= \frac{2}{\min (3, 5)} \\
+&amp;= \frac{2}{3} \approx 0.67
+\end{aligned}
+\]</span></p>
+<p>Easy, right? It’s just the proportion of the smaller set’s members that are also members of the larger set (thus, <em>overlap</em>).</p>
+<p>Notice, though, that if <em>all</em> of the elements of the smaller set were in the larger set – i.e., if we were to drop element <span class="math inline">\(a\)</span> from set <span class="math inline">\(X\)</span> so that it was a complete <em>subset</em> of <span class="math inline">\(Y\)</span> – then the coefficient would equal <span class="math inline">\(1\)</span> regardless of how many additional members were in <span class="math inline">\(Y\)</span>.</p>
+<p>So, this similarity measure is defining <em>similarity</em> in a very specific way. It includes an assumption that <em>any</em> subset is effectively <em>equivalent</em> to its superset. That little quirk of definition can be quite useful, depending on your application.</p>
+<p>The overlap coefficient is a common set similarity metric used in everything from gene sequencing to topic modeling. It’s also quite easy to calculate across our binary incidence matrix.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Szymkiewicz-Simpson overlap coefficient for binary incidence matrices</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>overlap_coef_bin <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the pairwise sums of non-zero matrix elements to find the number</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># of intersecting elements between each input column</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  bin_intersect_mat <span class="ot">&lt;-</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> x</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the input column sums to find the individual size of each set</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  col_sum <span class="ot">&lt;-</span> <span class="fu">apply</span>(x, <span class="dv">2</span>, <span class="cf">function</span>(xx)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(xx <span class="sc">!=</span> <span class="dv">0</span>))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find the smaller of each pair of sets by taking the matrix outer minimum</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  min_set_size_mat <span class="ot">&lt;-</span> <span class="fu">outer</span>(col_sum, col_sum, <span class="at">FUN =</span> pmin)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Szymkiewicz-Simpson overlap coefficient is the pairwise intersection of two</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sets divided by the size of the smaller set</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  ssoc <span class="ot">&lt;-</span> bin_intersect_mat <span class="sc">/</span> min_set_size_mat</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set diagonal to identity</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diag</span>(ssoc) <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Assign input column names to rows and columns of return matrix</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dimnames</span>(ssoc) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">colnames</span>(x), <span class="fu">colnames</span>(x))</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(ssoc)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="jaccard-or-tanimoto-similarity-index" class="level2">
+<h2 class="anchored" data-anchor-id="jaccard-or-tanimoto-similarity-index">Jaccard (or Tanimoto) Similarity Index</h2>
+<p>The Jaccard index is probably the most well-known and used of the set similarity measures. You may also see this one referenced as the Tanimoto (or even Jaccard-Tanimoto) index, owing to its independent formulation through time in different fields of study. All versions, however, refer to a measure of similarity based on the ratio of cardinality between the <em>intersection</em> of two sets and their <em>union</em>.</p>
+<p><span class="math display">\[
+J(A, B) = \frac{|A \cap B|}{|A \cup B|} = \frac{|A \cap B|}{|A| + |B| - |A \cap B|}
+\]</span></p>
+<p>Unlike the overlap coefficient, you can see that the Jaccard index considers the <em>total</em> membership of both sets being compared in the denominator. That means that this index will <em>always</em> penalize differences between sets, even if one is a proper subset of the other.</p>
+<p>To demonstrate, let’s go back to our toy example sets <span class="math inline">\(X=\{a, b, c\}\)</span> and <span class="math inline">\(Y = \{b, c, d, e, f\}\)</span> to calculate the Jaccard index value.</p>
+<p><span class="math display">\[
+\begin{aligned}
+J(X, Y) &amp;= \frac{|\{b, c\}|}{|\{a, b, c\}| + |\{b, c, d, e, f\}| - |\{b, c\}|}\\
+&amp;= \frac{2}{3 + 5 - 2} \\
+&amp;= \frac{2}{6} \approx 0.33
+\end{aligned}
+\]</span></p>
+<p>By considering the total cardinality of the sets, the Jaccard index comes back a fair bit <em>lower</em> than the Overlap Coefficient (<span class="math inline">\(\approx 0.67\)</span>). Next, let’s go ahead and drop element <span class="math inline">\(a\)</span> to make <span class="math inline">\(X\)</span> a proper subset of <span class="math inline">\(Y\)</span> and see what happens. Whereas the Overlap Coefficient was <span class="math inline">\(1\)</span>, we find that</p>
+<p><span class="math display">\[
+\begin{aligned}
+J(X, Y) &amp;= \frac{|\{b, c\}|}{|\{b, c\}| + |\{b, c, d, e, f\}| - |\{b, c\}|}\\
+&amp;= \frac{2}{2 + 5 - 2} \\
+&amp;= \frac{2}{5} = 0.4
+\end{aligned}
+\]</span></p>
+<p>That’s a significant difference! Even though <span class="math inline">\(X\)</span> is a proper subset of <span class="math inline">\(Y\)</span>, the Jaccard index emphasizes the <em>differences</em> between the sets over their commonalities. The greater the disparity between sets, the lower the index value. Again, depending on your use case, that extra penalization of difference may be to your advantage.</p>
+<p>The Jaccard similarity index is perhaps, as already mentioned, the most common and versatile of the set similarity measures. It’s often used for comparing categorical data, and frequently found in ecological or social science applications.</p>
+<p>Our function to calculate the index is very similar to that for the overlap coefficient, but substituting summation for minimum value in our outer product and changing the denominator.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Jaccard/Tanimoto similarity index for binary incidence matrices</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>jaccard_sim_bin <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the pairwise sums of non-zero matrix elements to find the number</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># of intersecting elements between each input column</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  bin_intersect_mat <span class="ot">&lt;-</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> x</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the input column sums to find the individual size of each set</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  x_col_sum <span class="ot">&lt;-</span> <span class="fu">apply</span>(x, <span class="dv">2</span>, <span class="cf">function</span>(xx)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(xx <span class="sc">!=</span> <span class="dv">0</span>))</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the matrix outer sums for pairwise sum of set sizes</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  set_size_sum_mat <span class="ot">&lt;-</span> <span class="fu">outer</span>(x_col_sum, x_col_sum, <span class="at">FUN =</span> <span class="st">"+"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Jaccard index is intersection of set sizes over the size of the union of</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sets</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  jacc <span class="ot">&lt;-</span> bin_intersect_mat <span class="sc">/</span> (set_size_sum_mat <span class="sc">-</span> bin_intersect_mat)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set diagonal to identity</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diag</span>(jacc) <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Assign input column names to rows and columns of return matrix</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dimnames</span>(jacc) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">colnames</span>(x), <span class="fu">colnames</span>(x))</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(jacc)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sørensendice-similarity-coefficient" class="level2">
+<h2 class="anchored" data-anchor-id="sørensendice-similarity-coefficient">Sørensen–Dice Similarity Coefficient</h2>
+<p>Similar to the Jaccard index, the Sørensen–Dice similarity coefficient compares the ratio of the intersection to the total membership of both sets. The difference is that the denominator for Sørensen–Dice is the sum of the cardinalities rather than that of the union of the sets as it is for Jaccard. Another difference is that Sørensen–Dice doubles the intersection in the numerator, which has the effect of “weighting” the commonalities between sets a little bit more than the differences.</p>
+<p><span class="math display">\[
+DSC(A, B) = \frac{2 \times |A \cap B|}{|A| + |B|}
+\]</span></p>
+<p>Let’s see how Sørensen–Dice similarity compares with our toy example <span class="math inline">\(X=\{a, b, c\}\)</span> and <span class="math inline">\(Y = \{b, c, d, e, f\}\)</span> again.</p>
+<p><span class="math display">\[
+\begin{aligned}
+DSC(X, Y) &amp;= \frac{2 \times |\{b, c\}|}{|\{a, b, c\}| + |\{b, c, d, e, f\}|}\\
+&amp;= \frac{2 \times 2}{3 + 5} \\
+&amp;= \frac{4}{8} = 0.5
+\end{aligned}
+\]</span></p>
+<p>As expected, our calculated similarity <span class="math inline">\(DSC = 0.5\)</span> is somewhat higher than Jaccard but lower than the Overlap Coefficient. What happens now if we make <span class="math inline">\(X\)</span> a proper subset of <span class="math inline">\(Y\)</span> again (<em>i.e.</em>, drop element <span class="math inline">\(a\)</span>)?</p>
+<p><span class="math display">\[
+\begin{aligned}
+DSC(X, Y) &amp;= \frac{2 \times |\{b, c\}|}{|\{b, c\}| + |\{b, c, d, e, f\}|}\\
+&amp;= \frac{2 \times 2}{2 + 5} \\
+&amp;= \frac{4}{7} \approx 0.57
+\end{aligned}
+\]</span></p>
+<p>Like Jaccard, the Sørensen–Dice similarity coefficient does <em>not</em> equate a proper subset to identity but does calculate it as a stronger similarity than the Jaccard similarity index. The difference is that while Jaccard is the ratio of intersection to union, Sørensen–Dice is the ratio of the intersection to the <em>disjoint</em> union (<em>i.e.</em>, union minus intersection) of the two sets.</p>
+<p>Effectively, it’s the ratio of matches to mismatches rather than Jaccard’s ratio of matches to the overall membership. As before, this may be better suited depending on your particular application.</p>
+<p>The setup for the function for our binary incidence matrix should be familiar by now.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sørensen–Dice Coefficient for binary incidence matrices</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>soren_dice_sim_bin <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the pairwise sums of non-zero matrix elements to find the number</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># of intersecting elements between each input column</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  bin_intersect_mat <span class="ot">&lt;-</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> x</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the input column sums, to find the individual size of each set</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  col_sum <span class="ot">&lt;-</span> <span class="fu">apply</span>(x, <span class="dv">2</span>, <span class="cf">function</span>(xx)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(xx <span class="sc">!=</span> <span class="dv">0</span>))</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the matrix outer sums for pairwise sum of set sizes</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  set_size_sum_mat <span class="ot">&lt;-</span> <span class="fu">outer</span>(col_sum, col_sum, <span class="at">FUN =</span> <span class="st">"+"</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sorenson-Dice index is twice the size of the intersection divided by the</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sum of the size for each set</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  sd <span class="ot">&lt;-</span> (<span class="dv">2</span> <span class="sc">*</span> bin_intersect_mat) <span class="sc">/</span> set_size_sum_mat</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set diagonal to identity</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diag</span>(sd) <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Assign input column names to rows and columns of return matrix</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dimnames</span>(sd) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">colnames</span>(x), <span class="fu">colnames</span>(x))</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sd)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="choosing-similarity" class="level1">
+<h1>Choosing Similarity</h1>
+<p>We now have three very specific ways to measure similarity, so how do we choose which measure to use? Well, there’s no “one size fits all” answer so we have to decide what we mean by “similarity” for our particular scenario.</p>
+<p>We have to think through our data-generating processes, and decide what we <em>sort</em> of similarities we are trying to capture depending on what we believe to be the inherent structuring. More importantly, we need to <em>justify</em> that decision from the data.</p>
+<section id="revisiting-the-data-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="revisiting-the-data-distributions">Revisiting the Data Distributions</h2>
+<p>Recall from <a href="https://medium.com/p/648a2f20d389">Part I</a> that when we looked at the degree and edge-weight distributions, for both provenience and artifact type, that we have high-density connections formed by relatively low-strength edges. We’re looking at similarity measures to rectify that, but just how “sparse” do we want to make our one-mode projections? Which method is most likely to reveal if there is real structure to our data, and which might inadvertently obscure connections?</p>
+<p>When looking at the various similarity metrics and their intuitions, we found that the relative weighting of commonalities to differences made a significant difference. The <em>cardinality</em> involved for each calculation, though, is fully dependent on how many members are likely to be in each sample. That also implies that <em>diversity</em> in sample sizes will effect our similarity measures. Let’s see what those look like.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(gridExtra)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rowSums</span>(g_assemblages_bpg_inc)), </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"gray"</span>, <span class="at">fill =</span> <span class="st">"green"</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Artifact Types per Provenience"</span>),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">colSums</span>(g_assemblages_bpg_inc)), </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"gray"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Occurence per Artifact Type"</span>),</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">2</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assemblage_network_doc_2_similarity_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Sample size distribution.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>On the left, we have the density distribution of how many artifact types tend to be found within a single provenience. On the right, we have the number of proveniences in which any single artifact type is found.</p>
+<p>One thing immediately jumps out – a substantial proportion of our proveniences contain a rather diverse collection of artifact types, but most of those individual types are found in very few proveniences. It’s also worth noting that it seems that some artifact types are showing up in a very high proportion of proveniences. Remember, our sample contains only 152 proveniences and 251 unique artifact types at our site.&nbsp;</p>
+<p>Both distributions are right-skewed, though, which is promising for our attempt to find hidden network structure. Why? Well, it means that all of those values on the right-hand tails aren’t especially likely to be particularly informative. That skew is much more prominent in the artifact types. Provenience, on the other hand, is somewhat less skewed, which suggests less discrete spatial structure overall.</p>
+<p>An artifact type that shows up <em>everywhere</em> tells us very little about the associations between <em>other</em> artifact types, and next to nothing about the differences or similarities between proveniences. Similarly, proveniences that contain a little bit of everything don’t help us in finding spatial distinctions and are quite likely locations in which different assemblages may be mixed together.</p>
+<p>Not to say they’re unimportant, and we can link them back in once we’ve found the primary structures for further analysis, but for now they are uninformative. The inherent <em>structure</em> that we’re looking for isn’t likely to be found in those samples. Luckily, we now know that the <em>bulk</em> of the samples should (when projected as one-mode graphs) have a much smaller graph node <em>degree</em> than what we found in our “everything-to-everything” projections from before.&nbsp;</p>
+</section>
+<section id="comparing-similarity-measures" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-similarity-measures">Comparing Similarity Measures</h2>
+<p>With our sample distributions in mind, we can turn to reasoning through a choice of similarity measures. From our three methods discussed above, the things we want to consider are:</p>
+<ul>
+<li><p>How likely and important are proper subsets to our objectives?</p></li>
+<li><p>How strongly do we want to weight the intersections of sets?</p></li>
+<li><p>How strongly do we want to penalize the differences?</p></li>
+</ul>
+<p>We also, of course, do want to consider just what our selected measures look like with our data sample and what implications that has for its graph structure. We’ll orient our incidence matrix <code>g_assemblages_bpg_inc</code> to capture the appropriate dimension (provenience or artifact type), and pass it to our similarity functions.</p>
+<p>Each of these represents a potential weighted adjacency matrix for our one-mode graph projections. For comparison purposes, we’ll pull out the lower triangle of each of these square matrices (excluding the self-to-self diagonal, which will be all ones).</p>
+<p>First, let’s take a look at our three similarity measures for the provenience dimension.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Overlap coefficient, provenience</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>prov_adj_ssoc <span class="ot">&lt;-</span> <span class="fu">overlap_coef_bin</span>(<span class="fu">t</span>(g_assemblages_bpg_inc))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>prov_ssoc_vals <span class="ot">&lt;-</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  prov_adj_ssoc[<span class="fu">lower.tri</span>(prov_adj_ssoc, <span class="at">diag =</span> <span class="cn">FALSE</span>)]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Jaccard, provenience</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>prov_adj_jacc <span class="ot">&lt;-</span> <span class="fu">jaccard_sim_bin</span>(<span class="fu">t</span>(g_assemblages_bpg_inc))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>prov_jacc_vals <span class="ot">&lt;-</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  prov_adj_jacc[<span class="fu">lower.tri</span>(prov_adj_jacc, <span class="at">diag =</span> <span class="cn">FALSE</span>)]</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Sorenson-Dice</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>prov_adj_sd <span class="ot">&lt;-</span> <span class="fu">soren_dice_sim_bin</span>(<span class="fu">t</span>(g_assemblages_bpg_inc))</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>prov_sd_vals <span class="ot">&lt;-</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  prov_adj_sd[<span class="fu">lower.tri</span>(prov_adj_sd, <span class="at">diag =</span> <span class="cn">FALSE</span>)]</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Make data frame to compare</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>prov_sims <span class="ot">&lt;-</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">ssoc =</span> prov_ssoc_vals,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>             <span class="at">jacc =</span> prov_jacc_vals,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>             <span class="at">sd =</span> prov_sd_vals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we’ll stack our lists of values into a data frame and plot the density profiles of the resulting similarity values for each method.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot densities by similarity measure</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>prov_sims <span class="sc">%&gt;%</span> <span class="fu">stack</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> values)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"green"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(ind <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="assemblage_network_doc_2_similarity_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>It’s easy to see how the different similarity measures follow the intuitions about sets that we discussed earlier.</p>
+<p>The overlap coefficient (<code>ssoc</code> top row) is almost <em>looking</em> for subsets, so nearly half of the proveniences are calculated as being 50% (or better) matches. That means that, by set overlap at least, a large proportion of our location samples would be considered more similar than not – and many of them considered identical.</p>
+<p>Conversely, the Jaccard similarity index (<code>jacc</code> middle row) computes the majority of those same proveniences as <em>dissimilar</em>. Unlike the overlap coefficient, Jaccard is prioritizing <em>difference</em> over intersection since the union of two sets will <em>always</em> be larger than their intersection unless the sets <em>are</em> identical.</p>
+<p>Similarly, the Sørensen–Dice similarity index (<code>sd</code> bottom row) is seen to be weighting the differences betwen our samples more heavily – but <em>only</em> the differences, and not the full cardinality of the joined sets. The density curve is quite similar to Jaccard, but you can see that it’s emphasis on the intersection of sets pushes the similarity values higher towards the 50% mark.</p>
+<p>Notice, though, how our provenience data distribution can be seen reflected in the similarity metric profiles. Even though the counts of artifact types per provenience are somewhat right-skewed, a majority of proveniences demonstrate relatively high-cardinality sets. That leads to the curiously multi-modal distribution to our similarity metrics. Larger sets means that it is <em>more</em> likely that there may be at least some intersection between pairs of proveniences. Unfortunately, that increases the likelihood of small but <em>spurious</em> similarities as well.</p>
+<p>Next, let’s take a look at the projections of similarity along artifact types.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Overlap coefficient, artifact types</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>artifact_adj_ssoc <span class="ot">&lt;-</span> <span class="fu">overlap_coef_bin</span>(g_assemblages_bpg_inc)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>artifact_ssoc_vals <span class="ot">&lt;-</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  artifact_adj_ssoc[<span class="fu">lower.tri</span>(artifact_adj_ssoc, <span class="at">diag =</span> <span class="cn">FALSE</span>)]</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Jaccard, artifact types</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>artifact_adj_jacc <span class="ot">&lt;-</span> <span class="fu">jaccard_sim_bin</span>(g_assemblages_bpg_inc)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>artifact_jacc_vals <span class="ot">&lt;-</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  artifact_adj_jacc[<span class="fu">lower.tri</span>(artifact_adj_jacc, <span class="at">diag =</span> <span class="cn">FALSE</span>)]</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Sorenson-Dice, artifact types</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>artifact_adj_sd <span class="ot">&lt;-</span> <span class="fu">soren_dice_sim_bin</span>(g_assemblages_bpg_inc)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>artifact_sd_vals <span class="ot">&lt;-</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  artifact_adj_sd[<span class="fu">lower.tri</span>(artifact_adj_sd, <span class="at">diag =</span> <span class="cn">FALSE</span>)]</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Make data frame to compare</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>artifact_sims <span class="ot">&lt;-</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">ssoc =</span> artifact_ssoc_vals, </span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>             <span class="at">jacc =</span> artifact_jacc_vals, </span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>             <span class="at">sd =</span> artifact_sd_vals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Again, we’ll stack the similarity values so we can look at their distributions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot densities by similarity measure</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>artifact_sims <span class="sc">%&gt;%</span> <span class="fu">stack</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> values)) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"blue"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(ind <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="assemblage_network_doc_2_similarity_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>These look very different from the density profiles of provenience similarity, but also notice that now there seems to be considerable <em>less</em> difference between similarity measures. Why is that?</p>
+<p>Well, because the distribution of the number of proveniences in which each artifact type appears is <em>much</em> more right-skewed than types per provenience. In other words, we’re comparing much <em>smaller</em> sets on average. That makes intersections smaller and less likely to begin with. It also, however, makes any correspondence between sets much more meaningful.</p>
+<p>If you look closely, you’ll notice that the differences between our three similarity measure are still visible within that right tail. If we exclude the zero values, we can see that more clearly.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot densities by similarity measure</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>artifact_sims <span class="sc">%&gt;%</span> <span class="fu">stack</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(values <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="co"># Exclude zeroes</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> values)) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"blue"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span> </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(ind <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="assemblage_network_doc_2_similarity_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>When we take that “spike” of zero values away from our density distribution, you can see the same patterns of weighting between the three methods – i.e., overlap looking for subsets, Jaccard for differences, and Sørensen–Dice for proportions between them. Interestingly, all three are also identifying that we do have at least some artifact types with identical patterns of occurrence.</p>
+</section>
+<section id="which-to-choose" class="level2">
+<h2 class="anchored" data-anchor-id="which-to-choose">Which to Choose?</h2>
+<p>I started out by say that the is no easy and obvious answer to that question, and our exploration should have demonstrated a bit of why that is so. Each method highlights a different aspect of the interactions within our data, so the <em>real</em>&nbsp;question is… well… whatever question it us that you are trying to tackle!</p>
+<p><em>Our</em> question (i.e., the archaeological one) is whether there are partitions or sub-graphs represented in the samples that indicate the presence of communities. We want to find out if those communities map to disacrete assemblages and contexts that we can interpret. We <em>do</em> want to capture proper subsets, but we also want to <em>avoid</em> spurious associations.</p>
+<p>Of the three methods presented here, which do you think satisfies those constraints?</p>
+<p>In graph terms, we’re trying to find out if the data indicates something approximating a <em>scale-free</em> network. These are graphs in which the distribution of <em>degree</em> (i.e., the number of edges connected to a node) approaches a power law curve. If we can find <em>that</em> then odds are very good that we’re looking at a “small world” network, which has very well-defined properties for analysis and community detection.</p>
+<p>If not, then we are still left with explicit and empirical evidence that the observed phenomena are products of random processes. We would know the <em>limits of inference</em> regarding this particular site. In other words, we have a proper hypothesis test for what many might assume was a subjective or qualitative assessment.</p>
+</section>
+</section>
+<section id="the-next-steps" class="level1">
+<h1>The Next Steps…</h1>
+<p>We’re not quite ready to select our similarity metric, unfortunately. We still need to do a little exploration of their effects on the resulting one-mode projected graphs, but by now I imagine you can start seeing where some of them will likely lead. Truth is, any of them <em>could</em> satisfy our criteria to varying degrees. The difference would be in the <em>weight</em> assigned to the connections formed, and those weights will prove to be quite important in our next few steps. Both the filter threshold and some of the community detection methods rely on edge weights.</p>
+<p>This is basically where <em>data</em> and <em>science</em> converge. Although there are numerous methods and algorithms that will produce a result, it’s the rationale and justification of the <em>selection</em> of data and approaches that allows us to formulate and test hypotheses. Without that reasoning, we can make data dance and spin in all sorts of ways to get an output that <em>seems</em> legitimate. I’ll do a separate article on the distinctions between <em>methods</em> and <em>methodology</em> a some point, I expect.</p>
+<p>Our next task will be to explore the effects of similarity metrics and thresholds on the structure of the resulting one-mode graphs. We’ll talk a bit about scale-free and small world networks, graph analytics in general, and start looking at community detection methods.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
