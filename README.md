@@ -24,16 +24,18 @@ Although I'm using an archaeological example, the methods presented here
 can be used for any number of research questions in other fields. I'll
 be covering some basics of:
 
--   [Part
-    I](https://medium.com/towards-data-science/bipartite-graphs-for-archaeological-assemblage-networks-part-i-648a2f20d389)
-    -- Creating and exploring bipartite and one-mode graphs [[Quarto]](assemblage_network_doc.qmd) [[code]](assemblage_networks_bipartite2.R)
--   [Part
-    II](https://medium.com/towards-data-science/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1)
-    -- Similarity measures for sets and graph adjacency [[Quarto]](assemblage_network_doc_2_similarity.qmd) [[code]](assemblage_networks_bipartite3.R)
+- [Part
+  I](https://medium.com/towards-data-science/bipartite-graphs-for-archaeological-assemblage-networks-part-i-648a2f20d389)
+  -- Creating and exploring bipartite and one-mode graphs
+  [[code]](assemblage_networks_bipartite2.R)
+- [Part
+  II](https://medium.com/towards-data-science/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1)
+  -- Similarity measures for sets and graph adjacency
+  [[code]](assemblage_networks_bipartite3.R)
 
--   Part III -- Graph structure and community detection methods,
+- Part III -- Graph structure and community detection methods,
 
--   Part IV -- Geo-spatial networks
+- Part IV -- Geo-spatial networks
 
 I'll be using R for the coding, but all of this could be done in Python
 just as easily.
