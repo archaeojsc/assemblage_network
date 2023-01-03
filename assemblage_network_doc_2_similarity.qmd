@@ -447,7 +447,7 @@ The overlap coefficient (`ssoc` top row) is almost *looking* for subsets, so nea
 
 Conversely, the Jaccard similarity index (`jacc` middle row) computes the majority of those same proveniences as *dissimilar*. Unlike the overlap coefficient, Jaccard is prioritizing *difference* over intersection since the union of two sets will *always* be larger than their intersection unless the sets *are* identical.
 
-Similarly, the Sørensen--Dice similarity index (`sd` bottom row) is seen to be weighting the differences betwen our samples more heavily -- but *only* the differences, and not the full cardinality of the joined sets. The density curve is quite similar to Jaccard, but you can see that it's emphasis on the intersection of sets pushes the similarity values higher towards the 50% mark.
+Similarly, the Sørensen--Dice similarity index (`sd` bottom row) is seen to be weighting the differences between our samples more heavily -- but *only* the differences, and not the full cardinality of the joined sets. The density curve is quite similar to Jaccard, but you can see that it's emphasis on the intersection of sets pushes the similarity values higher towards the 50% mark.
 
 Notice, though, how our provenience data distribution can be seen reflected in the similarity metric profiles. Even though the counts of artifact types per provenience are somewhat right-skewed, a majority of proveniences demonstrate relatively high-cardinality sets. That leads to the curiously multi-modal distribution to our similarity metrics.
 
@@ -518,7 +518,7 @@ Interestingly, all three are also identifying that we do have at least some arti
 
 ## Which to Choose?
 
-I started out by say that the is no easy and obvious answer to that question, and our exploration should have demonstrated a bit of why that is so. Each method highlights a different aspect of the interactions within our data, so the *real* question is... well... whatever question it us that you are trying to tackle!
+I started out by saying that there is no easy and obvious answer to that question, and our exploration should have demonstrated a bit of why that is so. Each method highlights a different aspect of the interactions within our data, so the *real* question is... well... whatever question it is that you are trying to tackle!
 
 *Our* question (i.e., the archaeological one) is whether there are partitions or sub-graphs represented in the samples that indicate the presence of communities. We want to find out if those communities map to discrete assemblages and contexts that we can interpret. We *do* want to capture proper subsets, but we also want to *avoid* spurious associations.
 
