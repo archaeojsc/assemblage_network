@@ -31,11 +31,10 @@ be covering some basics of:
 
 -   [Part
     I](https://medium.com/towards-data-science/bipartite-graphs-for-archaeological-assemblage-networks-part-i-648a2f20d389)
-    -- Creating and exploring bipartite and one-mode graphs
-
+    -- Creating and exploring bipartite and one-mode graphs [[Quarto]](assemblage_network_doc.qmd) [[code]](assemblage_networks_bipartite2.R)
 -   [Part
     II](https://medium.com/towards-data-science/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1)
-    -- Similarity measures for sets and graph adjacency,
+    -- Similarity measures for sets and graph adjacency [[Quarto]](assemblage_network_doc_2_similarity.qmd) [[code]](assemblage_networks_bipartite3.R)
 
 -   Part III -- Graph structure and community detection methods,
 
