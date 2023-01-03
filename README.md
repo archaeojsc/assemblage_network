@@ -1,8 +1,3 @@
----
-editor: 
-  markdown: 
-    wrap: 72
----
 
 # Bipartite Graphs for Archaeological Assemblage Networks
 
