@@ -25,4 +25,4 @@ For those just joining in, this is the Part III of a series in archaeological da
 
 -   Part IV -- Geo-spatial networks
 
-I'll continue using R for the coding, but all of this could be done with Python just as easily.
+I'll continue using R for the [coding](https://github.com/archaeojsc/assemblage_network "Assemblage Network GitHub"), but all of this could be done with Python just as easily.
