@@ -1,6 +1,6 @@
 ---
 title: "From similarity to network: Building graphs for community detection"
-subtitle: "Data Science in Archaeology, Part III"
+subtitle: "Data Science in Archaeology, Part III.a."
 author: "James Scott Cardinal"
 date: today
 format: html
@@ -11,9 +11,11 @@ editor: visual
 
 It has been a little while since my last installment ([Part II](https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1 "Similarity Measures and Graph Adjacency with Sets")). End of year projects, deadlines, and (of course) the holidays have kept me busy. My thanks for your patience, and I'll try and make it worth the wait.
 
-Last time, we talked about different similarity metrics for sets or combinatorial problems and their particular strengths and idiosyncrasies. We were trying to find the best way to project our bipartite graph of archaeological proveniences and artifactcs into individual one-mode graphs. Our goal is to find communities in each of those projected graphs to find meaningful *assemblages* (communities of artifacts) and *contexts* (communities of provenience locations).
+Last time, we talked about different similarity metrics for sets or combinatorial problems and their particular strengths and idiosyncrasies. We were trying to find the best way to project our bipartite graph of archaeological proveniences and artifacts into individual one-mode graphs. Our goal is to find communities in each of those projected graphs to find meaningful *assemblages* (communities of artifacts) and *contexts* (communities of provenience locations).
 
-That does, however, require that we talk about how we determine "best" for this particular scenario. Since our goal is community detection, we want to choose the metric that connects vertices that have the strongest associations while *avoiding* spurious or non-informative edges. I mentioned last time that we are, in part, looking to see if our projected graphs exhibit characteristics of a *scale-free* network. We'll explore that more in this post.
+That does, however, require that we talk about how we determine "best" for this particular scenario. Since our goal is community detection, we want to choose the metric that connects vertices that have the strongest associations while *avoiding* spurious or non-informative edges. I mentioned last time that we are, in part, looking to see if our projected graphs exhibit characteristics of a *scale-free* network. We'll talk about that more later in this post, but it boils down to finding nodes that have a few strong connections rather than a lot of weak ones.
+
+Since this is likely to be a fairly large and involved topic, I'm breaking Part III into two posts. This one will talk about translating our similarity measures into a network, and building the graphs. The next one will tackle the community detection methods, of which there are many.
 
 For those just joining in, this is the Part III of a series in archaeological data science covering:
 
@@ -23,6 +25,12 @@ For those just joining in, this is the Part III of a series in archaeological da
 
 -   Part III -- Graph structure and community detection methods,
 
+    -   a.) Scale-free and small world networks
+
+    -   b.) Community detection methods
+
 -   Part IV -- Geo-spatial networks
 
 I'll continue using R for the [coding](https://github.com/archaeojsc/assemblage_network "Assemblage Network GitHub"), but all of this could be done with Python just as easily.
+
+## Introduction

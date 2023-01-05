@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="James Scott Cardinal">
-<meta name="dcterms.date" content="2023-01-03">
+<meta name="dcterms.date" content="2023-01-05">
 
 <title>From similarity to network: Building graphs for community detection</title>
 <style>
@@ -77,7 +77,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">From similarity to network: Building graphs for community detection</h1>
-<p class="subtitle lead">Data Science in Archaeology, Part III</p>
+<p class="subtitle lead">Data Science in Archaeology, Part III.a.</p>
 </div>
 
 
@@ -94,7 +94,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 3, 2023</p>
+      <p class="date">January 5, 2023</p>
     </div>
   </div>
   
@@ -111,18 +111,26 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 <p>It has been a little while since my last installment (<a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a>). End of year projects, deadlines, and (of course) the holidays have kept me busy. My thanks for your patience, and I’ll try and make it worth the wait.</p>
-<p>Last time, we talked about different similarity metrics for sets or combinatorial problems and their particular strengths and idiosyncrasies. We were trying to find the best way to project our bipartite graph of archaeological proveniences and artifactcs into individual one-mode graphs. Our goal is to find communities in each of those projected graphs to find meaningful <em>assemblages</em> (communities of artifacts) and <em>contexts</em> (communities of provenience locations).</p>
-<p>That does, however, require that we talk about how we determine “best” for this particular scenario. Since our goal is community detection, we want to choose the metric that connects vertices that have the strongest associations while <em>avoiding</em> spurious or non-informative edges. I mentioned last time that we are, in part, looking to see if our projected graphs exhibit characteristics of a <em>scale-free</em> network. We’ll explore that more in this post.</p>
+<p>Last time, we talked about different similarity metrics for sets or combinatorial problems and their particular strengths and idiosyncrasies. We were trying to find the best way to project our bipartite graph of archaeological proveniences and artifacts into individual one-mode graphs. Our goal is to find communities in each of those projected graphs to find meaningful <em>assemblages</em> (communities of artifacts) and <em>contexts</em> (communities of provenience locations).</p>
+<p>That does, however, require that we talk about how we determine “best” for this particular scenario. Since our goal is community detection, we want to choose the metric that connects vertices that have the strongest associations while <em>avoiding</em> spurious or non-informative edges. I mentioned last time that we are, in part, looking to see if our projected graphs exhibit characteristics of a <em>scale-free</em> network. We’ll talk about that more later in this post, but it boils down to finding nodes that have a few strong connections rather than a lot of weak ones.</p>
+<p>Since this is likely to be a fairly large and involved topic, I’m breaking Part III into two posts. This one will talk about translating our similarity measures into a network, and building the graphs. The next one will tackle the community detection methods, of which there are many.</p>
 <p>For those just joining in, this is the Part III of a series in archaeological data science covering:</p>
 <ul>
 <li><p><a href="https://medium.com/p/648a2f20d389" title="Bipartite Graphs for Archaeological Assemblage Networks">Part I</a> – Creating and exploring bipartite and one-mode graphs,</p></li>
 <li><p><a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a> – Similarity measures for sets and graph adjacency,</p></li>
-<li><p>Part III – Graph structure and community detection methods,</p></li>
+<li><p>Part III – Graph structure and community detection methods,</p>
+<ul>
+<li><p>a.) Scale-free and small world networks</p></li>
+<li><p>b.) Community detection methods</p></li>
+</ul></li>
 <li><p>Part IV – Geo-spatial networks</p></li>
 </ul>
-<p>I’ll continue using R for the coding, but all of this could be done with Python just as easily.</p>
+<p>I’ll continue using R for the <a href="https://github.com/archaeojsc/assemblage_network" title="Assemblage Network GitHub">coding</a>, but all of this could be done with Python just as easily.</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
