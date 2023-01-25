@@ -415,8 +415,10 @@ artifact_sims %>% stack() %>%
   facet_grid(ind ~ ., scales = "free")
 
 artifact_sims %>% stack() %>%
-  filter(values > 0) %>%
+  # filter(values > 0) %>%
   ggplot(aes(x = ind, y = values, fill = ind)) +
   geom_violin()
 
-
+sigmoid_function <- function(x) {
+  1.0 / (1.0 + exp(-x))
+}

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="James Scott Cardinal">
-<meta name="dcterms.date" content="2023-01-05">
+<meta name="dcterms.date" content="2023-01-25">
 
 <title>From similarity to network: Building graphs for community detection</title>
 <style>
@@ -94,7 +94,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 5, 2023</p>
+      <p class="date">January 25, 2023</p>
     </div>
   </div>
   
@@ -128,8 +128,26 @@ ul.task-list li input[type="checkbox"] {
 <p>I’ll continue using R for the <a href="https://github.com/archaeojsc/assemblage_network" title="Assemblage Network GitHub">coding</a>, but all of this could be done with Python just as easily.</p>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In <a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a>, we went into some depth about what it means for sets to be <em>similar</em> and some ways to calculate a metric for that similarity. This time around, we’re going to look more closely into how to decide what it means to be similar <em>enough</em>. In other words, we want to find an analytically valid way to decide on a <em>threshold</em> of similarity that best captures the real connections between entities while avoiding spurious associations. That will also help to guide us in selecting which of the similarity metrics to use (i.e., overlap, Jaccard, or Sørensen–Dice) as we go on to start building our bipartite graph projections.</p>
+<section id="a-quick-recap" class="level3">
+<h3 class="anchored" data-anchor-id="a-quick-recap">A quick recap…</h3>
+<p>We started (in <a href="https://medium.com/p/648a2f20d389" title="Bipartite Graphs for Archaeological Assemblage Networks">Part I</a>) by building a bipartite graph between artifact types and their locations, shown in <a href="#fig-bipartite-graph">Figure&nbsp;1</a>.</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-bipartite-graph" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-bipartite-graph-1.png" class="img-fluid figure-img" alt="Bipartite graph plot of proveniences and artifact types." width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Bipartite network of Provenience and Artifact Type.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

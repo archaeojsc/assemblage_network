@@ -34,3 +34,61 @@ For those just joining in, this is the Part III of a series in archaeological da
 I'll continue using R for the [coding](https://github.com/archaeojsc/assemblage_network "Assemblage Network GitHub"), but all of this could be done with Python just as easily.
 
 ## Introduction
+
+In [Part II](https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1 "Similarity Measures and Graph Adjacency with Sets"), we went into some depth about what it means for sets to be *similar* and some ways to calculate a metric for that similarity. This time around, we're going to look more closely into how to decide what it means to be similar *enough*. In other words, we want to find an analytically valid way to decide on a *threshold* of similarity that best captures the real connections between entities while avoiding spurious associations. That will also help to guide us in selecting which of the similarity metrics to use (i.e., overlap, Jaccard, or Sørensen--Dice) as we go on to start building our bipartite graph projections.
+
+### A quick recap...
+
+We started (in [Part I](https://medium.com/p/648a2f20d389 "Bipartite Graphs for Archaeological Assemblage Networks")) by building a bipartite graph between artifact types and their locations, shown in @fig-bipartite-graph. To keep things simple, we're using an *un-*weighted bipartite graph to look at co-locations of artifact types.
+
+```{r}
+#| echo: false
+#| message: false
+
+require(tidyverse)
+require(igraph)
+require(ggraph)
+
+# Import data from file ---------------------------------------------------
+
+dat <- read_csv("Catalog_SiteA.csv",
+                col_select = c(LEVEL_ID, CODE))
+
+# Create un-weighted bipartite graph --------------------------------------
+
+g_assemblages_bpg <-
+  graph_from_data_frame(unique.data.frame(select(dat, LEVEL_ID, CODE)),
+                        directed = FALSE)
+
+V(g_assemblages_bpg)$type <-
+  bipartite_mapping(g_assemblages_bpg)$type
+
+```
+
+```{r}
+#| label: fig-bipartite-graph
+#| fig-cap: "Bipartite network of Provenience and Artifact Type."
+#| fig-alt: "Bipartite graph plot of proveniences and artifact types."
+#| echo: false
+#| message: false
+#| warning: false
+
+g_assemblages_bpg_layout <-
+  g_assemblages_bpg %>% layout_as_bipartite()
+
+g_assemblages_bpg %>%
+  ggraph(layout = g_assemblages_bpg_layout) +
+  geom_edge_link(edge_color = "gray", edge_alpha = 0.25) +
+  geom_node_point(aes(color = type)) +
+  scale_color_manual(
+    values = c("green", "blue"),
+    name = "Node Type",
+    breaks = c(FALSE, TRUE),
+    labels = c("Provenience", "Artifact")
+  ) +
+  ggtitle("Bipartite network of Provenience and Artifact Type")
+
+
+```
+
+We found that projecting this graph into its one-mode counterparts resulted in very densly connected networks. Next, we looked at different similarity metrics

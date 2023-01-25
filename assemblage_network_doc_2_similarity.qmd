@@ -41,7 +41,7 @@ In general, we refer to things as *similar* when they are neither the quite the 
 
 Our goal, then, is twofold. Firstly, we need to determine what set similarity metric most closely reflects the *relationship* between set elements. Secondly, we have to determine an appropriate method for determining the *threshold* of similarity between those entities. In other words, we need to choose our criteria for *resemblance* and set the *limits* of what is (or isn't) considered similar between our sets.
 
-In this installment, we'll be looking at addressing the first goal by exploring some common algorithms for measuring similarity. I'll discuss the intuitions behind them, their strengths, and the criteria for choosing appropriate metrics. SInce that involves somewhat lengthy discussion, I'll hold off on talking about thresholds for the next article when we start looking at network structure and community detection.
+In this installment, we'll be looking at addressing the first goal by exploring some common algorithms for measuring similarity. I'll discuss the intuitions behind them, their strengths, and the criteria for choosing appropriate metrics. Since that involves somewhat lengthy discussion, I'll hold off on talking about thresholds for the next article when we start looking at network structure and community detection.
 
 ## Sets and Similarity
 
