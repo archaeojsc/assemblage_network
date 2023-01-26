@@ -42,6 +42,7 @@ In [Part II](https://towardsdatascience.com/similarity-measures-and-graph-adjace
 We started (in [Part I](https://medium.com/p/648a2f20d389 "Bipartite Graphs for Archaeological Assemblage Networks")) by building a bipartite graph between artifact types and their locations, shown in @fig-bipartite-graph. To keep things simple, we're using an *un-*weighted bipartite graph to look at co-locations of artifact types.
 
 ```{r}
+#| label: code-bpg
 #| echo: false
 #| message: false
 
@@ -91,4 +92,200 @@ g_assemblages_bpg %>%
 
 ```
 
-We found that projecting this graph into its one-mode counterparts resulted in very densly connected networks. Next, we looked at different similarity metrics
+We found that projecting this graph into its one-mode counterparts resulted in very densely connected networks. Next, in [Part II](https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1 "Similarity Measures and Graph Adjacency with Sets"), we looked at different similarity metrics to find a better method of projection that the simple overlap provided in `igraph`. We looked at the similarities calculated with the Szymkiewicz-Simpson overlap coefficient, Jaccard similarity coefficient, and Sørensen--Dice coefficient for both provenience (@fig-sim-prov) and artifact types (@fig-sim-artifact).
+
+```{r}
+#| label: code-reestablish-environment
+#| echo: false
+#| message: false
+#| warning: false
+
+# Create incidence matrix from bipartite graph -----------------------------
+
+g_assemblages_bpg_inc <- as_incidence_matrix(g_assemblages_bpg)
+
+# Project one-mode graphs, Szymkiewicz-Simpson -----------------------------
+
+overlap_coef_bin <- function(x) {
+  # Calculate the pairwise sums of non-zero matrix elements to find the number
+  # of intersecting elements between each input column
+  bin_intersect_mat <- t(x) %*% x
+  
+  # Calculate the input column sums to find the individual size of each set
+  col_sum <- apply(x, 2, function(xx)
+    sum(xx != 0))
+  
+  # Find the smaller of each pair of sets by taking the matrix outer minimum
+  min_set_size_mat <- outer(col_sum, col_sum, FUN = pmin)
+  
+  # Szymkiewicz-Simpson overlap coefficient is the pairwise intersection of two
+  # sets divided by the size of the smaller set
+  res <- bin_intersect_mat / min_set_size_mat
+  
+  # Set diagonal to identity
+  diag(res) <- 1L
+  
+  # Assign input column names to rows and columns of return matrix
+  dimnames(res) <- list(colnames(x), colnames(x))
+  
+  return(res)
+}
+
+
+## Project provenience -----------------------------------------------------
+
+prov_adj_ssoc <- overlap_coef_bin(t(g_assemblages_bpg_inc))
+
+prov_ssoc_vals <-
+  prov_adj_ssoc[lower.tri(prov_adj_ssoc, diag = FALSE)]
+
+## Project artifact types --------------------------------------------------
+
+artifact_adj_ssoc <- overlap_coef_bin(g_assemblages_bpg_inc)
+
+artifact_ssoc_vals <-
+  artifact_adj_ssoc[lower.tri(artifact_adj_ssoc, diag = FALSE)]
+
+# Project one-mode graphs, Sorenson-Dice -----------------------------------
+
+soren_dice_sim_bin <- function(x) {
+  # Calculate the pairwise sums of non-zero matrix elements to find the number
+  # of intersecting elements between each input column
+  bin_intersect_mat <- t(x) %*% x
+  
+  # Calculate the input column sums, to find the individual size of each set
+  col_sum <- apply(x, 2, function(xx)
+    sum(xx != 0))
+  
+  # Calculate the matrix outer sums for pairwise sum of set sizes
+  set_size_sum_mat <- outer(col_sum, col_sum, FUN = "+")
+  
+  # Sorenson-Dice index is twice the size of the intersection divided by the
+  # sum of the size for each set
+  res <- (2 * bin_intersect_mat) / set_size_sum_mat
+  
+  # Set diagonal to identity
+  diag(res) <- 1L
+  
+  # Assign input column names to rows and columns of return matrix
+  dimnames(res) <- list(colnames(x), colnames(x))
+  return(res)
+  
+}
+
+## Project provenience -----------------------------------------------------
+
+prov_adj_sd <- soren_dice_sim_bin(t(g_assemblages_bpg_inc))
+
+prov_sd_vals <-
+  prov_adj_sd[lower.tri(prov_adj_sd, diag = FALSE)]
+
+## Project artifact types --------------------------------------------------
+
+artifact_adj_sd <- soren_dice_sim_bin(g_assemblages_bpg_inc)
+
+artifact_sd_vals <-
+  artifact_adj_sd[lower.tri(artifact_adj_sd, diag = FALSE)]
+
+# Project one-mode graphs, Jaccard ----------------------------------------
+
+jaccard_sim_bin <- function(x) {
+  # Calculate the pairwise sums of non-zero matrix elements to find the number
+  # of intersecting elements between each input column
+  bin_intersect_mat <- t(x) %*% x
+  
+  # Calculate the input column sums to find the individual size of each set
+  x_col_sum <- apply(x, 2, function(xx)
+    sum(xx != 0))
+  
+  # Calculate the matrix outer sums for pairwise sum of set sizes
+  set_size_sum_mat <- outer(x_col_sum, x_col_sum, FUN = "+")
+  
+  # Jaccard index is intersection of set sizes over the size of the union of
+  # sets
+  res <- bin_intersect_mat / (set_size_sum_mat - bin_intersect_mat)
+  
+  # Set diagonal to identity
+  diag(res) <- 1L
+  
+  # Assign input column names to rows and columns of return matrix
+  dimnames(res) <- list(colnames(x), colnames(x))
+  
+  return(res)
+}
+
+## Project provenience -----------------------------------------------------
+
+prov_adj_jacc <- jaccard_sim_bin(t(g_assemblages_bpg_inc))
+
+prov_jacc_vals <-
+  prov_adj_jacc[lower.tri(prov_adj_jacc, diag = FALSE)]
+
+## Project artifact types --------------------------------------------------
+
+artifact_adj_jacc <- jaccard_sim_bin(g_assemblages_bpg_inc)
+
+artifact_jacc_vals <-
+  artifact_adj_jacc[lower.tri(artifact_adj_jacc, diag = FALSE)]
+
+# Comparing similarity measures -------------------------------------------
+
+prov_sims <-
+  data.frame(ssoc = prov_ssoc_vals,
+             jacc = prov_jacc_vals,
+             sd = prov_sd_vals)
+
+artifact_sims <-
+  data.frame(ssoc = artifact_ssoc_vals,
+             jacc = artifact_jacc_vals,
+             sd = artifact_sd_vals)
+
+```
+
+```{r}
+#| label: fig-sim-prov
+#| fig-cap: "Similarity measures for proveniences."
+#| fig-alt: "Similarity measures for proveniences."
+#| echo: false
+#| message: false
+#| warning: false
+
+# Plot densities by similarity measure
+prov_sims %>% stack() %>%
+  ggplot(aes(x = values)) +
+  geom_density(color = "green",
+               alpha = 0.4) +
+  facet_grid(ind ~ ., scales = "free") +
+  ggtitle("Similarity Measures for Proveniences")
+
+```
+
+```{r}
+#| label: fig-sim-artifact
+#| fig-cap: "Similarity measures for artifact types."
+#| fig-alt: "Similarity measures for artifact types."
+#| echo: false
+#| message: false
+#| warning: false
+
+# Plot densities by similarity measure
+artifact_sims %>% stack() %>%
+  ggplot(aes(x = values)) +
+  geom_density(color = "blue",
+               alpha = 0.4) +
+  facet_grid(ind ~ ., scales = "free") +
+  ggtitle("Similarity Measures for Artifact Types")
+
+```
+
+Now what we want to do is look at how to go about selecting our similarity metric, how to find the appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between proveniences and artifact types.
+
+### Graph structure and scale-free networks
+
+What we're trying to do is find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it is *random*. If the structure does *not* appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where. In archaeological terms, that means that it's likely that there is some intentional organization to the use of spaces for certain activities. If so, then we can find some partitioning of the artifacts and proveniences that has meaningful interpretations.
+
+Mind you, we're not actually trying to *induce* a structure. We are, however, expecting that there has been some manner of degradation in the "signal" of our data (see the introduction to [Part I](https://medium.com/p/648a2f20d389 "Bipartite Graphs for Archaeological Assemblage Networks") as to why). Our selection of similarity and threshold are meant to dampen the "noise" introduced to the site over time.
+
+One way to determine if we have non-random structure in our graph is to find out if it exhibits [*scale-free network*](https://en.wikipedia.org/wiki/Scale-free_network "Scale-free network | WikipediA") properties. A scale-free network is one in which the degree of the nodes in the graph approximate a power-law distribution, meaning that most nodes in the graphs have few connections while a few "hub" nodes have many. In a random network, there would be a more even probabilistic distribution of node degree and hub nodes would be far less likely to occur.
+
+The presence of a scale-free network indicates that there is some latent non-random process at play that is driving differential attachments between those nodes. It may be that there is a different process of growth in the network, which archaeologically would be some different spatial or temporal process of artifact deposition. Alternatively, there may be a clustering process or preferential attachment by which certain nodes are more closely associated than others as in the case of hub nodes. A certain suite of artifacts that are all related to the same activities (i.e., an *assemblage*) would cluster together, for example.

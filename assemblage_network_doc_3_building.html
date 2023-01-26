@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="James Scott Cardinal">
-<meta name="dcterms.date" content="2023-01-25">
+<meta name="dcterms.date" content="2023-01-26">
 
 <title>From similarity to network: Building graphs for community detection</title>
 <style>
@@ -94,7 +94,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 25, 2023</p>
+      <p class="date">January 26, 2023</p>
     </div>
   </div>
   
@@ -131,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
 <p>In <a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a>, we went into some depth about what it means for sets to be <em>similar</em> and some ways to calculate a metric for that similarity. This time around, we’re going to look more closely into how to decide what it means to be similar <em>enough</em>. In other words, we want to find an analytically valid way to decide on a <em>threshold</em> of similarity that best captures the real connections between entities while avoiding spurious associations. That will also help to guide us in selecting which of the similarity metrics to use (i.e., overlap, Jaccard, or Sørensen–Dice) as we go on to start building our bipartite graph projections.</p>
 <section id="a-quick-recap" class="level3">
 <h3 class="anchored" data-anchor-id="a-quick-recap">A quick recap…</h3>
-<p>We started (in <a href="https://medium.com/p/648a2f20d389" title="Bipartite Graphs for Archaeological Assemblage Networks">Part I</a>) by building a bipartite graph between artifact types and their locations, shown in <a href="#fig-bipartite-graph">Figure&nbsp;1</a>.</p>
+<p>We started (in <a href="https://medium.com/p/648a2f20d389" title="Bipartite Graphs for Archaeological Assemblage Networks">Part I</a>) by building a bipartite graph between artifact types and their locations, shown in <a href="#fig-bipartite-graph">Figure&nbsp;1</a>. To keep things simple, we’re using an <em>un-</em>weighted bipartite graph to look at co-locations of artifact types.</p>
 <div class="cell">
 
 </div>
@@ -145,6 +145,38 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+<p>We found that projecting this graph into its one-mode counterparts resulted in very densely connected networks. Next, in <a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a>, we looked at different similarity metrics to find a better method of projection that the simple overlap provided in <code>igraph</code>. We looked at the similarities calculated with the Szymkiewicz-Simpson overlap coefficient, Jaccard similarity coefficient, and Sørensen–Dice coefficient for both provenience (<a href="#fig-sim-prov">Figure&nbsp;2</a>) and artifact types (<a href="#fig-sim-artifact">Figure&nbsp;3</a>).</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-sim-prov" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-sim-prov-1.png" class="img-fluid figure-img" alt="Similarity measures for proveniences." width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Similarity measures for proveniences.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-sim-artifact" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-sim-artifact-1.png" class="img-fluid figure-img" alt="Similarity measures for artifact types." width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Similarity measures for artifact types.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now what we want to do is look at how to go about selecting our similarity metric, how to find the appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between proveniences and artifact types.</p>
+</section>
+<section id="graph-structure-and-scale-free-networks" class="level3">
+<h3 class="anchored" data-anchor-id="graph-structure-and-scale-free-networks">Graph structure and scale-free networks</h3>
+<p>Our goal is to find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it is <em>random</em>. If the structure does <em>not</em> appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where. In archaeological terms, that means that it’s likely that there is some intentional organization to the use of spaces for certain activities. If so, then we can find some partitioning of the artifacts and proveniences that has meaningful interpretations.</p>
+<p>Mind you, we’re not actually trying to <em>induce</em> a structure. We are, however, expecting that there has been some manner of degradation in the “signal” of our data (see the introduction to <a href="https://medium.com/p/648a2f20d389" title="Bipartite Graphs for Archaeological Assemblage Networks">Part I</a> as to why). Our selection of similarity and threshold are meant to dampen the “noise” introduced to the site over time.</p>
+<p>One way to determine if we have non-random structure in our graph is to find out if it exhibits <a href="https://en.wikipedia.org/wiki/Scale-free_network" title="Scale-free network | WikipediA"><em>scale-free network</em></a> properties. A scale-free network is one in which the degree of the nodes in the graph approximate a power-law distribution, meaning that most nodes in the graphs have few connections while a few “hub” nodes have many. In a random network, there would be a more even probabilistic distribution of node degree and hub nodes would be far less likely to occur.</p>
+<p>The presence of a scale-free network indicates that there is some latent non-random process at play that is driving differential attachments between those nodes. It may be that there is a different process of growth in the network, which archaeologically would be some different spatial or temporal process of artifact deposition. Alternatively, there may be a clustering process or preferential attachment by which certain nodes are more closely associated than others as in the case of hub nodes. A certain suite of artifacts that are all related to the same activities (i.e., an <em>assemblage</em>) would cluster together, for example.</p>
 
 
 </section>

@@ -437,7 +437,7 @@ prov_sims %>% stack() %>%
   ggplot(aes(x = values)) +
   geom_density(color = "green",
                alpha = 0.4) +
-  facet_grid(ind ~ ., scales = "free")
+  facet_grid(ind ~ ., scales = "fixed")
 
 ```
 
@@ -491,7 +491,7 @@ artifact_sims %>% stack() %>%
   ggplot(aes(x = values)) +
   geom_density(color = "blue",
                alpha = 0.4) + 
-  facet_grid(ind ~ ., scales = "free")
+  facet_grid(ind ~ ., scales = "fixed")
 
 ```
 
@@ -508,7 +508,7 @@ artifact_sims %>% stack() %>%
   ggplot(aes(x = values)) +
   geom_density(color = "blue",
                alpha = 0.4) + 
-  facet_grid(ind ~ ., scales = "free")
+  facet_grid(ind ~ ., scales = "fixed")
 
 ```
 
