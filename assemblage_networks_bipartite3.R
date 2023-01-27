@@ -192,16 +192,27 @@ ggplot(data = data.frame(x = prov_sd_vals), aes(x = x)) +
   ggtitle("Distribution of Sorenson-Dice Similarity for Provenience")
 
 g_assemblages_proj_prov_sd <-
-  graph_from_adjacency_matrix(ifelse(prov_adj_sd < 0.439, 0, prov_adj_sd),
+  graph_from_adjacency_matrix(prov_adj_sd,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
+
+
+# g_assemblages_proj_prov_sd <-
+#   graph_from_adjacency_matrix(ifelse(prov_adj_sd < 0.439, 0, prov_adj_sd),
+#                               mode = "undirected",
+#                               weighted = TRUE,
+#                               diag = FALSE)
 
 g_assemblages_proj_prov_sd %>%
   ggraph(layout = "kk") +
   geom_edge_link(color = "gray", aes(alpha = weight)) +
   geom_node_point(color = "green", size = 2) +
   ggtitle("Network of Proveniences")
+
+data.frame(x = degree(g_assemblages_proj_prov_sd)) %>% filter(x > 0) %>% 
+  ggplot(aes(x = x)) +
+  geom_histogram(color = "gray", fill = "green", bins = 20)
 
 ggplot(data = data.frame(x = degree(g_assemblages_proj_prov_sd)), aes(x = x)) +
   geom_density(color = "green") +
@@ -238,6 +249,11 @@ g_assemblages_proj_artifact_sd <-
 ggplot(data = data.frame(x = degree(g_assemblages_proj_artifact_sd)), aes(x = x)) +
   geom_density(color = "blue") +
   ggtitle("Distribution of Sorenson-Dice Degree for Artifacts")
+
+data.frame(x = degree(g_assemblages_proj_artifact_sd)) %>% 
+  ggplot(aes(x = x)) +
+  geom_histogram(color = "gray", fill = "blue", bins = 20)
+
 
 ggplot(data = data.frame(x = E(g_assemblages_proj_artifact_sd)$weight), aes(x = x)) +
   geom_density(color = "blue") +
@@ -419,6 +435,30 @@ artifact_sims %>% stack() %>%
   ggplot(aes(x = ind, y = values, fill = ind)) +
   geom_violin()
 
-sigmoid_function <- function(x) {
+
+
+# Thresholding ------------------------------------------------------------
+
+
+sigmoid <- function(x) {
   1.0 / (1.0 + exp(-x))
 }
+
+
+
+# Distribution examples ---------------------------------------------------
+
+powerlaw_pdf <- function(x, gamma = 1){
+  density <- x^(-gamma)
+  return(density)
+}
+
+ggplot(data.frame(x = c(1,251)), aes(x = x)) + 
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 1), aes(color = "1")) + 
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 2), aes(color = "2")) + 
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 3), aes(color = "3")) + 
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 4), aes(color = "4")) + 
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 5), aes(color = "5")) +
+  scale_y_continuous(trans="log10") + 
+  labs(color="Gamma value")+
+  ylab("log P(x)")

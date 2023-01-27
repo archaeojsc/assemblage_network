@@ -92,7 +92,9 @@ g_assemblages_bpg %>%
 
 ```
 
-We found that projecting this graph into its one-mode counterparts resulted in very densely connected networks. Next, in [Part II](https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1 "Similarity Measures and Graph Adjacency with Sets"), we looked at different similarity metrics to find a better method of projection that the simple overlap provided in `igraph`. We looked at the similarities calculated with the Szymkiewicz-Simpson overlap coefficient, Jaccard similarity coefficient, and Sørensen--Dice coefficient for both provenience (@fig-sim-prov) and artifact types (@fig-sim-artifact).
+Looking at the bipartite graph, it seems apparent that there are some natural clusters or groupings. We found, though, that projecting this graph into its one-mode counterparts resulted in very densely connected networks.
+
+Next, in [Part II](https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1 "Similarity Measures and Graph Adjacency with Sets"), we looked at different similarity metrics to find a better method of projection that the simple overlap provided in `igraph`. We looked at the similarities calculated with the Szymkiewicz-Simpson overlap coefficient, Jaccard similarity coefficient, and Sørensen--Dice coefficient for both provenience (@fig-sim-prov) and artifact types (@fig-sim-artifact).
 
 ```{r}
 #| label: code-reestablish-environment
@@ -260,6 +262,8 @@ prov_sims %>% stack() %>%
 
 ```
 
+For proveniences, it looks like there are quite a lot that have *some* similarities in their artifact content.
+
 ```{r}
 #| label: fig-sim-artifact
 #| fig-cap: "Similarity measures for artifact types."
@@ -278,14 +282,68 @@ artifact_sims %>% stack() %>%
 
 ```
 
+In contrast to proveniences, the artifact types show far *less* similarity in where they co-occur.
+
 Now what we want to do is look at how to go about selecting our similarity metric, how to find the appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between proveniences and artifact types.
 
-### Graph structure and scale-free networks
+## Graph structure and scale-free networks
 
-What we're trying to do is find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it is *random*. If the structure does *not* appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where. In archaeological terms, that means that it's likely that there is some intentional organization to the use of spaces for certain activities. If so, then we can find some partitioning of the artifacts and proveniences that has meaningful interpretations.
+What we're trying to do is find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it is *random*. If the structure does *not* appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where. In archaeological terms, that means that it's likely that there is some intentional organization to the use of space for certain activities or that certain artifact assemblages are associated with different activities. If so, then we can find some partitioning of the artifacts and/or proveniences that have meaningful interpretations.
 
 Mind you, we're not actually trying to *induce* a structure. We are, however, expecting that there has been some manner of degradation in the "signal" of our data (see the introduction to [Part I](https://medium.com/p/648a2f20d389 "Bipartite Graphs for Archaeological Assemblage Networks") as to why). Our selection of similarity and threshold are meant to dampen the "noise" introduced to the site over time.
 
-One way to determine if we have non-random structure in our graph is to find out if it exhibits [*scale-free network*](https://en.wikipedia.org/wiki/Scale-free_network "Scale-free network | WikipediA") properties. A scale-free network is one in which the degree of the nodes in the graph approximate a power-law distribution, meaning that most nodes in the graphs have few connections while a few "hub" nodes have many. In a random network, there would be a more even probabilistic distribution of node degree and hub nodes would be far less likely to occur.
+One way to determine if we have non-random structure in our graph is to find out if it exhibits [*scale-free network*](https://en.wikipedia.org/wiki/Scale-free_network "Scale-free network | WikipediA") properties. A scale-free network is one in which the distribution for the degree of nodes in the graph approximate a power-law distribution, meaning that most nodes in the graphs have few connections while a few "hub" nodes have many. In a random network, there would be a more *even*ly distributed probability of node degrees and hub nodes would be far less likely to occur.
 
-The presence of a scale-free network indicates that there is some latent non-random process at play that is driving differential attachments between those nodes. It may be that there is a different process of growth in the network, which archaeologically would be some different spatial or temporal process of artifact deposition. Alternatively, there may be a clustering process or preferential attachment by which certain nodes are more closely associated than others as in the case of hub nodes. A certain suite of artifacts that are all related to the same activities (i.e., an *assemblage*) would cluster together, for example.
+The presence of a scale-free network suggests that there is some latent *non*-random process at play that is driving differential attachments between those nodes. It may be that there is a different process of growth in the network, which archaeologically would be some different spatial or temporal process of artifact deposition. Alternatively, there may be a clustering process or preferential attachment by which certain nodes are more closely associated than others as in the case of hub nodes. A certain suite of artifacts that are all related to the same activities (i.e., an *assemblage*) would cluster together, for example.
+
+### Detecting scale-free networks
+
+If a network is scale-free, then the distribution of node degree will approximate a power-law distribution of the form $P_{\text{deg}}(k) \propto k^{-\gamma}$ where $k$ is node degree and $\gamma$ is some exponent. We will know $k$, but we would obviously need to find the appropriate value for $\gamma$ from our empirical distribution. To illustrate, lets look at the probability density function for various values of $\gamma$ (@fig-power-law). We have 251 artifact types in our archaeological sample data, so lets look at the ideal power-law distributions if each node could have a maximum of 251 degrees.
+
+```{r}
+#| label: fig-power-law
+#| fig-cap: "Power-law distribution for different values of gamma."
+#| fig-alt: "Power-law distribution for different values of gamma."
+#| echo: false
+#| message: false
+#| warning: false
+
+powerlaw_pdf <- function(x, gamma = 1) {
+  density <- x ^ (-gamma)
+  return(density)
+}
+
+ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 2), aes(color = "2")) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 3), aes(color = "3")) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 4), aes(color = "4")) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 5), aes(color = "5")) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 6), aes(color = "6")) +
+  labs(color = "Gamma") +
+  ylab("P(x)")
+
+```
+
+Pretty easy to see that if our artifact type graph were scale free, the vast majority of the nodes would have a *very* small degree. It's a little easier to see the effect of $\gamma$ if we take the $\log$ of $P_{\text{deg}}(k)$ (@fig-power-law-log).
+
+```{r}
+#| label: fig-power-law-log
+#| fig-cap: "Log-scale power-law distribution for different values of gamma."
+#| fig-alt: "Log-scale power-law distribution for different values of gamma."
+#| echo: false
+#| message: false
+#| warning: false
+
+ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 2), aes(color = "2")) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 3), aes(color = "3")) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 4), aes(color = "4")) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 5), aes(color = "5")) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 6), aes(color = "6")) +
+  scale_y_continuous(trans="log10") +
+  labs(color = "Gamma") +
+  ylab("log P(x)")
+
+```
+
+Much easier to see that for every increment of the exponent $\gamma$, the probability of high-degree nodes decreases much more quickly. This will help in selecting our similarity metric, when we look at which one produces a graph network that follows this sort of power-law.
