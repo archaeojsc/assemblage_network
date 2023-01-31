@@ -439,10 +439,14 @@ artifact_sims %>% stack() %>%
 
 # Thresholding ------------------------------------------------------------
 
+signum 
+
 
 sigmoid <- function(x) {
   1.0 / (1.0 + exp(-x))
 }
+
+
 
 
 
