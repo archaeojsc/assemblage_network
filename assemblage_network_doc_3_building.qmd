@@ -34,11 +34,11 @@ For those just joining in, this is the Part III of a series in archaeological da
 
 I'll continue using R for the [coding](https://github.com/archaeojsc/assemblage_network "Assemblage Network GitHub"), but all of this could be done with Python just as easily.
 
-## Introduction
+## Introduction {#sec-introduction}
 
 In [Part II](https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1 "Similarity Measures and Graph Adjacency with Sets"), we went into some depth about what it means for sets to be *similar* and some ways to calculate a metric for that similarity. This time around, we're going to look more closely into how to decide what it means to be similar *enough*. In other words, we want to find an analytically valid way to decide on a *threshold* of similarity that best captures the real connections between entities while avoiding spurious associations. That will also help to guide us in selecting which of the similarity metrics to use (i.e., overlap, Jaccard, or Sørensen--Dice) as we go on to start building our bipartite graph projections.
 
-### A quick recap...
+### A quick recap... {#sec-a-quick-recap...}
 
 We started (in [Part I](https://medium.com/p/648a2f20d389 "Bipartite Graphs for Archaeological Assemblage Networks")) by building a bipartite graph between artifact types and their locations, shown in @fig-bipartite-graph. To keep things simple, we're using an *un-*weighted bipartite graph to look at co-locations of artifact types.
 
@@ -287,7 +287,7 @@ In contrast to proveniences, the artifact types show far *less* similarity in wh
 
 Now what we want to do is look at how to go about selecting our similarity metric, how to find the appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between proveniences and artifact types.
 
-## Graph structure and scale-free networks
+## Graph structure and scale-free networks {#sec-graph-structure-and-scale-free-networks}
 
 What we're trying to do is find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it is *random*. If the structure does *not* appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where. In archaeological terms, that means that it's likely that there is some intentional organization to the use of space for certain activities or that certain artifact assemblages are associated with different activities. If so, then we can find some partitioning of the artifacts and/or proveniences that have meaningful interpretations.
 
@@ -297,7 +297,7 @@ One way to determine if we have non-random structure in our graph is to find out
 
 The presence of a scale-free network suggests that there is some latent *non*-random process at play that is driving differential attachments between those nodes. It may be that there is a different process of growth in the network, which archaeologically would be some different spatial or temporal process of artifact deposition. Alternatively, there may be a clustering process or preferential attachment by which certain nodes are more closely associated than others as in the case of hub nodes. A certain suite of artifacts that are all related to the same activities (i.e., an *assemblage*) would cluster together, for example.
 
-### Detecting scale-free networks
+### Detecting scale-free networks {#sec-detecting-scale-free-networks}
 
 If a network is scale-free, then the distribution of node degree will approximate a power-law distribution of the form $P_{\text{deg}}(k) \propto k^{-\gamma}$ where $k$ is node degree and $\gamma$ is some exponent. We will know $k$, but we would obviously need to find the appropriate value for $\gamma$ from our empirical distribution. To illustrate, lets look at the probability density function for various values of $\gamma$ (@fig-power-law). We have 251 artifact types in our archaeological sample data, so lets look at the ideal power-law distributions if each node could have a maximum of 251 degrees.
 
@@ -325,7 +325,7 @@ ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
 
 ```
 
-Pretty easy to see that if our artifact type graph were scale free, the vast majority of the nodes would have a *very* small degree. Not so easy to see by how much. It's a lot easier to see the effect of $\gamma$ if we take the $\log$ of $P_{\text{deg}}(k)$ (@fig-power-law-log).
+Pretty easy to see that if our artifact type graph were scale free, the vast majority of the nodes would have a *very* small degree. Not so easy to see how much that probability is affected by $\gamma$, though. It's a lot easier to see the effect of $\gamma$ if we take the $\log$ of $P_{\text{deg}}(k)$ (@fig-power-law-log).
 
 ```{r}
 #| label: fig-power-law-log
@@ -347,17 +347,21 @@ ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
 
 ```
 
-For every increment of the exponent $\gamma$, the probability of high-degree nodes decreases much more quickly. This will help in selecting our similarity metric, when we look at which one produces a graph network that follows this sort of power-law in its degree distribution.
+For every increment of the exponent $\gamma$, the probability of higher-degree nodes decreases much more quickly. This will help in selecting our similarity metric, when we look at which one produces a graph network that follows this sort of power-law in its degree distribution.
 
-### Why a scale-free network?
+### Why a scale-free network? {#sec-why-a-scale-free-network}
 
-This is, of course, not the only way to look for non-random structure in a graph network. It's reasonable,then, to be wondering why we would expect our archaeological networks should follow this sort of power-law structure. This subject could easily be its own article, to be honest, but the short-form version is that it's because there is a natural connection between information entropy, power-law distributions, and the information communicated about an archaeological site by individual artifact types.
+This is, of course, not the only way to look for non-random structure in a graph network. It's reasonable, then, to be wondering why we would expect our archaeological networks should follow this sort of power-law structure. This subject could easily be its own article, to be honest, but the short-form version is that it's because there is a natural connection between information entropy, power-law distributions, and the information communicated about an archaeological site by individual artifact types.[^1]
+
+[^1]: See @Justeson1973 for a detailed explanation.
 
 The artifact types found on a site communicate information about the activities that occurred there, and the provenience or those types tell us about the spatial organization of those activities. There are, actually, some pretty close similarities with how different gene expressions correlate with phenotype.
 
-The methods being presented in this series of articles originated with my experiments in adapting weighted gene co-expression networks (i.e., see [WGCNA](https://en.wikipedia.org/wiki/Weighted_correlation_network_analysis "Weighted correlation network analysis")) to archaeological analysis. Scale-free network construction is one of the crucial steps in those methods.
+The methods being presented in this series of articles originated with my experiments in adapting weighted gene co-expression networks (i.e., see [WGCNA](https://en.wikipedia.org/wiki/Weighted_correlation_network_analysis "Weighted correlation network analysis")) to archaeological analysis.[^2] Scale-free network construction is one of the crucial steps in those methods.
 
-## From similarity to adjacency
+[^2]: For more information about weighted gene co-expression network analysis and scale free networks, see @Zhang2005, @Langfelder2008b
+
+## From similarity to adjacency {#sec-from-similarity-to-adjacency}
 
 We could simply use our raw similarity scores to build our networks, but we would still have very dense and noisy graphs. Instead, we want to find a method that boosts the *signal* of our graph structure, while suppressing the *noise* from spurious associations. To do that, we need to filter our similarity scores to form a graph adjacency matrix containing (as much as possible) only the most significant associations between entities. There are essentially two ways we can go about this.
 
@@ -367,6 +371,32 @@ Another approach is to use a function to calculate a *soft* threshold value, alo
 
 Thankfully, the two are not mutually exclusive! A hybrid approach would be to boost the similarity signal by employing a soft threshold function, and *then* finding an appropriate hard threshold.
 
-This is, in effect, the same as what ultimately happens when you apply a clustering algorithm to a distance matrix. Whether it's selecting the number of clusters or setting a cutoff distance to a dendrogram, you're picking a hard threshold. Graph community detection is quite closely related to clustering.
+This is, in effect, the same as what ultimately happens when you apply a clustering algorithm to a distance matrix. Whether it's selecting the number of clusters or setting a cutoff distance to a dendrogram, you're essentially picking a hard threshold to decide membership. Graph community detection is quite closely related to non-graph clustering, particularly hierarchical clustering. Setting a threshold for building the adjacency matrix determines the resulting structure of the graph.
 
-### Hard thresholds
+### Hard thresholds {#sec-hard-thresholds}
+
+A hard threshold is the simplest to implement -- any similarity value lower than your threshold goes to zero, and equal or higher goes to one. The trick is in picking that value, which explore a little later.
+
+So, lets formally define our hard threshold adjacency matrix[^3] as $A_{i,j}$ , our similarity matrix as $S_{i,j}$, and our threshold value as $\tau$.
+
+[^3]: Adapted from @Zhang2005
+
+$$
+A_{i,j} = f(S_{i,j}, \tau) \equiv 
+\begin{cases}
+0 & \text{if } S_{i,j} < \tau\\
+1 & \text{if } S_{i,j} \geq \tau 
+\end{cases}
+$$
+
+We can easily code that up as a function `hard_threshold_adj`, which takes a similarity matrix `sim_mat` and a threshold value `tau` as arguments and returns a binary adjacency matrix.
+
+```{r}
+
+hard_threshold_adjacency <- function(sim_mat, tau) {
+  return(ifelse(sim_mat < tau, 0, 1))
+}
+
+```
+
+### Soft thresholds

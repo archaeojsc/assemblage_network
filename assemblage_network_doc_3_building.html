@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.247">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="James Scott Cardinal">
-<meta name="dcterms.date" content="2023-01-30">
+<meta name="dcterms.date" content="2023-02-01">
 
 <title>From similarity to network: Building graphs for community detection</title>
 <style>
@@ -21,6 +21,88 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
 }
 </style>
 
@@ -95,7 +177,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 30, 2023</p>
+      <p class="date">February 1, 2023</p>
     </div>
   </div>
   
@@ -127,11 +209,11 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Part IV – Geo-spatial networks</p></li>
 </ul>
 <p>I’ll continue using R for the <a href="https://github.com/archaeojsc/assemblage_network" title="Assemblage Network GitHub">coding</a>, but all of this could be done with Python just as easily.</p>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="sec-introduction" class="level2">
+<h2 class="anchored" data-anchor-id="sec-introduction">Introduction</h2>
 <p>In <a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a>, we went into some depth about what it means for sets to be <em>similar</em> and some ways to calculate a metric for that similarity. This time around, we’re going to look more closely into how to decide what it means to be similar <em>enough</em>. In other words, we want to find an analytically valid way to decide on a <em>threshold</em> of similarity that best captures the real connections between entities while avoiding spurious associations. That will also help to guide us in selecting which of the similarity metrics to use (i.e., overlap, Jaccard, or Sørensen–Dice) as we go on to start building our bipartite graph projections.</p>
-<section id="a-quick-recap" class="level3">
-<h3 class="anchored" data-anchor-id="a-quick-recap">A quick recap…</h3>
+<section id="sec-a-quick-recap..." class="level3">
+<h3 class="anchored" data-anchor-id="sec-a-quick-recap...">A quick recap…</h3>
 <p>We started (in <a href="https://medium.com/p/648a2f20d389" title="Bipartite Graphs for Archaeological Assemblage Networks">Part I</a>) by building a bipartite graph between artifact types and their locations, shown in <a href="#fig-bipartite-graph">Figure&nbsp;1</a>. To keep things simple, we’re using an <em>un-</em>weighted bipartite graph to look at co-locations of artifact types.</p>
 <div class="cell">
 
@@ -176,14 +258,14 @@ ul.task-list li input[type="checkbox"] {
 <p>Now what we want to do is look at how to go about selecting our similarity metric, how to find the appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between proveniences and artifact types.</p>
 </section>
 </section>
-<section id="graph-structure-and-scale-free-networks" class="level2">
-<h2 class="anchored" data-anchor-id="graph-structure-and-scale-free-networks">Graph structure and scale-free networks</h2>
+<section id="sec-graph-structure-and-scale-free-networks" class="level2">
+<h2 class="anchored" data-anchor-id="sec-graph-structure-and-scale-free-networks">Graph structure and scale-free networks</h2>
 <p>What we’re trying to do is find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it is <em>random</em>. If the structure does <em>not</em> appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where. In archaeological terms, that means that it’s likely that there is some intentional organization to the use of space for certain activities or that certain artifact assemblages are associated with different activities. If so, then we can find some partitioning of the artifacts and/or proveniences that have meaningful interpretations.</p>
 <p>Mind you, we’re not actually trying to <em>induce</em> a structure. We are, however, expecting that there has been some manner of degradation in the “signal” of our data (see the introduction to <a href="https://medium.com/p/648a2f20d389" title="Bipartite Graphs for Archaeological Assemblage Networks">Part I</a> as to why). Our selection of similarity and threshold are meant to dampen the “noise” introduced to the site over time.</p>
 <p>One way to determine if we have non-random structure in our graph is to find out if it exhibits <a href="https://en.wikipedia.org/wiki/Scale-free_network" title="Scale-free network | WikipediA"><em>scale-free network</em></a> properties. A scale-free network is one in which the distribution for the degree of nodes in the graph approximate a power-law distribution, meaning that most nodes in the graphs have few connections while a few “hub” nodes have many. In a random network, there would be a more <em>even</em>ly distributed probability of node degrees and hub nodes would be far less likely to occur.</p>
 <p>The presence of a scale-free network suggests that there is some latent <em>non</em>-random process at play that is driving differential attachments between those nodes. It may be that there is a different process of growth in the network, which archaeologically would be some different spatial or temporal process of artifact deposition. Alternatively, there may be a clustering process or preferential attachment by which certain nodes are more closely associated than others as in the case of hub nodes. A certain suite of artifacts that are all related to the same activities (i.e., an <em>assemblage</em>) would cluster together, for example.</p>
-<section id="detecting-scale-free-networks" class="level3">
-<h3 class="anchored" data-anchor-id="detecting-scale-free-networks">Detecting scale-free networks</h3>
+<section id="sec-detecting-scale-free-networks" class="level3">
+<h3 class="anchored" data-anchor-id="sec-detecting-scale-free-networks">Detecting scale-free networks</h3>
 <p>If a network is scale-free, then the distribution of node degree will approximate a power-law distribution of the form <span class="math inline">\(P_{\text{deg}}(k) \propto k^{-\gamma}\)</span> where <span class="math inline">\(k\)</span> is node degree and <span class="math inline">\(\gamma\)</span> is some exponent. We will know <span class="math inline">\(k\)</span>, but we would obviously need to find the appropriate value for <span class="math inline">\(\gamma\)</span> from our empirical distribution. To illustrate, lets look at the probability density function for various values of <span class="math inline">\(\gamma\)</span> (<a href="#fig-power-law">Figure&nbsp;4</a>). We have 251 artifact types in our archaeological sample data, so lets look at the ideal power-law distributions if each node could have a maximum of 251 degrees.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -208,17 +290,65 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>For every increment of the exponent <span class="math inline">\(\gamma\)</span>, the probability of high-degree nodes decreases much more quickly. This will help in selecting our similarity metric, when we look at which one produces a graph network that follows this sort of power-law in its degree distribution.</p>
 </section>
-<section id="why-a-scale-free-network" class="level3">
-<h3 class="anchored" data-anchor-id="why-a-scale-free-network">Why a scale-free network?</h3>
-<p>This is, of course, not the only way to look for non-random structure in a graph network. It’s reasonable,then, to be wondering why we would expect our archaeological networks should follow this sort of power-law structure. This subject could easily be its own article, to be honest, but the short-form version is that it’s because there is a natural connection between information entropy, power-law distributions, and the information communicated about an archaeological site by individual artifact types.</p>
+<section id="sec-why-a-scale-free-network" class="level3">
+<h3 class="anchored" data-anchor-id="sec-why-a-scale-free-network">Why a scale-free network?</h3>
+<p>This is, of course, not the only way to look for non-random structure in a graph network. It’s reasonable,then, to be wondering why we would expect our archaeological networks should follow this sort of power-law structure. This subject could easily be its own article, to be honest, but the short-form version is that it’s because there is a natural connection between information entropy, power-law distributions, and the information communicated about an archaeological site by individual artifact types.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>The artifact types found on a site communicate information about the activities that occurred there, and the provenience or those types tell us about the spatial organization of those activities. There are, actually, some pretty close similarities with how different gene expressions correlate with phenotype.</p>
-<p>The methods being presented in this series of articles originated with my experiments in adapting weighted gene co-expression networks (i.e., see <a href="https://en.wikipedia.org/wiki/Weighted_correlation_network_analysis" title="Weighted correlation network analysis">WGCNA</a>) to archaeological analysis. Scale-free network construction is one of the crucial steps in those methods.</p>
+<p>The methods being presented in this series of articles originated with my experiments in adapting weighted gene co-expression networks (i.e., see <a href="https://en.wikipedia.org/wiki/Weighted_correlation_network_analysis" title="Weighted correlation network analysis">WGCNA</a>) to archaeological analysis.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Scale-free network construction is one of the crucial steps in those methods.</p>
+</section>
+</section>
+<section id="sec-from-similarity-to-adjacency" class="level2">
+<h2 class="anchored" data-anchor-id="sec-from-similarity-to-adjacency">From similarity to adjacency</h2>
+<p>We could simply use our raw similarity scores to build our networks, but we would still have very dense and noisy graphs. Instead, we want to find a method that boosts the <em>signal</em> of our graph structure, while suppressing the <em>noise</em> from spurious associations. To do that, we need to filter our similarity scores to form a graph adjacency matrix containing (as much as possible) only the most significant associations between entities. There are essentially two ways we can go about this.</p>
+<p>The simplest is to just set a hard cutoff threshold – e.g., a specific value or quantile – and build an un-weighted or binary adjacency matrix. If we select the right threshold this can be very effective and results in a more sparse graph, but risks discarding legitimate connections along with the noise and tends to leave isolated nodes (i.e., nodes that aren’t connected to any others).</p>
+<p>Another approach is to use a function to calculate a <em>soft</em> threshold value, along the lines of an activation function. This results in a weighted graph in which smaller similarity values are pushed closer towards zero, while very high similarity values would stay closer to one. The advantage is that there is less risk of suppressing significant connections. The downside is that the noise is still in there, albeit substantially dampened, and doesn’t decrease the graph’s overall density. Weighted graphs are also just a bit more complicated to parse for community detection.</p>
+<p>Thankfully, the two are not mutually exclusive! A hybrid approach would be to boost the similarity signal by employing a soft threshold function, and <em>then</em> finding an appropriate hard threshold.</p>
+<p>This is, in effect, the same as what ultimately happens when you apply a clustering algorithm to a distance matrix. Whether it’s selecting the number of clusters or setting a cutoff distance to a dendrogram, you’re essentially picking a hard threshold to decide membership. Graph community detection is quite closely related to non-graph clustering, particularly hierarchical clustering. Setting a threshold for building the adjacency matrix determines the resulting structure of the graph.</p>
+<section id="sec-hard-thresholds" class="level3">
+<h3 class="anchored" data-anchor-id="sec-hard-thresholds">Hard thresholds</h3>
+<p>A hard threshold is the simplest to implement – any similarity value lower than your threshold goes to zero, and equal or higher goes to one. The trick is in picking that value, which explore a little later.</p>
+<p>So, lets formally define our hard threshold adjacency matrix<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> as <span class="math inline">\(A_{i,j}\)</span> , our similarity matrix as <span class="math inline">\(S_{i,j}\)</span>, and our threshold value as <span class="math inline">\(\tau\)</span>.</p>
+<p><span class="math display">\[
+A_{i,j} = f(S_{i,j}, \tau) \equiv
+\begin{cases}
+0 &amp; \text{if } S_{i,j} &lt; \tau\\
+1 &amp; \text{if } S_{i,j} \geq \tau
+\end{cases}
+\]</span></p>
+<p>We can easily code that up as a function <code>hard_threshold_adj</code>, which takes a similarity matrix and a threshold value as arguments.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>hard_threshold_adjacency <span class="ot">&lt;-</span> <span class="cf">function</span>(sim_mat, tau) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">ifelse</span>(sim_mat <span class="sc">&lt;</span> tau, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="soft-thresholds" class="level3">
+
+
 
 
 </section>
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Soft thresholds</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Justeson1973" class="csl-entry" role="doc-biblioentry">
+Justeson, John S. 1973. <span>“Limitations of Archaeological Inference: An Information-Theoretic Approach with Applications in Methodology.”</span> <em>American Antiquity</em> 38 (April): 131–49. <a href="https://doi.org/10.2307/279360">https://doi.org/10.2307/279360</a>.
+</div>
+<div id="ref-Langfelder2008b" class="csl-entry" role="doc-biblioentry">
+Langfelder, Peter, and Steve Horvath. 2008. <span>“WGCNA: An r Package for Weighted Correlation Network Analysis.”</span> <em>BMC Bioinformatics</em> 9: 559. <a href="https://doi.org/10.1186/1471-2105-9-559">https://doi.org/10.1186/1471-2105-9-559</a>.
+</div>
+<div id="ref-Zhang2005" class="csl-entry" role="doc-biblioentry">
+Zhang, Bin, and Steve Horvath. 2005. <span>“A General Framework for Weighted Gene Co-Expression Network Analysis.”</span> <em>Statistical Applications in Genetics and Molecular Biology</em> 4 (January): Article17. <a href="https://doi.org/10.2202/1544-6115.1128">https://doi.org/10.2202/1544-6115.1128</a>.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>See <span class="citation" data-cites="Justeson1973">Justeson (<a href="#ref-Justeson1973" role="doc-biblioref">1973</a>)</span> for a detailed explanation.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>For more information about weighted gene co-expression network analysis and scale free networks, see <span class="citation" data-cites="Zhang2005">Zhang and Horvath (<a href="#ref-Zhang2005" role="doc-biblioref">2005</a>)</span>, <span class="citation" data-cites="Langfelder2008b">Langfelder and Horvath (<a href="#ref-Langfelder2008b" role="doc-biblioref">2008</a>)</span><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Adapted from <span class="citation" data-cites="Zhang2005">Zhang and Horvath (<a href="#ref-Zhang2005" role="doc-biblioref">2005</a>)</span><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

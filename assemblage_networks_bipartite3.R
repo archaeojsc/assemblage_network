@@ -439,9 +439,15 @@ artifact_sims %>% stack() %>%
 
 # Thresholding ------------------------------------------------------------
 
-signum 
 
 
+## Hard threshold ---------------------------------------------------------
+
+signum_adj <- function(x, tau) {
+  return(ifelse(x < tau, 0, 1))
+}
+
+## Soft threshold ---------------------------------------------------------
 sigmoid <- function(x) {
   1.0 / (1.0 + exp(-x))
 }
