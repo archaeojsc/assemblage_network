@@ -5,6 +5,7 @@ author: "James Scott Cardinal"
 date: today
 format: html
 editor: visual
+bibliography: references.bib
 ---
 
 ![Why is there math in my archaeology? ...or is the archaeology in my math? (Image by Author)](archaeo_DS_mine.png){fig-alt="Archaeology and Data Science" fig-align="center"}
@@ -355,3 +356,17 @@ This is, of course, not the only way to look for non-random structure in a graph
 The artifact types found on a site communicate information about the activities that occurred there, and the provenience or those types tell us about the spatial organization of those activities. There are, actually, some pretty close similarities with how different gene expressions correlate with phenotype.
 
 The methods being presented in this series of articles originated with my experiments in adapting weighted gene co-expression networks (i.e., see [WGCNA](https://en.wikipedia.org/wiki/Weighted_correlation_network_analysis "Weighted correlation network analysis")) to archaeological analysis. Scale-free network construction is one of the crucial steps in those methods.
+
+## From similarity to adjacency
+
+We could simply use our raw similarity scores to build our networks, but we would still have very dense and noisy graphs. Instead, we want to find a method that boosts the *signal* of our graph structure, while suppressing the *noise* from spurious associations. To do that, we need to filter our similarity scores to form a graph adjacency matrix containing (as much as possible) only the most significant associations between entities. There are essentially two ways we can go about this.
+
+The simplest is to just set a hard cutoff threshold -- e.g., a specific value or quantile -- and build an un-weighted or binary adjacency matrix. If we select the right threshold this can be very effective and results in a more sparse graph, but risks discarding legitimate connections along with the noise and tends to leave isolated nodes (i.e., nodes that aren't connected to any others).
+
+Another approach is to use a function to calculate a *soft* threshold value, along the lines of an activation function. This results in a weighted graph in which smaller similarity values are pushed closer towards zero, while very high similarity values would stay closer to one. The advantage is that there is less risk of suppressing significant connections. The downside is that the noise is still in there, albeit substantially dampened, and doesn't decrease the graph's overall density. Weighted graphs are also just a bit more complicated to parse for community detection.
+
+Thankfully, the two are not mutually exclusive! A hybrid approach would be to boost the similarity signal by employing a soft threshold function, and *then* finding an appropriate hard threshold.
+
+This is, in effect, the same as what ultimately happens when you apply a clustering algorithm to a distance matrix. Whether it's selecting the number of clusters or setting a cutoff distance to a dendrogram, you're picking a hard threshold. Graph community detection is quite closely related to clustering.
+
+### Hard thresholds
