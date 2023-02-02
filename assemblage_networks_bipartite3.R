@@ -443,24 +443,24 @@ artifact_sims %>% stack() %>%
 
 ## Hard threshold ---------------------------------------------------------
 
-signum_adj <- function(x, tau) {
-  return(ifelse(x < tau, 0, 1))
+signum_adj <- function(x, tau = 0.5) {
+  ifelse(x < tau, 0, 1)
 }
 
 ## Soft threshold ---------------------------------------------------------
-sigmoid <- function(x) {
-  1.0 / (1.0 + exp(-x))
+
+sigmoid_adj <- function(x, alpha = 10, tau = 0.5) {
+  1.0 / (1.0 + exp(-alpha * (x - tau)))
 }
 
-
-
-
+power_adj <- function(x, beta = 1) {
+  x ^ beta
+}
 
 # Distribution examples ---------------------------------------------------
 
-powerlaw_pdf <- function(x, gamma = 1){
-  density <- x^(-gamma)
-  return(density)
+powerlaw_pdf <- function(x, gamma = 1) {
+  x ^ (-gamma)
 }
 
 ggplot(data.frame(x = c(1,251)), aes(x = x)) + 
