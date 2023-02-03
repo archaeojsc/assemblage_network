@@ -1,4 +1,6 @@
 
+
+
 require(tidyverse)
 require(igraph)
 require(ggraph)
@@ -23,7 +25,7 @@ g_assemblages_bpg_layout <-
 g_assemblages_bpg %>%
   ggraph(layout = g_assemblages_bpg_layout) +
   geom_edge_link(color = "gray", alpha = 0.25) +
-  geom_node_point(aes(color = type), size = 2) +
+  geom_node_point(aes(color = type)) +
   scale_color_manual(
     values = c("green", "blue"),
     name = "Node Type",
@@ -46,17 +48,17 @@ g_assemblages_proj_prov <- g_assemblages_proj$proj1
 
 g_assemblages_proj_artifact <- g_assemblages_proj$proj2
 
-# g_assemblages_proj_prov %>%
-#   ggraph(layout = "fr") +
-#   geom_edge_link(color = "gray", aes(alpha = weight)) +
-#   geom_node_point(color = "green", size = 2) +
-#   ggtitle("Network of Proveniences")
-# 
-# g_assemblages_proj_artifact %>%
-#   ggraph(layout = "fr") +
-#   geom_edge_link(color = "gray", aes(alpha = weight)) +
-#   geom_node_point(color = "blue", size = 2) +
-#   ggtitle("Network of Artifact Types")
+g_assemblages_proj_prov %>%
+  ggraph() +
+  geom_edge_link(color = "gray", aes(alpha = weight)) +
+  geom_node_point(color = "green") +
+  ggtitle("Network of Proveniences")
+
+g_assemblages_proj_artifact %>%
+  ggraph() +
+  geom_edge_link(color = "gray", aes(alpha = weight)) +
+  geom_node_point(color = "blue") +
+  ggtitle("Network of Artifact Types")
 
 
 # Project one-mode graphs, Szymkiewicz-Simpson -----------------------------
@@ -89,30 +91,34 @@ overlap_coef_bin <- function(x) {
 
 ## Project provenience -----------------------------------------------------
 
-prov_adj_ssoc <- overlap_coef_bin(t(g_assemblages_bpg_inc))
+prov_sim_ssoc <- overlap_coef_bin(t(g_assemblages_bpg_inc))
 
-prov_ssoc_vals <-
-  prov_adj_ssoc[lower.tri(prov_adj_ssoc, diag = FALSE)]
+prov_ssoc_sims <-
+  prov_sim_ssoc[lower.tri(prov_sim_ssoc, diag = FALSE)]
 
-ggplot(data = data.frame(x = c(prov_ssoc_vals)), aes(x = x)) +
+ggplot(data = data.frame(x = c(prov_ssoc_sims)), aes(x = x)) +
   geom_density(color = "green") +
   ggtitle("Distribution of Szymkiewicz-Simpson Similarity for Proveniences")
 
 g_assemblages_proj_prov_oc <-
-  graph_from_adjacency_matrix(ifelse(prov_adj_ssoc < 0.8, 0, prov_adj_ssoc),
+  graph_from_adjacency_matrix(prov_sim_ssoc,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
 
 g_assemblages_proj_prov_oc %>%
-  ggraph(layout = "fr") +
+  ggraph(layout = "mds") +
   geom_edge_link(color = "gray", aes(alpha = weight)) +
-  geom_node_point(color = "green", size = 2) +
+  geom_node_point(color = "green") +
   ggtitle("Network of Proveniences")
 
 ggplot(data = data.frame(x = degree(g_assemblages_proj_prov_oc)), aes(x = x)) +
   geom_density(color = "green") +
   ggtitle("Distribution of Szymkiewicz-Simpson Degree for Proveniences")
+
+ggplot(data = data.frame(x = strength(g_assemblages_proj_prov_oc)), aes(x = x)) +
+  geom_density(color = "green") +
+  ggtitle("Distribution of Szymkiewicz-Simpson Edge-weighted Degree for Proveniences")
 
 ggplot(data = data.frame(x = E(g_assemblages_proj_prov_oc)$weight), aes(x = x)) +
   geom_density(color = "green") +
@@ -121,35 +127,39 @@ ggplot(data = data.frame(x = E(g_assemblages_proj_prov_oc)$weight), aes(x = x)) 
 
 ## Project artifact types --------------------------------------------------
 
-artifact_adj_ssoc <- overlap_coef_bin(g_assemblages_bpg_inc)
+artifact_sim_ssoc <- overlap_coef_bin(g_assemblages_bpg_inc)
 
-artifact_ssoc_vals <-
-  artifact_adj_ssoc[lower.tri(artifact_adj_ssoc, diag = FALSE)]
+artifact_ssoc_sims <-
+  artifact_sim_ssoc[lower.tri(artifact_sim_ssoc, diag = FALSE)]
 
-ggplot(data = data.frame(x = c(artifact_ssoc_vals)), aes(x = x)) +
+ggplot(data = data.frame(x = c(artifact_ssoc_sims)), aes(x = x)) +
   geom_density(color = "blue") +
   ggtitle("Distribution of Szymkiewicz-Simpson Similarity for Artifacts")
 
 g_assemblages_proj_artifact_oc <-
   graph_from_adjacency_matrix(
-    artifact_adj_ssoc,
+    artifact_sim_ssoc^3,
     mode = "undirected",
     weighted = TRUE,
     diag = FALSE
   )
 
-# g_assemblages_proj_artifact_oc %>%
-#   ggraph(layout = "kk") +
-#   geom_edge_link(color = "gray", aes(alpha = weight)) +
-#   geom_node_point(color = "blue", size = 2) +
-#   ggtitle("Network of Artifacts")
+g_assemblages_proj_artifact_oc %>%
+  ggraph(layout = "kk") +
+  geom_edge_link(color = "gray", aes(alpha = weight)) +
+  geom_node_point(color = "blue") +
+  ggtitle("Network of Artifacts")
 
 ggplot(data = data.frame(x = degree(g_assemblages_proj_artifact_oc)), aes(x = x)) +
-  geom_density(color = "blue") +
+  geom_density(fill = "blue") +
   ggtitle("Distribution of Szymkiewicz-Simpson Degree for Artifacts")
 
+ggplot(data = data.frame(x = strength(g_assemblages_proj_artifact_oc)), aes(x = x)) +
+  geom_density(fill = "blue") +
+  ggtitle("Distribution of Szymkiewicz-Simpson Node Strength for Artifacts")
+
 ggplot(data = data.frame(x = E(g_assemblages_proj_artifact_oc)$weight), aes(x = x)) +
-  geom_density(color = "blue") +
+  geom_density(fill = "blue") +
   ggtitle("Distribution of Szymkiewicz-Simpson Edge Weight for Artifacts")
 
 
@@ -182,21 +192,20 @@ soren_dice_sim_bin <- function(x) {
 
 ## Project provenience -----------------------------------------------------
 
-prov_adj_sd <- soren_dice_sim_bin(t(g_assemblages_bpg_inc))
+prov_sim_sd <- soren_dice_sim_bin(t(g_assemblages_bpg_inc))
 
-prov_sd_vals <-
-  prov_adj_sd[lower.tri(prov_adj_sd, diag = FALSE)]
+prov_sd_sims <-
+  prov_sim_sd[lower.tri(prov_sim_sd, diag = FALSE)]
 
-ggplot(data = data.frame(x = prov_sd_vals), aes(x = x)) +
+ggplot(data = data.frame(x = prov_sd_sims), aes(x = x)) +
   geom_density(color = "green") +
   ggtitle("Distribution of Sorenson-Dice Similarity for Provenience")
 
 g_assemblages_proj_prov_sd <-
-  graph_from_adjacency_matrix(prov_adj_sd,
+  graph_from_adjacency_matrix(prov_sim_sd,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
-
 
 # g_assemblages_proj_prov_sd <-
 #   graph_from_adjacency_matrix(ifelse(prov_adj_sd < 0.439, 0, prov_adj_sd),
@@ -204,15 +213,17 @@ g_assemblages_proj_prov_sd <-
 #                               weighted = TRUE,
 #                               diag = FALSE)
 
-g_assemblages_proj_prov_sd %>%
-  ggraph(layout = "kk") +
-  geom_edge_link(color = "gray", aes(alpha = weight)) +
-  geom_node_point(color = "green", size = 2) +
-  ggtitle("Network of Proveniences")
+# g_assemblages_proj_prov_sd %>%
+#   ggraph(layout = "kk") +
+#   geom_edge_link(color = "gray", aes(alpha = weight)) +
+#   geom_node_point(color = "green") +
+#   ggtitle("Network of Proveniences")
 
-data.frame(x = degree(g_assemblages_proj_prov_sd)) %>% filter(x > 0) %>% 
+data.frame(x = degree(g_assemblages_proj_prov_sd)) %>% filter(x > 0) %>%
   ggplot(aes(x = x)) +
-  geom_histogram(color = "gray", fill = "green", bins = 20)
+  geom_histogram(color = "gray",
+                 fill = "green",
+                 bins = 20)
 
 ggplot(data = data.frame(x = degree(g_assemblages_proj_prov_sd)), aes(x = x)) +
   geom_density(color = "green") +
@@ -225,17 +236,17 @@ ggplot(data = data.frame(x = E(g_assemblages_proj_prov_sd)$weight), aes(x = x)) 
 
 ## Project artifact types --------------------------------------------------
 
-artifact_adj_sd <- soren_dice_sim_bin(g_assemblages_bpg_inc)
+artifact_sim_sd <- soren_dice_sim_bin(g_assemblages_bpg_inc)
 
-artifact_sd_vals <-
-  artifact_adj_sd[lower.tri(artifact_adj_sd, diag = FALSE)]
+artifact_sd_sims <-
+  artifact_sim_sd[lower.tri(artifact_sim_sd, diag = FALSE)]
 
-ggplot(data = data.frame(x = artifact_sd_vals), aes(x = x)) +
+ggplot(data = data.frame(x = artifact_sd_sims), aes(x = x)) +
   geom_density(color = "blue") +
   ggtitle("Distribution of Sorenson-Dice Similarity for Artifacts")
 
 g_assemblages_proj_artifact_sd <-
-  graph_from_adjacency_matrix(artifact_adj_sd,
+  graph_from_adjacency_matrix(artifact_sim_sd,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
@@ -243,16 +254,18 @@ g_assemblages_proj_artifact_sd <-
 # g_assemblages_artifact_prov_sd %>%
 #   ggraph(layout = "kk") +
 #   geom_edge_link(color = "gray", aes(alpha = weight)) +
-#   geom_node_point(color = "green", size = 2) +
+#   geom_node_point(color = "green") +
 #   ggtitle("Network of Artifacts")
 
 ggplot(data = data.frame(x = degree(g_assemblages_proj_artifact_sd)), aes(x = x)) +
   geom_density(color = "blue") +
   ggtitle("Distribution of Sorenson-Dice Degree for Artifacts")
 
-data.frame(x = degree(g_assemblages_proj_artifact_sd)) %>% 
+data.frame(x = degree(g_assemblages_proj_artifact_sd)) %>%
   ggplot(aes(x = x)) +
-  geom_histogram(color = "gray", fill = "blue", bins = 20)
+  geom_histogram(color = "gray",
+                 fill = "blue",
+                 bins = 20)
 
 
 ggplot(data = data.frame(x = E(g_assemblages_proj_artifact_sd)$weight), aes(x = x)) +
@@ -289,50 +302,50 @@ jaccard_sim_bin <- function(x) {
 
 ## Project provenience -----------------------------------------------------
 
-prov_adj_jacc <- jaccard_sim_bin(t(g_assemblages_bpg_inc))
+prov_sim_jacc <- jaccard_sim_bin(t(g_assemblages_bpg_inc))
 
-prov_jacc_vals <-
-  prov_adj_jacc[lower.tri(prov_adj_jacc, diag = FALSE)]
+prov_jacc_sims <-
+  prov_sim_jacc[lower.tri(prov_sim_jacc, diag = FALSE)]
 
-ggplot(data = data.frame(x = prov_jacc_vals), aes(x = x)) +
-  geom_density(color = "green") +
+ggplot(data = data.frame(x = prov_jacc_sims), aes(x = x)) +
+  geom_density(fill = "green") +
   ggtitle("Distribution of Jaccard Similarity for Provenience")
 
 g_assemblages_proj_prov_jacc <-
-  graph_from_adjacency_matrix(ifelse(prov_adj_jacc <0.281, 0, prov_adj_jacc),
+  graph_from_adjacency_matrix(prov_sim_jacc,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
 
-g_assemblages_proj_prov_jacc %>%
-  ggraph(layout = "kk") +
-  geom_edge_link(color = "gray", aes(alpha = weight)) +
-  geom_node_point(color = "green", size = 2) +
-  ggtitle("Network of Proveniences")
+# g_assemblages_proj_prov_jacc %>%
+#   ggraph(layout = "kk") +
+#   geom_edge_link(color = "gray", aes(alpha = weight)) +
+#   geom_node_point(color = "green") +
+#   ggtitle("Network of Proveniences")
 
 ggplot(data = data.frame(x = degree(g_assemblages_proj_prov_jacc)), aes(x = x)) +
-  geom_density(color = "green") +
+  geom_density(fill = "green") +
   ggtitle("Distribution of Jaccard Degree for Proveniences")
 
 ggplot(data = data.frame(x = E(g_assemblages_proj_prov_jacc)$weight), aes(x = x)) +
-  geom_density(color = "green") +
+  geom_density(fill = "green") +
   ggtitle("Distribution of Jaccard Edge Weight for Proveniences")
 
 
 ## Project artifact types --------------------------------------------------
 
-artifact_adj_jacc <- jaccard_sim_bin(g_assemblages_bpg_inc)
+artifact_sim_jacc <- jaccard_sim_bin(g_assemblages_bpg_inc)
 
-artifact_jacc_vals <-
-  artifact_adj_jacc[lower.tri(artifact_adj_jacc, diag = FALSE)]
+artifact_jacc_sims <-
+  artifact_sim_jacc[lower.tri(artifact_sim_jacc, diag = FALSE)]
 
-ggplot(data = data.frame(x = artifact_jacc_vals), aes(x = x)) +
+ggplot(data = data.frame(x = artifact_jacc_sims), aes(x = x)) +
   geom_density(color = "blue") +
   ggtitle("Distribution of Jaccard Similarity for Artifacts")
 
 g_assemblages_proj_artifact_jacc <-
   graph_from_adjacency_matrix(
-    artifact_adj_jacc,
+    artifact_sim_jacc,
     mode = "undirected",
     weighted = TRUE,
     diag = FALSE
@@ -341,7 +354,7 @@ g_assemblages_proj_artifact_jacc <-
 # g_assemblages_proj_prov_jacc %>%
 #   ggraph(layout = "kk") +
 #   geom_edge_link(color = "gray", aes(alpha = weight)) +
-#   geom_node_point(color = "blue", size = 2) +
+#   geom_node_point(color = "blue") +
 #   ggtitle("Network of Artifacts")
 
 ggplot(data = data.frame(x = degree(g_assemblages_proj_artifact_jacc)), aes(x = x)) +
@@ -354,20 +367,20 @@ ggplot(data = data.frame(x = E(g_assemblages_proj_artifact_jacc)$weight), aes(x 
 
 # TOM Adjacency -----------------------------------------------------------
 
-tom_adjacency_matrix <- function(adj_mat) {
+tom_similarity <- function(adj_mat) {
   l_mat <- adj_mat %*% t(adj_mat)
   
   k_row <- rowSums(adj_mat)
   k_col <- colSums(adj_mat)
   k_min <- outer(k_row, k_col, FUN = pmin)
   
-  tom_adj <- (l_mat + adj_mat) / (k_min + 1 - adj_mat)
+  tom_sim <- (l_mat + adj_mat) / (k_min + 1 - adj_mat)
   
-  diag(tom_adj) <- 1
+  diag(tom_sim) <- 1
   
-  dimnames(tom_adj) <- list(colnames(adj_mat), colnames(adj_mat))
+  dimnames(tom_sim) <- list(colnames(adj_mat), colnames(adj_mat))
   
-  return(tom_adj)
+  return(tom_sim)
 }
 
 ## Provenience overlap matrix ----------------------------------------------
@@ -382,16 +395,26 @@ tom_adjacency_matrix <- function(adj_mat) {
 require(gridExtra)
 
 grid.arrange(
-  ggplot(
-    data = data.frame(x = rowSums(g_assemblages_bpg_inc)), 
-    aes(x = x)) +
-    geom_histogram(color = "gray", fill = "green", bins = 20) +
+  ggplot(data = data.frame(x = rowSums(
+    g_assemblages_bpg_inc
+  )),
+  aes(x = x, y = after_stat(density))) +
+    geom_histogram(
+      color = "gray",
+      fill = "green",
+      bins = 20
+    ) +
     ggtitle("Artifact Types per Provenience"),
   
-  ggplot(
-    data = data.frame(x = colSums(g_assemblages_bpg_inc)), 
-    aes(x = x)) +
-    geom_histogram(color = "gray", fill = "blue", bins = 20) +
+  ggplot(data = data.frame(x = colSums(
+    g_assemblages_bpg_inc
+  )),
+  aes(x = x, y = after_stat(density))) +
+    geom_histogram(
+      color = "gray",
+      fill = "blue",
+      bins = 20
+    ) +
     ggtitle("Occurence per Artifact Type"),
   
   ncol = 2
@@ -402,9 +425,9 @@ grid.arrange(
 # Comparing similarity measures -------------------------------------------
 
 prov_sims <-
-  data.frame(ssoc = prov_ssoc_vals, 
-             jacc = prov_jacc_vals, 
-             sd = prov_sd_vals)
+  data.frame(ssoc = prov_ssoc_sims,
+             jacc = prov_jacc_sims,
+             sd = prov_sd_sims)
 
 prov_sims %>% stack() %>%
   # filter(values > 0) %>% # View non-zero entries
@@ -419,15 +442,15 @@ prov_sims %>% stack() %>%
   geom_violin()
 
 artifact_sims <-
-  data.frame(ssoc = artifact_ssoc_vals, 
-             jacc = artifact_jacc_vals, 
-             sd = artifact_sd_vals)
+  data.frame(ssoc = artifact_ssoc_sims,
+             jacc = artifact_jacc_sims,
+             sd = artifact_sd_sims)
 
-artifact_sims %>% stack() %>% 
+artifact_sims %>% stack() %>%
   # filter(values > 0) %>% # View non-zero entries
   ggplot(aes(x = values)) +
   geom_density(color = "blue",
-               alpha = 0.4) + 
+               alpha = 0.4) +
   facet_grid(ind ~ ., scales = "free")
 
 artifact_sims %>% stack() %>%
@@ -457,18 +480,47 @@ power_adj <- function(x, beta = 1) {
   x ^ beta
 }
 
-# Distribution examples ---------------------------------------------------
+
+# Scale-free topology -----------------------------------------------------
+
+
+
+## Power law probability distribution -------------------------------------
+
+
 
 powerlaw_pdf <- function(x, gamma = 1) {
   x ^ (-gamma)
 }
 
-ggplot(data.frame(x = c(1,251)), aes(x = x)) + 
-  stat_function(fun = powerlaw_pdf, args = list(gamma = 1), aes(color = "1")) + 
-  stat_function(fun = powerlaw_pdf, args = list(gamma = 2), aes(color = "2")) + 
-  stat_function(fun = powerlaw_pdf, args = list(gamma = 3), aes(color = "3")) + 
-  stat_function(fun = powerlaw_pdf, args = list(gamma = 4), aes(color = "4")) + 
+ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 1), aes(color = "1")) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 2), aes(color = "2")) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 3), aes(color = "3")) +
+  stat_function(fun = powerlaw_pdf, args = list(gamma = 4), aes(color = "4")) +
   stat_function(fun = powerlaw_pdf, args = list(gamma = 5), aes(color = "5")) +
-  scale_y_continuous(trans="log10") + 
-  labs(color="Gamma value")+
+  scale_y_continuous(trans = "log10") +
+  labs(color = "Gamma value") +
   ylab("log P(x)")
+
+
+# Community detection -----------------------------------------------------
+
+artifact_adj_power <- power_adj(artifact_sim_ssoc, beta = 3)
+
+g_artifact <-
+  graph_from_adjacency_matrix(
+    artifact_adj_power,
+    mode = 'undirected',
+    weighted = TRUE,
+    diag = FALSE
+  )
+
+prov_adj_signum <- signum_adj(prov_sim_jacc, tau = 0.40)
+
+g_prov <-
+  graph_from_adjacency_matrix(prov_adj_signum,
+                              mode = 'undirected',
+                              weighted = NULL,
+                              diag = FALSE)
+

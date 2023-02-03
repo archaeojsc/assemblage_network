@@ -10,15 +10,15 @@ bibliography: references.bib
 
 ![Why is there math in my archaeology? ...or is the archaeology in my math? (Image by Author)](archaeo_DS_mine.png){fig-alt="Archaeology and Data Science" fig-align="center"}
 
-It has been a little while since my last installment ([Part II](https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1 "Similarity Measures and Graph Adjacency with Sets")). End of year projects, deadlines, and (of course) the holidays have kept me busy. My thanks for your patience, and I'll try and make it worth the wait.
+It has been a little while since my last installment ([Part II](https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1 "Similarity Measures and Graph Adjacency with Sets")). End of year projects, deadlines, and (of course) the holidays kept me overly busy. My thanks for your patience, and I'll try and make it worth the wait.
 
-Last time, we talked about different similarity metrics for sets or combinatorial problems and their particular strengths and idiosyncrasies. We were trying to find the best way to project our bipartite graph of archaeological proveniences and artifacts into individual one-mode graphs. Our goal is to find communities in each of those projected graphs to find meaningful *assemblages* (communities of artifacts) and *contexts* (communities of provenience locations).
+Last time, we talked about different similarity metrics for sets or combinatorial problems, and the particular strengths and idiosyncrasies of each. We were trying to find the best way to project our bipartite graph of archaeological proveniences and artifacts into individual one-mode graphs. Our goal is to find communities in each of those projected graphs to find meaningful *assemblages* (communities of artifacts) and *contexts* (communities of provenience locations).
 
-That does, however, require that we talk about how we determine "best" for this particular scenario. Since our goal is community detection, we want to choose the metric that connects vertices that have the strongest associations while *avoiding* spurious or non-informative edges. I mentioned last time that we are, in part, looking to see if our projected graphs exhibit characteristics of a *scale-free* network. We'll talk about that more later in this post, but it boils down to finding nodes that have a few strong connections rather than a lot of weak ones.
+That does, however, require that we talk about how we determine "best" for this particular scenario. Since our goal is community detection, we want to choose the metric that connects vertices that have the strongest associations while *avoiding* spurious or non-informative edges. I mentioned last time that we are, in part, looking to see if our projected graphs exhibit characteristics of a *scale-free* network. We'll talk about that more later in this post, but it boils down to finding a network where most nodes have a few strong connections rather than a lot of weak ones.
 
-Since this is likely to be a fairly large and involved topic, I'm breaking Part III into two posts. This one will talk about translating our similarity measures into a network, and building the graphs. The next one will tackle the community detection methods, of which there are many.
+Since this is likely to be a fairly large and involved topic, I'm breaking Part III into two posts. This one (Part III.a.) will talk about translating our similarity measures into a network, and building the graphs. The next one (Part III.b.) will tackle the community detection methods, of which there are many.
 
-For those just joining in, this is the Part III of a series in archaeological data science covering:
+For those just joining in, this is the third installment of a series on archaeological data science covering:
 
 -   [Part I](https://medium.com/p/648a2f20d389 "Bipartite Graphs for Archaeological Assemblage Networks") -- Creating and exploring bipartite and one-mode graphs,
 
@@ -405,4 +405,6 @@ hard_threshold_adjacency <- function(sim_mat, tau) {
 
 ### Soft thresholds
 
-Soft threshold methods are just a little more difficult to implement, consisting of a transformation of the raw similarity score that boost stronger similarities and suppresses the weaker ones. Those familiar with activation functions in deep learning will already be accustomed to the variety of approaches available. Soft thresholds result in weighted graphs, therefore do not reduce the graph's density or reduce degree distribution unless a subsequent (hard) threshold is applied as well.
+Soft thresholds are just a little more difficult to implement, consisting of a transformation of the raw similarity score that boosts stronger similarities and suppresses the weaker ones. Those familiar with activation functions in deep learning will already be accustomed to the variety of approaches available.
+
+Soft thresholds result in weighted graphs, therefore they do not reduce the graph's density or alter the degree distribution, unless a subsequent (hard) threshold is applied as well. In a weighted network, though, the density is less of an issue, since all metrics become proportional to the associated edge weights. It does, however, become rather more computationally intensive. The advantage of that trade-off is that more of the information about the relationships is retained in the graph's structure.
