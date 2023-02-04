@@ -1,6 +1,4 @@
 
-
-
 require(tidyverse)
 require(igraph)
 require(ggraph)
