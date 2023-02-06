@@ -5,7 +5,7 @@ require(ggraph)
 
 # Import data from file ---------------------------------------------------
 
-dat <- read_csv("Catalog_SiteA.csv",
+dat <- read_csv("./data/Catalog_AC.csv",
                 col_select = c(LEVEL_ID, CODE))
 
 # Create un-weighted bipartite graph --------------------------------------
@@ -459,7 +459,7 @@ artifact_sims %>% stack() %>%
 
 
 # Thresholding ------------------------------------------------------------
-
+require(WGCNA)
 
 
 ## Hard threshold ---------------------------------------------------------

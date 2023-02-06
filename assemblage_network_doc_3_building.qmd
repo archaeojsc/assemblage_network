@@ -53,7 +53,7 @@ require(ggraph)
 
 # Import data from file ---------------------------------------------------
 
-dat <- read_csv("Catalog_SiteA.csv",
+dat <- read_csv("./data/Catalog_SiteA.csv",
                 col_select = c(LEVEL_ID, CODE))
 
 # Create un-weighted bipartite graph --------------------------------------
@@ -80,10 +80,10 @@ g_assemblages_bpg_layout <-
 
 g_assemblages_bpg %>%
   ggraph(layout = g_assemblages_bpg_layout) +
-  geom_edge_link(edge_color = "gray", edge_alpha = 0.25) +
+  geom_edge_link(edge_color = "darkgray", edge_alpha = 0.25) +
   geom_node_point(aes(color = type)) +
   scale_color_manual(
-    values = c("green", "blue"),
+    values = c("darkgreen", "darkblue"),
     name = "Node Type",
     breaks = c(FALSE, TRUE),
     labels = c("Provenience", "Artifact")
@@ -256,9 +256,9 @@ artifact_sims <-
 # Plot densities by similarity measure
 prov_sims %>% stack() %>%
   ggplot(aes(x = values)) +
-  geom_density(color = "green",
+  geom_density(fill = "darkgreen",
                alpha = 0.4) +
-  facet_grid(ind ~ ., scales = "free") +
+  facet_grid(ind ~ ., scales = "fixed") +
   ggtitle("Similarity Measures for Proveniences")
 
 ```
@@ -276,7 +276,7 @@ For proveniences, it looks like there are quite a lot that have *some* similarit
 # Plot densities by similarity measure
 artifact_sims %>% stack() %>%
   ggplot(aes(x = values)) +
-  geom_density(color = "blue",
+  geom_density(fill = "darkblue",
                alpha = 0.4) +
   facet_grid(ind ~ ., scales = "free") +
   ggtitle("Similarity Measures for Artifact Types")
