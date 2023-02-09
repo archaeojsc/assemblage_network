@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.247">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="James Scott Cardinal">
-<meta name="dcterms.date" content="2023-02-06">
+<meta name="dcterms.date" content="2023-02-09">
 
 <title>From similarity to network: Building graphs for community detection</title>
 <style>
@@ -177,7 +177,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 6, 2023</p>
+      <p class="date">February 9, 2023</p>
     </div>
   </div>
   
@@ -292,31 +292,30 @@ div.csl-indent {
 </section>
 <section id="sec-why-a-scale-free-network" class="level3">
 <h3 class="anchored" data-anchor-id="sec-why-a-scale-free-network">Why a scale-free network?</h3>
-<p>This is, of course, not the only way to look for non-random structure in a graph network. It’s reasonable, then, to be wondering why we would expect our archaeological networks should follow this sort of power-law structure. This subject could easily be its own article, to be honest, but the short-form version is that it’s because there is a natural connection between information entropy, power-law distributions, and the information communicated about an archaeological site by individual artifact types.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>The artifact types found on a site communicate information about the activities that occurred there, and the provenience or those types tell us about the spatial organization of those activities. There are, actually, some pretty close similarities with how different gene expressions correlate with phenotype.</p>
-<p>The methods being presented in this series of articles originated with my experiments in adapting weighted gene co-expression networks (i.e., see <a href="https://en.wikipedia.org/wiki/Weighted_correlation_network_analysis" title="Weighted correlation network analysis">WGCNA</a>) to archaeological analysis.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Scale-free network construction is one of the crucial steps in those methods. The biggest difference between the genetic applications, and what we’re doing here archaeologically, is that we’re aiming to do this along each dimension of the problem.</p>
-<p>We’re first looking to see if there are groups of artifact types (i.e., assemblages) that are separable and reflect either different activities (e.g., domestic versus architectural artifacts) or different tmeporal occupations (e.g., 18th century versus 19th century). <em>Then</em> we’re going to go back and see of those assemblages are separated spatially by groups of proveniences (i.e., contexts).</p>
+<p>This is, of course, not the only way to look for non-random structure in a graph network. It’s reasonable, then, to be wondering why we would expect our archaeological networks should follow this sort of power-law structure. This subject could easily be its own article, to be honest, but the short-form version is that it’s because there is a natural connection between information entropy, power-law distributions, and the information communicated about an archaeological site by individual artifact types.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The artifact types found on a site communicate information about the activities that occurred there, and the provenience (i.e., location) of those types tell us about the spatial organization of those activities.</p>
+<p>There are, actually, some surprising similarities with how different gene expressions correlate with phenotype. If you think about the co-location of artifact types being something like genetic expressions and a provenience being the individual sample, then the correspondence of artifact “expressions” between samples should indicate that they’re from the same “population” of characteristics (i.e., phenotype). The methods being presented in this series of articles originated with my experiments in adapting <a href="https://en.wikipedia.org/wiki/Weighted_correlation_network_analysis" title="Weighted correlation network analysis">weighted gene co-expression network analysis</a> to archaeological data.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Scale-free network construction is one of the crucial steps in those methods.</p>
+<p>The biggest difference between the genetic applications, and what we’re doing here archaeologically, is that we’re aiming to do this along each dimension of the problem. We’re first looking to see if there are groups of artifact types (i.e., assemblages) that are separable and reflect either different activities (e.g., domestic versus architectural artifacts) or different temporal occupations (e.g., 18th century versus 19th century). <em>Then</em> we’re going to go back and see of those assemblages are separated spatially by groups of proveniences (i.e., contexts).</p>
 <p>It’s a bi-clustering problem in some ways, but we have to first identify rough clusters <em>within</em> the locations or artifacts.</p>
 </section>
 </section>
 <section id="sec-from-similarity-to-adjacency" class="level2">
 <h2 class="anchored" data-anchor-id="sec-from-similarity-to-adjacency">From similarity to adjacency</h2>
 <p>We could simply use our raw similarity scores to build our networks, but we would still have very dense and noisy graphs. Instead, we want to find a method that boosts the <em>signal</em> of our graph structure, while suppressing the <em>noise</em> from spurious associations. To do that, we need to filter our similarity scores to form a graph adjacency matrix containing (as much as possible) only the most significant associations between entities. There are essentially two ways we can go about this.</p>
-<p>The simplest is to just set a hard cutoff threshold – e.g., a specific value or quantile – and build an un-weighted or binary adjacency matrix. If we select the right threshold this can be very effective and results in a more sparse graph, but risks discarding legitimate connections along with the noise and tends to leave isolated nodes (i.e., nodes that aren’t connected to any others).</p>
-<p>Another approach is to use a function to calculate a <em>soft</em> threshold value, along the lines of an activation function. This results in a weighted graph in which smaller similarity values are pushed closer towards zero, while very high similarity values would stay closer to one. The advantage is that there is less risk of suppressing significant connections. The downside is that the noise is still in there, albeit substantially dampened, and doesn’t decrease the graph’s overall density. Weighted graphs are also just a bit more complicated to parse for community detection.</p>
-<p>Thankfully, the two are not mutually exclusive! A hybrid approach would be to boost the similarity signal by employing a soft threshold function, and <em>then</em> finding an appropriate hard threshold.</p>
-<p>This is, in effect, the same as what ultimately happens when you apply a clustering algorithm to a distance matrix. Whether it’s selecting the number of clusters or setting a cutoff distance to a dendrogram, you’re essentially picking a hard threshold to decide membership. Graph community detection is quite closely related to non-graph clustering, particularly hierarchical clustering. Setting a threshold for building the adjacency matrix determines the resulting structure of the graph.</p>
+<p>The simplest is to just set a hard cutoff threshold – e.g., a specific value or quantile – and build an un-weighted or binary adjacency matrix. If we select the right threshold, this can be very effective and results in a more sparse graph. The downside is that it risks discarding legitimate connections along with the noise, and tends to leave isolated nodes (i.e., nodes that aren’t connected to any others).</p>
+<p>Another approach is to use a function to calculate a <em>soft</em> threshold value, along the lines of an activation function. This results in a weighted graph in which smaller similarity values are pushed closer towards zero, while very high similarity values would stay closer to one. The advantage is that there is less risk of suppressing significant connections. The downside is that the noise is still in there, albeit substantially dampened, and doesn’t decrease the graph’s overall density. Weighted graphs are also just a bit more complicated to parse for community detection. Some methods consider edge weight as strength of connection, while others require the edge weights to be a measure of distance between nodes.</p>
+<p>Thankfully, the two are not mutually exclusive! A hybrid approach would be to boost the similarity signal by employing a soft threshold function, and <em>then</em> finding an appropriate hard threshold. This is, in effect, what ultimately happens when you apply a clustering algorithm to a distance matrix. Whether it’s selecting the number of clusters or setting a cutoff distance to a dendrogram, you’re essentially deciding membership by picking a hard threshold to the measure being evaluated.</p>
+<p>Graph community detection is quite closely related to non-graph clustering, particularly hierarchical clustering. Setting a threshold for building the adjacency matrix determines the resulting structure of the graph.</p>
 <section id="sec-hard-thresholds" class="level3">
 <h3 class="anchored" data-anchor-id="sec-hard-thresholds">Hard thresholds</h3>
 <p>A hard threshold is the simplest to implement – any similarity value lower than your threshold goes to zero, and equal or higher goes to one. The trick is in picking that value, which we’ll explore a little later, but you can think of it as tuning a model parameter. The objective would be to maximize the strength of connections, minimize node degree, and avoid isolates.</p>
 <p>So, lets formally define our hard threshold adjacency matrix<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> as <span class="math inline">\(A_{i,j}\)</span> , our similarity matrix as <span class="math inline">\(S_{i,j}\)</span>, and our threshold value as <span class="math inline">\(\tau\)</span>.</p>
-<p><span class="math display">\[
+<p><span id="eq-signum-adj"><span class="math display">\[
 A_{i,j} = f(S_{i,j}, \tau) \equiv
 \begin{cases}
 0 &amp; \text{if } S_{i,j} &lt; \tau\\
 1 &amp; \text{if } S_{i,j} \geq \tau
 \end{cases}
-\]</span></p>
+\tag{1}\]</span></span></p>
 <p>We can easily code that up as a function <code>hard_threshold_adj</code>, which takes a similarity matrix <code>sim_mat</code> and a threshold value <code>tau</code> as arguments and returns a binary adjacency matrix.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>hard_threshold_adjacency <span class="ot">&lt;-</span> <span class="cf">function</span>(sim_mat, tau) {</span>
@@ -324,14 +323,39 @@ A_{i,j} = f(S_{i,j}, \tau) \equiv
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="soft-thresholds" class="level3">
-<h3 class="anchored" data-anchor-id="soft-thresholds">Soft thresholds</h3>
-<p>Soft thresholds are just a little more difficult to implement, consisting of a transformation of the raw similarity score that boosts stronger similarities and suppresses the weaker ones. Those familiar with activation functions in deep learning will already be accustomed to the variety of approaches available.</p>
+<section id="sec-soft-thresholds" class="level3">
+<h3 class="anchored" data-anchor-id="sec-soft-thresholds">Soft thresholds</h3>
+<p>Soft thresholds consist of a transformation of the raw similarity score by passing it through a function that boosts stronger similarities and suppresses weaker ones. Those familiar with activation functions in deep learning will already be accustomed to the variety of approaches available – e.g., sigmoid function, tangent hyperbolic or “tanh” function, etc. Soft thresholds work the same way, transforming the input values into a monotonically increasing output value.</p>
 <p>Soft thresholds result in weighted graphs, therefore they do not reduce the graph’s density or alter the degree distribution, unless a subsequent (hard) threshold is applied as well. In a weighted network, though, the density is less of an issue, since all metrics become proportional to the associated edge weights. It does, however, become rather more computationally intensive. The advantage of that trade-off is that more of the information about the relationships is retained in the graph’s structure.</p>
-
-
-
+<p>Since our similarity scores are already in the range <span class="math inline">\([0,1]\)</span>, we don’t really need quite the same sort transformation as we would if we needed to take any real number as an input. We just need to “bend” our linear input range to suppress some range of the smaller values. Luckily, there is a very simple way to do that by using an exponential function. We’ll define a power adjacency<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> function:</p>
+<p><span id="eq-power-adj"><span class="math display">\[
+Power(s_{i,j}) = |s_{i,j}|^{\beta}
+\tag{2}\]</span></span></p>
+<p>This is simply raising the absolute value of our raw input value to some power <span class="math inline">\(\beta\)</span>. Our similarity scores are all <span class="math inline">\([0,1]\)</span> so the absolute value is irrelevant in this case. For other use cases, it would be necessary.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>power_adj <span class="ot">&lt;-</span> <span class="cf">function</span>(x, beta) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abs</span>(x) <span class="sc">^</span> beta</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Increasing <span class="math inline">\(\beta\)</span> can be seen to push the smaller values towards zero, which increases the minimum value at which the adjacency score exceeds <span class="math inline">\(0.5\)</span> (thus, it’s a <em>soft</em> threshold). At <span class="math inline">\(\beta=2\)</span>, only similarity values of <span class="math inline">\(s_{i,j} \geq 0.71\)</span> would break the <span class="math inline">\(0.5\)</span> adjacency threshold and the weights of all lower values penalized. At <span class="math inline">\(\beta=3\)</span> it would take <span class="math inline">\(s_{i,j} \geq 0.79\)</span> and so on.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-power-adjacency" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-power-adjacency-1.png" class="img-fluid figure-img" alt="Power adjacency distribution for different values of beta." width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;6: Power adjacency distribution for different values of beta.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
+</section>
+<section id="sec-choosing-threshold-type-and-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="sec-choosing-threshold-type-and-parameters">Choosing threshold type and parameters</h2>
+<p>…</p>
+
+
+
 </section>
 
 
@@ -349,8 +373,10 @@ Zhang, Bin, and Steve Horvath. 2005. <span>“A General Framework for Weighted G
 
 <ol>
 <li id="fn1"><p>See <span class="citation" data-cites="Justeson1973">Justeson (<a href="#ref-Justeson1973" role="doc-biblioref">1973</a>)</span> for a detailed explanation.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>For more information about weighted gene co-expression network analysis and scale free networks, see <span class="citation" data-cites="Zhang2005">Zhang and Horvath (<a href="#ref-Zhang2005" role="doc-biblioref">2005</a>)</span>, <span class="citation" data-cites="Langfelder2008b">Langfelder and Horvath (<a href="#ref-Langfelder2008b" role="doc-biblioref">2008</a>)</span><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>For more information about weighted gene co-expression network analysis and scale free networks, see <span class="citation" data-cites="Zhang2005">Zhang and Horvath (<a href="#ref-Zhang2005" role="doc-biblioref">2005</a>)</span> and <span class="citation" data-cites="Langfelder2008b">Langfelder and Horvath (<a href="#ref-Langfelder2008b" role="doc-biblioref">2008</a>)</span><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>Adapted from <span class="citation" data-cites="Zhang2005">Zhang and Horvath (<a href="#ref-Zhang2005" role="doc-biblioref">2005</a>)</span><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Again, we’re following after <span class="citation" data-cites="Zhang2005">Zhang and Horvath (<a href="#ref-Zhang2005" role="doc-biblioref">2005</a>)</span>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>For example, if we were including multiplicities of events (i.e., how <em>many</em> of each artifact type was found at each location), then different similarity measures or correlations would be appropriate that might produced signed values.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
