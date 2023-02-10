@@ -53,8 +53,25 @@ require(ggraph)
 
 # Import data from file ---------------------------------------------------
 
-dat <- read_csv("./data/Catalog_SiteA.csv",
+dat_raw <- read_csv("./data/Catalog_SiteA.csv",
                 col_select = c(LEVEL_ID, CODE))
+
+# Artifact to exclude from analysis
+exclude_artifacts <-
+  as.vector(read.csv("./data/code_exclude.csv", header = T)$x)
+
+# Remove Bakelite and plastic buttons from exclusion list
+exclude_artifacts <-
+  exclude_artifacts[!exclude_artifacts %in% c("BKLT", "PB")]
+
+# Import list of artifact codes
+artifact_codes <-
+  read.csv("./data/code_list.csv",
+           header = TRUE,
+           stringsAsFactors = FALSE)
+
+# Filter data set for excluded artifact types
+dat <- dat_raw %>% filter(!(CODE %in% exclude_artifacts))
 
 # Create un-weighted bipartite graph --------------------------------------
 
@@ -137,17 +154,17 @@ overlap_coef_bin <- function(x) {
 
 ## Project provenience -----------------------------------------------------
 
-prov_adj_ssoc <- overlap_coef_bin(t(g_assemblages_bpg_inc))
+prov_sim_ssoc <- overlap_coef_bin(t(g_assemblages_bpg_inc))
 
 prov_ssoc_vals <-
-  prov_adj_ssoc[lower.tri(prov_adj_ssoc, diag = FALSE)]
+  prov_sim_ssoc[lower.tri(prov_sim_ssoc, diag = FALSE)]
 
 ## Project artifact types --------------------------------------------------
 
-artifact_adj_ssoc <- overlap_coef_bin(g_assemblages_bpg_inc)
+artifact_sim_ssoc <- overlap_coef_bin(g_assemblages_bpg_inc)
 
 artifact_ssoc_vals <-
-  artifact_adj_ssoc[lower.tri(artifact_adj_ssoc, diag = FALSE)]
+  artifact_sim_ssoc[lower.tri(artifact_sim_ssoc, diag = FALSE)]
 
 # Project one-mode graphs, Sorenson-Dice -----------------------------------
 
@@ -178,17 +195,17 @@ soren_dice_sim_bin <- function(x) {
 
 ## Project provenience -----------------------------------------------------
 
-prov_adj_sd <- soren_dice_sim_bin(t(g_assemblages_bpg_inc))
+prov_sim_sd <- soren_dice_sim_bin(t(g_assemblages_bpg_inc))
 
 prov_sd_vals <-
-  prov_adj_sd[lower.tri(prov_adj_sd, diag = FALSE)]
+  prov_sim_sd[lower.tri(prov_sim_sd, diag = FALSE)]
 
 ## Project artifact types --------------------------------------------------
 
-artifact_adj_sd <- soren_dice_sim_bin(g_assemblages_bpg_inc)
+artifact_sim_sd <- soren_dice_sim_bin(g_assemblages_bpg_inc)
 
 artifact_sd_vals <-
-  artifact_adj_sd[lower.tri(artifact_adj_sd, diag = FALSE)]
+  artifact_sim_sd[lower.tri(artifact_sim_sd, diag = FALSE)]
 
 # Project one-mode graphs, Jaccard ----------------------------------------
 
@@ -219,17 +236,17 @@ jaccard_sim_bin <- function(x) {
 
 ## Project provenience -----------------------------------------------------
 
-prov_adj_jacc <- jaccard_sim_bin(t(g_assemblages_bpg_inc))
+prov_sim_jacc <- jaccard_sim_bin(t(g_assemblages_bpg_inc))
 
 prov_jacc_vals <-
-  prov_adj_jacc[lower.tri(prov_adj_jacc, diag = FALSE)]
+  prov_sim_jacc[lower.tri(prov_sim_jacc, diag = FALSE)]
 
 ## Project artifact types --------------------------------------------------
 
-artifact_adj_jacc <- jaccard_sim_bin(g_assemblages_bpg_inc)
+artifact_sim_jacc <- jaccard_sim_bin(g_assemblages_bpg_inc)
 
 artifact_jacc_vals <-
-  artifact_adj_jacc[lower.tri(artifact_adj_jacc, diag = FALSE)]
+  artifact_sim_jacc[lower.tri(artifact_sim_jacc, diag = FALSE)]
 
 # Comparing similarity measures -------------------------------------------
 
@@ -367,7 +384,7 @@ It's a bi-clustering problem in some ways, but we have to first identify rough c
 
 We could simply use our raw similarity scores to build our networks, but we would still have very dense and noisy graphs. Instead, we want to find a method that boosts the *signal* of our graph structure, while suppressing the *noise* from spurious associations. To do that, we need to filter our similarity scores to form a graph adjacency matrix containing (as much as possible) only the most significant associations between entities. There are essentially two ways we can go about this.
 
-The simplest is to just set a hard cutoff threshold -- e.g., a specific value or quantile -- and build an un-weighted or binary adjacency matrix. If we select the right threshold, this can be very effective and results in a more sparse graph. The downside is that it risks discarding legitimate connections along with the noise, and tends to leave isolated nodes (i.e., nodes that aren't connected to any others).
+The simplest is to just set a hard cutoff threshold -- e.g., a specific value or quantile -- and build an un-weighted or binary adjacency matrix. If we select the right threshold, this can be very effective and results in a more sparse graph. The downside is that it risks discarding legitimate (albeit lower strength) connections along with the noise, and tends to leave isolated nodes (i.e., nodes that aren't connected to any others).
 
 Another approach is to use a function to calculate a *soft* threshold value, along the lines of an activation function. This results in a weighted graph in which smaller similarity values are pushed closer towards zero, while very high similarity values would stay closer to one. The advantage is that there is less risk of suppressing significant connections. The downside is that the noise is still in there, albeit substantially dampened, and doesn't decrease the graph's overall density. Weighted graphs are also just a bit more complicated to parse for community detection. Some methods consider edge weight as strength of connection, while others require the edge weights to be a measure of distance between nodes.
 
@@ -412,7 +429,7 @@ Since our similarity scores are already in the range $[0,1]$, we don't really ne
 [^4]: Again, we're following after @Zhang2005.
 
 $$
-Power(s_{i,j}) = |s_{i,j}|^{\beta}
+Power(S_{i,j}) = |S_{i,j}|^{\beta}
 $$ {#eq-power-adj}
 
 This is simply raising the absolute value of our raw input value to some power $\beta$. Our similarity scores are all $[0,1]$ so the absolute value is irrelevant in this case. For other use cases, it would be necessary.[^5]
@@ -427,7 +444,7 @@ power_adj <- function(x, beta) {
 
 ```
 
-Increasing $\beta$ can be seen to push the smaller values towards zero, which increases the minimum value at which the adjacency score exceeds $0.5$ (thus, it's a *soft* threshold). At $\beta=2$, only similarity values of $s_{i,j} \geq 0.71$ would break the $0.5$ adjacency threshold and the weights of all lower values penalized. At $\beta=3$ it would take $s_{i,j} \geq 0.79$ and so on.
+Increasing $\beta$ can be seen to push the smaller values towards zero, which increases the minimum value at which the adjacency score exceeds $0.5$ (thus, it's a *soft* threshold). At $\beta=2$, only similarity values of $S_{i,j} \geq 0.71$ would break the $0.5$ adjacency threshold and the weights of all lower values penalized. At $\beta=3$ it would take $S_{i,j} \geq 0.79$ and so on.
 
 ```{r}
 #| label: fig-power-adjacency
@@ -449,5 +466,3 @@ ggplot(data.frame(x = seq(0, 1, length.out = 1000)), aes(x = x)) +
 ```
 
 ## Choosing threshold type and parameters {#sec-choosing-threshold-type-and-parameters}
-
-...

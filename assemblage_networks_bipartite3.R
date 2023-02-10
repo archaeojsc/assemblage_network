@@ -5,8 +5,26 @@ require(ggraph)
 
 # Import data from file ---------------------------------------------------
 
-dat <- read_csv("./data/Catalog_AC.csv",
+dat_raw <- read_csv("./data/Catalog_SiteA.csv",
                 col_select = c(LEVEL_ID, CODE))
+
+# Artifact to exclude from analysis
+exclude_artifacts <-
+  as.vector(read.csv("./data/code_exclude.csv", header = T)$x)
+
+# Remove Bakelite and plastic buttons from exclusion list
+exclude_artifacts <-
+  exclude_artifacts[!exclude_artifacts %in% c("BKLT", "PB")]
+
+# Import list of artifact codes
+artifact_codes <-
+  read.csv("./data/code_list.csv",
+           header = TRUE,
+           stringsAsFactors = FALSE)
+
+# Filter data set for excluded artifact types
+dat <- dat_raw %>% filter(!(CODE %in% exclude_artifacts))
+
 
 # Create un-weighted bipartite graph --------------------------------------
 
@@ -47,13 +65,13 @@ g_assemblages_proj_prov <- g_assemblages_proj$proj1
 g_assemblages_proj_artifact <- g_assemblages_proj$proj2
 
 g_assemblages_proj_prov %>%
-  ggraph() +
+  ggraph(layout = "kk") +
   geom_edge_link(color = "darkgray", aes(alpha = weight)) +
   geom_node_point(color = "darkgreen") +
   ggtitle("Network of Proveniences")
 
 g_assemblages_proj_artifact %>%
-  ggraph() +
+  ggraph(layout = "kk") +
   geom_edge_link(color = "darkgray", aes(alpha = weight)) +
   geom_node_point(color = "darkblue") +
   ggtitle("Network of Artifact Types")
@@ -119,7 +137,7 @@ ggplot(data = data.frame(x = strength(g_assemblages_proj_prov_oc)), aes(x = x)) 
   ggtitle("Distribution of Szymkiewicz-Simpson Node Strength for Proveniences")
 
 ggplot(data = data.frame(x = E(g_assemblages_proj_prov_oc)$weight), aes(x = x)) +
-  geom_density(fill = "darkgreen") +
+  geom_density(fill = "darkgreen", alpha = 0.4) +
   ggtitle("Distribution of Szymkiewicz-Simpson Edge Weight for Proveniences")
 
 
@@ -476,13 +494,51 @@ signum_adj <- function(x, tau = 0.5) {
 
 ## Soft threshold ---------------------------------------------------------
 
-sigmoid_adj <- function(x, alpha, tau) {
-  1.0 / (1.0 + exp(-alpha * (x - tau)))
+
+### Sigmoid adjacency -----------------------------------------------------
+
+sigmoid_adj <- function(x, alpha, mu) {
+  1.0 / (1.0 + exp(-alpha * (x - mu)))
 }
+
+#### Sigmoid adjacency example plot ---------------------------------------
+
+ggplot(data.frame(x = seq(-10, 10, length.out = 1000)), aes(x = x)) +
+  stat_function(fun = sigmoid_adj,
+                args = list(alpha = 1, mu = 0),
+                aes(color = "1|0")) +
+  stat_function(fun = sigmoid_adj,
+                args = list(alpha = 2, mu = 0),
+                aes(color = "2|0")) +
+  stat_function(fun = sigmoid_adj,
+                args = list(alpha = 1, mu = 3),
+                aes(color = "1|3")) +
+  stat_function(fun = sigmoid_adj,
+                args = list(alpha = 2, mu = 3),
+                aes(color = "2|3")) +
+  labs(color = "alpha|mu") +
+  ylab("Sigmoid(x)") + xlab("x")
+
+
+
+### Power adjacency --------------------------------------------------------
 
 power_adj <- function(x, beta = 1) {
   abs(x) ^ beta
 }
+
+
+#### Power adjacency example plot -------------------------------------------
+
+ggplot(data.frame(x = seq(0, 1, length.out = 1000)), aes(x = x)) +
+  stat_function(fun = power_adj, args = list(beta = 2), aes(color = "2")) +
+  stat_function(fun = power_adj, args = list(beta = 3), aes(color = "3")) +
+  stat_function(fun = power_adj, args = list(beta = 4), aes(color = "4")) +
+  stat_function(fun = power_adj, args = list(beta = 5), aes(color = "5")) +
+  stat_function(fun = power_adj, args = list(beta = 6), aes(color = "6")) +
+  labs(color = "beta") +
+  ylab("Power(x)") + xlab("x")
+
 
 
 # Scale-free topology -----------------------------------------------------
@@ -510,17 +566,19 @@ ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
 
 # Community detection -----------------------------------------------------
 
-artifact_adj_power <- power_adj(artifact_sim_ssoc, beta = 3)
+# artifact_adj <- power_adj(artifact_sim_ssoc, beta = 3)
+
+artifact_adj <- signum_adj(artifact_sim_ssoc, tau = 0.69)
 
 g_artifact <-
   graph_from_adjacency_matrix(
-    artifact_adj_power,
+    artifact_adj,
     mode = 'undirected',
-    weighted = TRUE,
+    weighted = NULL,
     diag = FALSE
   )
 
-prov_adj_signum <- signum_adj(prov_sim_jacc, tau = 0.40)
+prov_adj_signum <- signum_adj(prov_sim_ssoc, tau = 0.25)
 
 g_prov <-
   graph_from_adjacency_matrix(prov_adj_signum,

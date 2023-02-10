@@ -1,0 +1,1003 @@
+"CODE","MATERIAL","MATNAME","ARTIFACT","TYPENAME","CATEGORY","CATNAME","SUBCAT","IDENTIFY","BEGDATE","ENDDATE"
+"ABES",13,"Other",1,"Debris",13,"Asbestos",0,"asbestos",NA,NA
+"ABG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",3,"aqua bottle glass",NA,NA
+"ABRD",3,"Ground or Rough Stone",1,"Rough Tool",1,"Abrader",0,"abrader",NA,NA
+"ABS",8,"Ceramics",2,"Sherd",12,"Stoneware",13,"buff salt-glazed stoneware, Albany slip",1820,1900
+"ABUR",4,"Bone/Antler",4,"Animal Burial",0,"Animal Burial",0,"animal burial",NA,NA
+"ACAN",7,"Metal",6,"Domestic/Activity",5,"Cans",2,"aluminum can frag",NA,NA
+"ACG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",3,"aqua curved glass",NA,NA
+"ACS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",7,"combed black slip-decorated redware",1770,1830
+"ADZE",3,"Ground or Rough Stone",2,"Fine Tool",1,"Adze",0,"adze",NA,NA
+"AEYE",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",10,"eyelet/grommet non-clothing hardware",NA,NA
+"AFG",9,"Glass",1,"Flat Glass",1,"Flat Glass",2,"aqua flat glass",NA,NA
+"AFI",8,"Ceramics",2,"Sherd",16,"Whiteware",6,"flow black whiteware",1835,1870
+"AFP",8,"Ceramics",2,"Sherd",5,"Pearlware",10,"flow black pearlware",1787,1830
+"AGR",8,"Ceramics",2,"Sherd",9,"Redware",3,"black-glazed redware",NA,NA
+"AGS",8,"Ceramics",2,"Sherd",12,"Stoneware",35,"grey salt-glazed stoneware, Albany slip",NA,NA
+"ALUM",7,"Metal",6,"Domestic/Activity",1,"Aluminum",99,"other aluminum object",NA,NA
+"ANC",8,"Ceramics",2,"Sherd",3,"Creamware",2,"annular creamware",1780,1815
+"ANP",8,"Ceramics",2,"Sherd",5,"Pearlware",3,"annular pearlware",1790,1830
+"ANTL",4,"Bone/Antler",1,"Refuse/Unmodified",1,"Antler",0,"unmodified antler",NA,NA
+"ANVL",3,"Ground or Rough Stone",1,"Rough Tool",2,"Anvil Stone",0,"anvil stone",NA,NA
+"ANW",8,"Ceramics",2,"Sherd",16,"Whiteware",2,"annular whiteware",NA,NA
+"ANY",8,"Ceramics",2,"Sherd",17,"Yellowware",2,"annular yellowware",1830,1940
+"AOS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",1,"black & yellow slip-trail decorated redware",1770,1830
+"AOSW",8,"Ceramics",2,"Sherd",12,"Stoneware",2,"brown salt-glazed stoneware, Albany slip",1820,1900
+"APG",9,"Glass",1,"Flat Glass",2,"Plate Glass",1,"aqua plate glass",NA,NA
+"APO",8,"Ceramics",2,"Sherd",15,"White Earthenware",1,"art pottery",1880,1930
+"AR",8,"Ceramics",6,"Architectural Ceramic",3,"Redware",97,"unidentified architectural redware",NA,NA
+"ARBS",3,"Ground or Rough Stone",7,"Architectural Stone",1,"Building Stone",0,"building stone",NA,NA
+"ARF",13,"Other",1,"Debris",1,"Asphalt",2,"asphalt roofing frag",NA,NA
+"ARP",8,"Ceramics",2,"Sherd",5,"Pearlware",2,"annular line-decorated pearlware rim",1780,1830
+"AS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",2,"black glazed slip-decorated redware",1770,1830
+"ASP",13,"Other",1,"Debris",1,"Asphalt",1,"asphalt pavement frag",NA,NA
+"AST",8,"Ceramics",2,"Sherd",7,"Red Earthenware",1,"Astbury-type",1720,1750
+"ATC",8,"Ceramics",2,"Sherd",3,"Creamware",3,"black transfer-printed creamware",1765,1815
+"ATI",8,"Ceramics",2,"Sherd",16,"Whiteware",12,"black transfer-printed whiteware",1825,1875
+"ATP",8,"Ceramics",2,"Sherd",5,"Pearlware",4,"black transfer-printed pearlware",1795,1840
+"ATS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",3,"black slip-trail decorated redware",1770,1830
+"ATWE",8,"Ceramics",2,"Sherd",15,"White Earthenware",4,"black transfer-printed unidentified white earthenware",NA,NA
+"ATWI",7,"Metal",6,"Domestic/Activity",1,"Aluminum",3,"aluminum twist off bottle cap",NA,NA
+"AUHW",7,"Metal",6,"Domestic/Activity",2,"Automotive",3,"automotive hardware",NA,NA
+"AUS",8,"Ceramics",2,"Sherd",12,"Stoneware",29,"grey salt-glazed blue decorated stoneware, Albany slip",NA,NA
+"AUTO",7,"Metal",6,"Domestic/Activity",2,"Automotive",2,"automotive engine parts",NA,NA
+"AWE",8,"Ceramics",2,"Sherd",15,"White Earthenware",7,"annular decorated unidentified white earthenware",NA,NA
+"AWG",9,"Glass",6,"Other Glass",5,"Automotive Glass",1,"automotive window glass",NA,NA
+"AXE",7,"Metal",6,"Domestic/Activity",26,"Tools",1,"axe head (metal)",NA,NA
+"BAG",13,"Other",4,"Plastic",8,"Plastic",12,"plastic bag",NA,NA
+"BAIL",7,"Metal",6,"Domestic/Activity",22,"Pail/Bucket",2,"bail/handle from pail or bucket",NA,NA
+"BALL",7,"Metal",5,"Arms/Military",1,"Guns/Bullets",5,"iron ball",NA,NA
+"BANS",3,"Ground or Rough Stone",3,"Personal Item",1,"Bannerstone",0,"bannerstone",NA,NA
+"BAR",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",1,"bar",NA,NA
+"BARK",6,"Botanical",2,"Sample",1,"Bark",0,"bark sample",NA,NA
+"BASA",8,"Ceramics",2,"Sherd",12,"Stoneware",51,"basalt ware",NA,NA
+"BASK",6,"Botanical",1,"Manufactured Object",1,"Basketry",0,"basketry",NA,NA
+"BATT",7,"Metal",6,"Domestic/Activity",3,"Batteries",1,"battery",NA,NA
+"BAWL",4,"Bone/Antler",2,"Tool",1,"Awl/Punch",0,"bone/antler awl/punch",NA,NA
+"BAYO",7,"Metal",5,"Arms/Military",1,"Guns/Bullets",1,"bayonet",NA,NA
+"BB",4,"Bone/Antler",3,"Personal Item",3,"Button",0,"bone button",NA,NA
+"BBEA",4,"Bone/Antler",3,"Personal Item",1,"Bead",0,"bone/antler bead",NA,NA
+"BBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",4,"blue bottle glass",NA,NA
+"BBOW",6,"Botanical",4,"Worked",2,"Bowl",0,"bowl",NA,NA
+"BBS",8,"Ceramics",2,"Sherd",12,"Stoneware",7,"buff bodied stoneware, brown slip exterior, brown slip interior",NA,NA
+"BCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",4,"blue curved glass",NA,NA
+"BCMB",4,"Bone/Antler",3,"Personal Item",4,"Comb",0,"bone/antler comb",NA,NA
+"BCN",7,"Metal",3,"Architectural Hardware",2,"Cut Nail",5,"machine cut brad",1805,NA
+"BDST",3,"Ground or Rough Stone",3,"Personal Item",2,"Birdstone",0,"birdstone",NA,NA
+"BEAD",9,"Glass",3,"Glass Bead",1,"Bead",0,"glass bead",NA,NA
+"BEAR",4,"Bone/Antler",3,"Personal Item",2,"Bear Canines",0,"bear canines",NA,NA
+"BEAV",4,"Bone/Antler",2,"Tool",2,"Beaver Incisors",0,"beaver incisors",NA,NA
+"BEDS",7,"Metal",6,"Domestic/Activity",15,"Furniture Hardware",1,"mattress spring",NA,NA
+"BEFF",4,"Bone/Antler",3,"Personal Item",6,"Ornament",1,"bone effigy",NA,NA
+"BEI",8,"Ceramics",2,"Sherd",16,"Whiteware",3,"blue edge-decorated whiteware",1830,1860
+"BELL",7,"Metal",2,"Personal Item",6,"Musical Instrument",1,"bell",NA,NA
+"BEP",8,"Ceramics",2,"Sherd",5,"Pearlware",5,"blue edge-decorated pearlware",1780,1830
+"BETW",8,"Ceramics",2,"Sherd",14,"Transitional Whiteware",2,"blue edge-decorated transitional whiteware",1820,1850
+"BFG",9,"Glass",1,"Flat Glass",1,"Flat Glass",3,"blue flat glass",NA,NA
+"BFHK",4,"Bone/Antler",2,"Tool",3,"Fish-hook",0,"bone/antler fish-hook",NA,NA
+"BFIG",4,"Bone/Antler",3,"Personal Item",5,"Figurine",0,"bone/antler figurine",NA,NA
+"BFKR",4,"Bone/Antler",2,"Tool",4,"Flaker",0,"bone/antler flaker",NA,NA
+"BFLK",1,"Chipped Stone",3,"Debitage",2,"Flake",5,"flake, bifacial thinning",NA,NA
+"BGFG",9,"Glass",1,"Flat Glass",1,"Flat Glass",4,"blue-green flat glass",NA,NA
+"BGII",8,"Ceramics",2,"Sherd",4,"Ironstone",1,"blue-grey ironstone",1813,1885
+"BHAN",6,"Botanical",4,"Worked",4,"Handle",0,"handle (wooden)",NA,NA
+"BHDL",4,"Bone/Antler",2,"Tool",5,"Handle",0,"bone/antler handle",NA,NA
+"BIF",1,"Chipped Stone",2,"Other Tool",1,"Biface",0,"biface",NA,NA
+"BIKE",7,"Metal",6,"Domestic/Activity",4,"Bicycle",1,"bicycle part",NA,NA
+"BINS",8,"Ceramics",6,"Architectural Ceramic",1,"Porcelain",2,"porcelain insulator, brown glazed",NA,NA
+"BIRD",4,"Bone/Antler",1,"Refuse/Unmodified",2,"Bird",0,"bird bone",NA,NA
+"BKLT",13,"Other",4,"Plastic",8,"Plastic",1,"Bakelite",1906,NA
+"BLNK",1,"Chipped Stone",2,"Other Tool",2,"Blank / Preform",0,"blank / preform",NA,NA
+"BLT",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",3,"bolt",NA,NA
+"BLWP",5,"Shell",4,"Wampum",1,"Wampum",2,"wampum blanks, partially shaped",NA,NA
+"BNDL",4,"Bone/Antler",2,"Tool",6,"Needle",0,"bone/antler needle",NA,NA
+"BNUT",6,"Botanical",2,"Sample",6,"Nut",0,"nut (botanical)",NA,NA
+"BOBE",6,"Botanical",4,"Worked",1,"Bead",0,"bead",NA,NA
+"BOLA",3,"Ground or Rough Stone",2,"Fine Tool",3,"Bola Stone",0,"bola stone",NA,NA
+"BORN",4,"Bone/Antler",3,"Personal Item",6,"Ornament",0,"bone/antler ornament",NA,NA
+"BOS",8,"Ceramics",2,"Sherd",12,"Stoneware",11,"buff salt-glazed blue decorated stoneware, brown slipped",NA,NA
+"BPG",9,"Glass",1,"Flat Glass",2,"Plate Glass",2,"blue plate glass",NA,NA
+"BPIP",6,"Botanical",4,"Worked",6,"Pipe",0,"pipe (wooden)",NA,NA
+"BPPT",1,"Chipped Stone",1,"Projectile Point",2,"Projectile Point Frag",0,"projectile point frag",NA,NA
+"BPRL",5,"Shell",5,"Pearl",2,"Pearl Bead",0,"pearl bead",NA,NA
+"BRAS",7,"Metal",1,"Unidentified",1,"Brass",0,"unidentified brass",NA,NA
+"BRAT",4,"Bone/Antler",3,"Personal Item",7,"Rattle",0,"bone/antler rattle",NA,NA
+"BRKT",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",4,"bracket",NA,NA
+"BRSW",8,"Ceramics",2,"Sherd",12,"Stoneware",1,"Bristol-style glazed stoneware, buff bodied, clear glossy glaze, caramel colored near mouth of bottle, ""ginger beer style""",1835,1900
+"BSHT",1,"Chipped Stone",3,"Debitage",3,"Shatter",1,"block shatter",NA,NA
+"BSPO",6,"Botanical",4,"Worked",7,"Spoon",0,"wooden spoon",NA,NA
+"BSR",8,"Ceramics",2,"Sherd",9,"Redware",7,"mottled or spotted brown-glazed redware",NA,NA
+"BSRP",4,"Bone/Antler",2,"Tool",7,"Scraper",0,"bone/antler scraper",NA,NA
+"BTOO",4,"Bone/Antler",3,"Personal Item",8,"Toothbrush",0,"bone toothbrush",NA,NA
+"BTWE",8,"Ceramics",2,"Sherd",15,"White Earthenware",3,"blue transfer-printed unidentified white earthenware",NA,NA
+"BUC",7,"Metal",2,"Personal Item",2,"Clothing Related",1,"buckle",NA,NA
+"BULB",9,"Glass",6,"Other Glass",2,"Light Bulb",1,"light bulb glass",NA,NA
+"BULL",7,"Metal",5,"Arms/Military",1,"Guns/Bullets",2,"bullet",NA,NA
+"BUS",8,"Ceramics",2,"Sherd",12,"Stoneware",12,"buff salt-glazed blue decorated stoneware, clear slipped",NA,NA
+"BUTE",4,"Bone/Antler",2,"Tool",9,"Utensil",0,"bone utensil",NA,NA
+"BUTR",7,"Metal",6,"Domestic/Activity",11,"Cutlery",1,"butter knife",NA,NA
+"BUTT",13,"Other",4,"Plastic",8,"Plastic",5,"cigarette filter",NA,NA
+"BWHI",4,"Bone/Antler",3,"Personal Item",9,"Whistle",0,"bone/antler whistle",NA,NA
+"BWR",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",2,"barbed wire",1886,1970
+"BWS",8,"Ceramics",2,"Sherd",12,"Stoneware",50,"white salt-glazed blue decorated stoneware",NA,NA
+"C14",12,"C-14 Sample",1,"C-14 Sample",1,"C-14 Sample",0,"C-14 sample",NA,NA
+"CABL",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",5,"cable",NA,NA
+"CALK",13,"Other",1,"Debris",8,"Caulking",0,"caulking",NA,NA
+"CANE",9,"Glass",2,"Glass Object",3,"Cane",0,"glass cane",NA,NA
+"CANV",13,"Other",2,"Fabric",1,"Canvas",0,"canvas",NA,NA
+"CAP",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",6,"cap (metal hardware)",NA,NA
+"CART",7,"Metal",5,"Arms/Military",1,"Guns/Bullets",3,"cartridge",NA,NA
+"CAST",7,"Metal",1,"Unidentified",2,"Cast Metal",0,"unidentified cast iron",NA,NA
+"CAW",8,"Ceramics",2,"Sherd",1,"Agateware",1,"coarse agateware",1750,1810
+"CAWH",7,"Metal",6,"Domestic/Activity",15,"Furniture Hardware",2,"castor wheel",NA,NA
+"CAXE",1,"Chipped Stone",2,"Other Tool",3,"Chipped Axe",0,"chipped axe",NA,NA
+"CAZ",8,"Ceramics",2,"Sherd",6,"Porcelain",2,"Canton porcelain",1800,1835
+"CB",8,"Ceramics",3,"Non-Tableware Ceramic",3,"Ceramic Button",0,"ceramic button",NA,NA
+"CBAL",7,"Metal",5,"Arms/Military",1,"Guns/Bullets",7,"cannonball",NA,NA
+"CBC",7,"Metal",6,"Domestic/Activity",6,"Cap/Lid",2,"crown bottle cap",1890,1970
+"CBED",8,"Ceramics",3,"Non-Tableware Ceramic",2,"Ceramic Bead",0,"ceramic bead",NA,NA
+"CBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",6,"clear bottle glass",NA,NA
+"CBS",8,"Ceramics",2,"Sherd",12,"Stoneware",15,"buff salt-glazed stoneware, clear-glazed interior",1820,1900
+"CCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",6,"clear curved glass",NA,NA
+"CCN",7,"Metal",3,"Architectural Hardware",2,"Cut Nail",8,"coffin nail, machine cut",1835,NA
+"CCTG",9,"Glass",4,"Glass Vessel",1,"Tableware",2,"clear table glass, cut",NA,NA
+"CDM",11,"Mineral/Other",2,"Rock/Stone",2,"Crushed Rock/Stone",0,"crushed decorative marble",NA,NA
+"CDOG",11,"Mineral/Other",4,"Other Mineral",1,"Concretion/Clay Dog",0,"concretion/clay dog",NA,NA
+"CDSK",1,"Chipped Stone",2,"Other Tool",4,"Chipped Disk",0,"chipped disk",NA,NA
+"CDYB",8,"Ceramics",2,"Sherd",2,"Buff Earthenware",3,"brown-dotted/combed yellow lead-glazed buff earthenware",1670,1795
+"CEFF",2,"Prehistoric Pottery",5,"Ornament",5,"Ornament",1,"prehistoric ceramic effigy",NA,NA
+"CELL",13,"Other",4,"Plastic",8,"Plastic",2,"Cellophane",1913,1960
+"CELT",3,"Ground or Rough Stone",2,"Fine Tool",4,"Celt",0,"celt",NA,NA
+"CELU",13,"Other",4,"Plastic",8,"Plastic",4,"Celluloid",1866,NA
+"CEOR",8,"Ceramics",3,"Non-Tableware Ceramic",10,"Ornament",0,"ceramic ornament",NA,NA
+"CF",7,"Metal",6,"Domestic/Activity",5,"Cans",1,"can frag",NA,NA
+"CFB",8,"Ceramics",2,"Sherd",12,"Stoneware",20,"fine brown stoneware, clear-glazed",NA,NA
+"CFG",9,"Glass",1,"Flat Glass",1,"Flat Glass",5,"clear flat glass",NA,NA
+"CFIG",8,"Ceramics",3,"Non-Tableware Ceramic",9,"Figurine",0,"ceramic figurine",NA,NA
+"CFR",8,"Ceramics",2,"Sherd",8,"Red Stoneware",2,"clear-glazed fine red stoneware",NA,NA
+"CGB",8,"Ceramics",2,"Sherd",2,"Buff Earthenware",4,"clear-glazed buff earthenware",1830,1940
+"CGR",8,"Ceramics",2,"Sherd",9,"Redware",2,"clear-glazed redware",NA,NA
+"CGS",8,"Ceramics",2,"Sherd",12,"Stoneware",37,"grey salt-glazed stoneware, clear glazed",NA,NA
+"CGSR",8,"Ceramics",2,"Sherd",12,"Stoneware",34,"grey salt-glazed Rhenish stoneware",NA,NA
+"CGUS",8,"Ceramics",2,"Sherd",12,"Stoneware",31,"grey salt-glazed blue decorated stoneware, clear slipped",NA,NA
+"CHAI",7,"Metal",2,"Personal Item",4,"Jewelry",1,"chain frag",NA,NA
+"CHAN",9,"Glass",6,"Other Glass",9,"Domestic/Activity",1,"chandelier crystal",NA,NA
+"CHFL",8,"Ceramics",6,"Architectural Ceramic",5,"Miscellaneous Ceramic",2,"chimney flue",NA,NA
+"CHIS",7,"Metal",6,"Domestic/Activity",26,"Tools",2,"chisel (metal)",NA,NA
+"CHOP",1,"Chipped Stone",2,"Other Tool",5,"Chopper",0,"chopper",NA,NA
+"CHRM",7,"Metal",6,"Domestic/Activity",2,"Automotive",1,"automotive chrome",NA,NA
+"CHSL",3,"Ground or Rough Stone",2,"Fine Tool",5,"Chisel",0,"chisel (stone)",NA,NA
+"CLAM",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",8,"clamp",NA,NA
+"CLAW",4,"Bone/Antler",1,"Refuse/Unmodified",4,"Claw",0,"claw",NA,NA
+"CLC",8,"Ceramics",2,"Sherd",3,"Creamware",5,"clouded creamware",1740,1780
+"CLOC",7,"Metal",6,"Domestic/Activity",7,"Clock",1,"clock components",NA,NA
+"CLOT",13,"Other",2,"Fabric",2,"Cloth",0,"cloth",NA,NA
+"CLPG",9,"Glass",4,"Glass Vessel",1,"Tableware",5,"clear table glass, leaded pressed",NA,NA
+"CLPN",7,"Metal",6,"Domestic/Activity",8,"Clothespins",1,"clothespin spring",NA,NA
+"CLTG",9,"Glass",4,"Glass Vessel",1,"Tableware",4,"clear table glass, leaded",NA,NA
+"CNDL",9,"Glass",6,"Other Glass",9,"Domestic/Activity",2,"glass candlestick/holder",NA,NA
+"COIN",7,"Metal",2,"Personal Item",3,"Coin",1,"coin",NA,NA
+"COMB",13,"Other",4,"Plastic",8,"Plastic",17,"plastic comb",NA,NA
+"CONC",13,"Other",1,"Debris",2,"Cement",1,"concrete",NA,NA
+"COPR",13,"Other",6,"Other Organic",3,"Coprolite",0,"coprolite",NA,NA
+"CORD",6,"Botanical",1,"Manufactured Object",2,"Cordage",0,"cordage",NA,NA
+"CORE",1,"Chipped Stone",3,"Debitage",1,"Core",0,"core",NA,NA
+"CORK",6,"Botanical",4,"Worked",8,"Cork",0,"cork stopper",NA,NA
+"CORN",6,"Botanical",2,"Sample",3,"Corn",0,"corn sample",NA,NA
+"COSW",8,"Ceramics",2,"Sherd",12,"Stoneware",4,"brown salt-glazed stoneware, clear-glazed interior",1820,1900
+"COTG",9,"Glass",4,"Glass Vessel",1,"Tableware",7,"colored table glass",NA,NA
+"CPB",8,"Ceramics",3,"Non-Tableware Ceramic",3,"Ceramic Button",1,"China/Prosser button",1840,1940
+"CPG",9,"Glass",1,"Flat Glass",2,"Plate Glass",3,"clear plate glass",NA,NA
+"CPIG",8,"Ceramics",3,"Non-Tableware Ceramic",5,"Clay Pigeon",0,"clay pigeon",NA,NA
+"CPIN",7,"Metal",2,"Personal Item",2,"Clothing Related",4,"pin",NA,NA
+"CPOT",7,"Metal",6,"Domestic/Activity",10,"Cookware",2,"cooking pot frag",NA,NA
+"CPTG",9,"Glass",4,"Glass Vessel",1,"Tableware",6,"clear table glass, pressed",NA,NA
+"CROC",11,"Mineral/Other",2,"Rock/Stone",2,"Crushed Rock/Stone",1,"crushed rock",NA,NA
+"CROD",7,"Metal",6,"Domestic/Activity",3,"Batteries",2,"carbon battery rod",NA,NA
+"CRUC",8,"Ceramics",3,"Non-Tableware Ceramic",6,"Crucible",0,"crucible",NA,NA
+"CS",5,"Shell",1,"Refuse/Unmodified",1,"Clam Shell",0,"clam shell",NA,NA
+"CSTK",7,"Metal",6,"Domestic/Activity",20,"Lighting",1,"metal candlestick/holder",NA,NA
+"CTAP",13,"Other",4,"Plastic",9,"Tape",2,"Scotch ""Cellophane"" tape",1930,NA
+"CTG",9,"Glass",4,"Glass Vessel",1,"Tableware",1,"clear table glass",NA,NA
+"CTSH",5,"Shell",3,"Worked",1,"Shell Manufacturing",0,"cut shell",NA,NA
+"CUS",8,"Ceramics",2,"Sherd",12,"Stoneware",28,"grey salt-glazed blue decorated Rhenish stoneware",1690,1775
+"CVBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",8,"clear bottle glass that has an amethyst tint due to sun exposure",1880,1920
+"CVCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",8,"clear curved glass with amethyst tint due to sun exposure",1880,1920
+"CWN",7,"Metal",3,"Architectural Hardware",3,"Wire Nail",1,"common wire nail",1875,1970
+"CWRP",13,"Other",4,"Plastic",8,"Plastic",3,"Cellophane cigarette pack wrapper",NA,NA
+"CYBE",8,"Ceramics",2,"Sherd",2,"Buff Earthenware",5,"combed yellow lead-glazed buff earthenware",1670,1795
+"CYP",8,"Ceramics",2,"Sherd",5,"Pearlware",8,"canary yellow pearlware",1815,NA
+"DBIT",7,"Metal",6,"Domestic/Activity",26,"Tools",3,"drill bit",NA,NA
+"DBK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",2,"decorated Kaolin pipe bowl frag",NA,NA
+"DCI",8,"Ceramics",2,"Sherd",16,"Whiteware",5,"decalcomania whiteware",1900,1970
+"DCII",8,"Ceramics",2,"Sherd",4,"Ironstone",2,"decalcomania ironstone",1813,1885
+"DCZ",8,"Ceramics",2,"Sherd",6,"Porcelain",3,"decalcomania porcelain",NA,NA
+"DIAM",11,"Mineral/Other",4,"Other Mineral",3,"Herkimer Diamond",0,"Herkimer Diamond",NA,NA
+"DIPC",8,"Ceramics",2,"Sherd",3,"Creamware",16,"dipped decorated creamware",NA,NA
+"DIPP",8,"Ceramics",2,"Sherd",5,"Pearlware",23,"dipped decorated pearlware",NA,NA
+"DIPT",8,"Ceramics",2,"Sherd",16,"Whiteware",30,"dipped decorated whiteware",NA,NA
+"DISC",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",23,"roofing disk",NA,NA
+"DKR",8,"Ceramics",6,"Architectural Ceramic",3,"Redware",3,"redware doorknob",NA,NA
+"DLAT",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",9,"door latch",NA,NA
+"DLSK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",12,"decorated Kaolin pipe stem frag. larger than 6/64"" bore",NA,NA
+"DMSK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",9,"decorated Kaolin pipe stem frag, 4/64 in. bore",NA,NA
+"DNSK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",10,"decorated Kaolin pipe stem frag, 5/64 in. bore",NA,NA
+"DOLL",8,"Ceramics",3,"Non-Tableware Ceramic",7,"Dolls",0,"ceramic doll part",NA,NA
+"DOOR",8,"Ceramics",6,"Architectural Ceramic",5,"Miscellaneous Ceramic",1,"ceramic doorknob",NA,NA
+"DOSK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",11,"decorated Kaolin pipe stem frag, 6/64 in. bore",NA,NA
+"DPOB",2,"Prehistoric Pottery",3,"Body Sherd",3,"Body Sherd",1,"decorated body sherd, prehistoric pottery vessel",NA,NA
+"DRBY",8,"Ceramics",2,"Sherd",12,"Stoneware",19,"Derbyshire stoneware, gray bodied, brown salt-glazed exterior, tan interior slip",NA,NA
+"DRIL",1,"Chipped Stone",2,"Other Tool",6,"Drill",0,"drill",NA,NA
+"DRIM",2,"Prehistoric Pottery",2,"Rim Sherd",2,"Rim Sherd",1,"decorated rim sherd, prehistoric pottery vessel",NA,NA
+"DRP",8,"Ceramics",4,"Pipe",2,"Red Clay Pipe",2,"decorated red clay pipe frag",NA,NA
+"DRPK",8,"Ceramic",6,"Architectural Ceramic",5,"Miscellaneous Ceramic",3,"ceramic drawer pull knob",NA,NA
+"DSSK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",8,"decorated Kaolin pipe stem frag. smaller than 4/64"" bore",NA,NA
+"DSV",8,"Ceramics",2,"Sherd",10,"Semi-Vitreous China",2,"decalcomania semi-vitreous china",1900,1970
+"DTC",8,"Ceramics",6,"Architectural Ceramic",5,"Miscellaneous Ceramic",3,"ceramic drain frag",NA,NA
+"DTIL",8,"Ceramics",6,"Architectural Ceramic",4,"Tile",2,"delft tile",NA,NA
+"DTR",8,"Ceramics",6,"Architectural Ceramic",3,"Redware",2,"redware field drainage pipe",NA,NA
+"DUCT",13,"Other",4,"Plastic",9,"Tape",3,"duct tape",1942,NA
+"DUWS",8,"Ceramics",2,"Sherd",12,"Stoneware",45,"white salt-glazed stoneware, debased scratch blue",1765,1795
+"DWS",8,"Ceramics",2,"Sherd",12,"Stoneware",48,"white stoneware, slip-dipped",1715,1775
+"DYBE",8,"Ceramics",2,"Sherd",2,"Buff Earthenware",2,"brown-dotted yellow lead-glazed buff earthenware",1670,1795
+"EBON",13,"Other",5,"Rubber",11,"Rubber",5,"Ebonite",1851,NA
+"ECN",7,"Metal",3,"Architectural Hardware",2,"Cut Nail",4,"cut nail, early machine-made head",1815,1835
+"EFB",8,"Ceramics",2,"Sherd",12,"Stoneware",22,"fine brown stoneware, engine-turned",1763,1775
+"EFFI",3,"Ground or Rough Stone",3,"Personal Item",5,"Stone Effigy",0,"stone effigy",NA,NA
+"EFR",8,"Ceramics",2,"Sherd",8,"Red Stoneware",5,"engine-turned fine red stoneware",1763,1775
+"ELC",7,"Metal",6,"Domestic/Activity",12,"Electronic Component",2,"electronic component",NA,NA
+"ENDS",1,"Chipped Stone",2,"Other Tool",7,"End Scraper",0,"end scraper",NA,NA
+"EPLA",13,"Other",4,"Plastic",8,"Plastic",21,"plastic electrical component",NA,NA
+"ERAS",13,"Other",5,"Rubber",11,"Rubber",1,"pencil eraser",NA,NA
+"ERCL",7,"Metal",6,"Domestic/Activity",23,"Pens/Pencils",1,"pencil eraser clamp",NA,NA
+"ERNG",7,"Metal",2,"Personal Item",4,"Jewelry",2,"earring",NA,NA
+"ES",5,"Shell",1,"Refuse/Unmodified",3,"Eggshell",0,"eggshell",NA,NA
+"ESBR",1,"Chipped Stone",2,"Other Tool",7,"End Scraper",1,"end scraper biface retouched",NA,NA
+"ESUR",1,"Chipped Stone",2,"Other Tool",7,"End Scraper",2,"end scraper uniface retouched",NA,NA
+"ETAP",13,"Other",4,"Plastic",9,"Tape",4,"electrical tape",NA,NA
+"EWIR",7,"Metal",6,"Domestic/Activity",12,"Electronic Component",1,"electrical wire",NA,NA
+"EZ",8,"Ceramics",2,"Sherd",6,"Porcelain",4,"European porcelain",NA,NA
+"FAI",8,"Ceramics",2,"Sherd",13,"Tin-Glazed Ware",7,"faience",NA,NA
+"FARM",7,"Metal",6,"Domestic/Activity",13,"Farm Implements",1,"farm implement frag",NA,NA
+"FAW",8,"Ceramics",2,"Sherd",1,"Agateware",2,"fine agateware",1740,1775
+"FBWE",8,"Ceramics",2,"Sherd",15,"White Earthenware",6,"flow blue unidentified white earthenware",NA,NA
+"FCR",11,"Mineral/Other",1,"Fire-Cracked Rock",0,"Fire-Cracked Rock",0,"fire-cracked rock",NA,NA
+"FETH",4,"Bone/Antler",5,"Feather",1,"Feather",1,"feather",NA,NA
+"FIBE",6,"Botanical",2,"Sample",4,"Fiber",0,"fiber sample",NA,NA
+"FIBG",13,"Other",4,"Plastic",8,"Plastic",7,"fiberglass",NA,NA
+"FIBI",13,"Other",4,"Plastic",8,"Plastic",8,"fiberglass insulation",NA,NA
+"FILE",7,"Metal",6,"Domestic/Activity",26,"Tools",5,"iron file",NA,NA
+"FISH",4,"Bone/Antler",1,"Refuse/Unmodified",5,"Fish",1,"fish bone",NA,NA
+"FLAK",1,"Chipped Stone",3,"Debitage",2,"Flake",1,"flake, broken",NA,NA
+"FLAS",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",11,"flashing",NA,NA
+"FLK",1,"Chipped Stone",3,"Debitage",2,"Flake",7,"flakes",NA,NA
+"FLNT",1,"Chipped Stone",4,"Gun Flint",1,"Gun Flint",0,"gun flint",NA,NA
+"FLOT",10,"Soil",1,"Soil",1,"Soil",1,"flotation sample",NA,NA
+"FOAM",13,"Other",4,"Plastic",8,"Plastic",31,"other foam",NA,NA
+"FOIL",7,"Metal",6,"Domestic/Activity",1,"Aluminum",1,"aluminum foil frag",NA,NA
+"FORG",7,"Metal",7,"Metallurgy",1,"Blacksmithing",1,"forge scale",NA,NA
+"FORK",7,"Metal",6,"Domestic/Activity",11,"Cutlery",2,"fork",NA,NA
+"FOSS",11,"Mineral/Other",4,"Other Mineral",2,"Fossil",0,"fossil",NA,NA
+"FPC",8,"Ceramics",2,"Sherd",3,"Creamware",6,"finger-painted creamware",1790,1820
+"FPP",8,"Ceramics",2,"Sherd",5,"Pearlware",9,"finger-painted pearlware",1790,1820
+"FPR",8,"Ceramics",2,"Sherd",9,"Redware",11,"flowerpot",NA,NA
+"FSHK",7,"Metal",6,"Domestic/Activity",26,"Tools",4,"fish hook",NA,NA
+"FSHT",1,"Chipped Stone",3,"Debitage",3,"Shatter",2,"flake shatter",NA,NA
+"FUNR",7,"Metal",6,"Domestic/Activity",14,"Funerary",1,"coffin hardware",NA,NA
+"FUSE",9,"Glass",6,"Other Glass",7,"Fuse",1,"fuse glass",NA,NA
+"FUSL",10,"Soil",1,"Soil",1,"Soil",2,"fire harden soil",NA,NA
+"FWE",8,"Ceramics",2,"Sherd",15,"White Earthenware",2,"'Fiesta'-like ware",NA,NA
+"FWN",7,"Metal",3,"Architectural Hardware",3,"Wire Nail",3,"wire finishing nail",1875,1970
+"GAME",3,"Ground or Rough Stone",3,"Personal Item",3,"Gaming Piece",0,"stone gaming piece",NA,NA
+"GB",9,"Glass",2,"Glass Object",1,"Button",0,"glass button",NA,NA
+"GBE",8,"Ceramics",2,"Sherd",2,"Buff Earthenware",6,"green glazed buff earthenware",1630,1730
+"GBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",10,"green bottle glass",NA,NA
+"GBS",8,"Ceramics",2,"Sherd",12,"Stoneware",27,"grey bodied stoneware, brown slip exterior, brown slip interior",NA,NA
+"GCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",9,"green curved glass",NA,NA
+"GCS",9,"Glass",2,"Glass Object",2,"Collar Stud",0,"glass collar stud",NA,NA
+"GDF",8,"Ceramics",2,"Sherd",13,"Tin-Glazed Ware",4,"delft glaze only",1600,1802
+"GDI",8,"Ceramics",2,"Sherd",16,"Whiteware",11,"gilt-decorated whiteware",NA,NA
+"GDZ",8,"Ceramics",2,"Sherd",6,"Porcelain",5,"gilt-decorated porcelain",1660,1890
+"GEAR",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",12,"gear",NA,NA
+"GEI",8,"Ceramics",2,"Sherd",16,"Whiteware",4,"green edge-decorated whiteware",1830,1860
+"GEP",8,"Ceramics",2,"Sherd",5,"Pearlware",12,"green edge-decorated pearlware",1800,1830
+"GFG",9,"Glass",1,"Flat Glass",1,"Flat Glass",6,"green flat glass",NA,NA
+"GFIG",9,"Glass",2,"Glass Object",4,"Figurine",0,"glass figurine",NA,NA
+"GGB",8,"Ceramics",2,"Sherd",12,"Stoneware",9,"buff bodied stoneware, molded w/green glaze",NA,NA
+"GGBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",9,"grass-green bottle glass",NA,NA
+"GGR",8,"Ceramics",2,"Sherd",9,"Redware",5,"ginger-glazed redware",NA,NA
+"GINS",9,"Glass",6,"Other Glass",3,"Insulator",1,"glass insulator",NA,NA
+"GOS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",10,"green & yellow slip-trail decorated redware",1770,1830
+"GOUG",3,"Ground or Rough Stone",2,"Fine Tool",6,"Gouge",0,"gouge",NA,NA
+"GRND",7,"Metal",5,"Arms/Military",1,"Guns/Bullets",8,"grenade",NA,NA
+"GS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",11,"green glazed slip-decorated redware",1770,1830
+"GSV",8,"Ceramics",2,"Sherd",10,"Semi-Vitreous China",3,"gilt-decorated semi-vitreous china",1880,NA
+"GTBD",9,"Glass",3,"Glass Bead",2,"Glass Trading Bead",0,"glass trading bead",NA,NA
+"GTI",8,"Ceramics",2,"Sherd",16,"Whiteware",15,"green transfer-printed whiteware",1825,1875
+"GTIL",9,"Glass",6,"Other Glass",8,"Architectural",2,"glass tile",NA,NA
+"GTS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",12,"green slip-trail decorated redware",1770,1830
+"GUN",7,"Metal",5,"Arms/Military",1,"Guns/Bullets",4,"gun part",NA,NA
+"GUPI",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",13,"general utility pipe",NA,NA
+"HAFU",13,"Other",6,"Other Organic",1,"Hair/Fur",0,"hair/fur",NA,NA
+"HAMR",3,"Ground or Rough Stone",1,"Rough Tool",3,"Hammer Stone",0,"hammer stone",NA,NA
+"HARN",7,"Metal",6,"Domestic/Activity",16,"Horse/Ox/Mule Equipment",1,"harness part",NA,NA
+"HARP",7,"Metal",2,"Personal Item",6,"Musical Instrument",2,"jaw's harp",NA,NA
+"HBR",8,"Ceramics",5,"Brick",1,"Brick",1,"handmade brick",NA,NA
+"HBW",8,"Ceramics",2,"Sherd",16,"Whiteware",26,"underglaze blue hand-painted whiteware",1825,1835
+"HBZ",8,"Ceramics",2,"Sherd",6,"Porcelain",13,"blue hand-painted porcelain",NA,NA
+"HDLT",9,"Glass",6,"Other Glass",5,"Automotive Glass",2,"clear automotive light cover",NA,NA
+"HEMA",11,"Mineral/Other",4,"Other Mineral",4,"Hematite",0,"hematite (red ocher)",NA,NA
+"HNAI",7,"Metal",6,"Domestic/Activity",16,"Horse/Ox/Mule Equipment",3,"horseshoe nail",NA,NA
+"HNDL",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",14,"handle (metal)",NA,NA
+"HOOK",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",16,"hook (hardware)",NA,NA
+"HOOP",7,"Metal",6,"Domestic/Activity",17,"Keg/Barrel",1,"keg or barrel hoop",NA,NA
+"HORN",4,"Bone/Antler",1,"Refuse/Unmodified",6,"Horn",0,"unmodified horn",NA,NA
+"HORS",7,"Metal",6,"Domestic/Activity",16,"Horse/Ox/Mule Equipment",99,"other horse equipment/parts",NA,NA
+"HPW",8,"Ceramics",2,"Sherd",16,"Whiteware",27,"underglaze polychrome hand-painted whiteware",1830,1860
+"HPZ",8,"Ceramics",2,"Sherd",6,"Porcelain",6,"handpainted porcelain",NA,NA
+"HSHO",7,"Metal",6,"Domestic/Activity",16,"Horse/Ox/Mule Equipment",2,"horseshoe",NA,NA
+"HUMR",4,"Bone/Antler",1,"Refuse/Unmodified",3,"Bone",4,"human remains",NA,NA
+"HWAX",13,"Other",4,"Plastic",8,"Plastic",51,"vinyl record frag",NA,NA
+"IPBL",3,"Ground or Rough Stone",1,"Rough Tool",7,"Pebble",0,"incised pebble",NA,NA
+"ISRW",8,"Ceramics",2,"Sherd",9,"Redware",12,"imitation salt-glaze ""stoneware"" redware",NA,NA
+"IVOR",4,"Bone/Antler",6,"Other Worked Object",0,"Ivory",0,"worked ivory",NA,NA
+"JFR",8,"Ceramics",2,"Sherd",8,"Red Stoneware",6,"Jackfield",1740,1780
+"JKNF",7,"Metal",6,"Domestic/Activity",26,"Tools",6,"jackknife",NA,NA
+"KB",4,"Bone/Antler",1,"Refuse/Unmodified",3,"Bone",2,"kitchen bone",NA,NA
+"KBR",8,"Ceramics",5,"Brick",1,"Brick",4,"kiln brick",NA,NA
+"KETT",7,"Metal",6,"Domestic/Activity",10,"Cookware",1,"kettle",NA,NA
+"KEY",7,"Metal",6,"Domestic/Activity",18,"Keys/Locks",1,"key",NA,NA
+"KHPR",8,"Ceramics",3,"Non-Tableware Ceramic",1,"Kiln Furniture",1,"kiln furniture; prop handles",NA,NA
+"KKNF",7,"Metal",6,"Domestic/Activity",11,"Cutlery",5,"kitchen knife",NA,NA
+"KNIF",7,"Metal",6,"Domestic/Activity",26,"Tools",7,"knife (non-tableware cutlery)",NA,NA
+"KNOB",9,"Glass",6,"Other Glass",8,"Architectural",1,"glass doorknob",NA,NA
+"KSEP",8,"Ceramics",3,"Non-Tableware Ceramic",1,"Kiln Furniture",0,"kiln furniture; separator",NA,NA
+"LAMP",7,"Metal",6,"Domestic/Activity",20,"Lighting",2,"lamp/lantern components",NA,NA
+"LAWN",7,"Metal",6,"Domestic/Activity",19,"Lawn Mower",1,"lawn mower component",NA,NA
+"LBAL",7,"Metal",5,"Arms/Military",1,"Guns/Bullets",6,"lead ball",NA,NA
+"LBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",7,"clear bottle glass, leaded",NA,NA
+"LBGB",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",11,"light blue bottle glass",NA,NA
+"LBK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",22,"decorated Kaolin pipe bowl/stem frag, larger than 6/64"" bore",NA,NA
+"LBLB",7,"Metal",6,"Domestic/Activity",20,"Lighting",3,"light bulb base",NA,NA
+"LBLT",13,"Other",3,"Leather",1,"Belt/Harness",1,"leather belt",NA,NA
+"LBSK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",17,"undecorated Kaolin pipe bowl/stem frag, larger than 6/64"" bore",NA,NA
+"LCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",7,"clear curved glass, leaded",NA,NA
+"LCMG",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",17,"lead caming",NA,NA
+"LCN",7,"Metal",3,"Architectural Hardware",2,"Cut Nail",2,"cut nail, wrought 'L' head",1790,1835
+"LCTG",9,"Glass",4,"Glass Vessel",1,"Tableware",3,"clear table glass, leaded cut",NA,NA
+"LCWN",7,"Metal",3,"Architectural Hardware",3,"Wire Nail",2,"large common wire nail (over 4 in. long)",1875,1970
+"LDF",8,"Ceramics",2,"Sherd",13,"Tin-Glazed Ware",5,"delftware less glaze",1600,1802
+"LEAD",7,"Metal",1,"Unidentified",5,"Lead",0,"unidentified lead",NA,NA
+"LENS",9,"Glass",6,"Other Glass",4,"Eyeglass Lens",1,"eyeglass lens",NA,NA
+"LFR",8,"Ceramics",2,"Sherd",8,"Red Stoneware",7,"lustered Jackfield",1740,1780
+"LG",9,"Glass",6,"Other Glass",1,"Lamp Glass",1,"lamp glass",NA,NA
+"LGBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",12,"light green bottle glass",NA,NA
+"LGCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",10,"light green curved glass",NA,NA
+"LGFG",9,"Glass",1,"Flat Glass",1,"Flat Glass",7,"light green flat glass (not 18th century)",NA,NA
+"LGR",8,"Ceramics",2,"Sherd",9,"Redware",6,"lustered black-glazed redware",NA,NA
+"LHAR",13,"Other",3,"Leather",1,"Belt/Harness",3,"leather harness",NA,NA
+"LID",7,"Metal",6,"Domestic/Activity",6,"Cap/Lid",1,"bottle/jar lid",NA,NA
+"LINO",13,"Other",1,"Debris",4,"Linoleum",0,"linoleum",NA,NA
+"LLG",9,"Glass",6,"Other Glass",1,"Lamp Glass",2,"leaded lamp glass",NA,NA
+"LOCK",7,"Metal",6,"Domestic/Activity",18,"Keys/Locks",2,"lock",NA,NA
+"LSK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",7,"Kaolin pipe stem frag. larger than 6/64"" bore",NA,NA
+"LSTR",13,"Other",3,"Leather",1,"Belt/Harness",2,"leather strap",NA,NA
+"LUSP",8,"Ceramics",2,"Sherd",5,"Pearlware",21,"lustered pearlware",1815,NA
+"LWI",8,"Ceramics",2,"Sherd",16,"Whiteware",30,"luster-decorated whiteware",1820,NA
+"LWN",7,"Metal",3,"Architectural Hardware",1,"Wrought Nail",2,"wrought nail, 'L' head",NA,1820
+"MAG",11,"Mineral/Other",3,"Magnet",0,"Magnet",0,"magnet",NA,NA
+"MAJO",8,"Ceramics",2,"Sherd",13,"Tin-Glazed Ware",6,"majolica",NA,1670
+"MAT",6,"Botanical",1,"Manufactured Object",3,"Mat",0,"mat",NA,NA
+"MAWL",7,"Metal",6,"Domestic/Activity",26,"Tools",9,"metal awl",NA,NA
+"MB",7,"Metal",2,"Personal Item",2,"Clothing Related",3,"metal button",NA,NA
+"MBEA",7,"Metal",2,"Personal Item",1,"Bead",1,"metal bead",NA,NA
+"MBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",5,"brown bottle glass",NA,NA
+"MBK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",19,"decorated Kaolin pipe bowl/stem frag, 4/64 in. bore",NA,NA
+"MCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",5,"brown curved glass",NA,NA
+"MCH",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",7,"chain link(s)",NA,NA
+"MCN",7,"Metal",3,"Architectural Hardware",2,"Cut Nail",6,"machine cut nail",1835,1880
+"MDF",8,"Ceramics",2,"Sherd",13,"Tin-Glazed Ware",2,"monochrome delftware",1600,1802
+"MDP",8,"Ceramics",2,"Sherd",5,"Pearlware",15,"pearlware with molded designs",1800,1820
+"MED",7,"Metal",2,"Personal Item",4,"Jewelry",4,"medallion",NA,NA
+"MEDL",7,"Metal",2,"Personal Item",5,"Medal",1,"medal",NA,NA
+"MEFF",7,"Metal",2,"Personal Item",7,"Ornament",2,"metal effigy",NA,NA
+"MEPP",7,"Metal",4,"Projectile Point",1,"Projectile Point",1,"metal projectile point",NA,NA
+"MFB",8,"Ceramics",2,"Sherd",12,"Stoneware",23,"fine brown stoneware, molded",NA,NA
+"MFI",8,"Ceramics",2,"Sherd",16,"Whiteware",9,"flow mulberry whiteware",1835,1870
+"MFP",8,"Ceramics",2,"Sherd",5,"Pearlware",13,"mocha or finger-painted pearlware",1790,1830
+"MFR",8,"Ceramics",2,"Sherd",8,"Red Stoneware",8,"molded fine red stoneware",NA,NA
+"MGOU",7,"Metal",6,"Domestic/Activity",26,"Tools",10,"metal gouge",NA,NA
+"MHG",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",15,"hinge",NA,NA
+"MICA",11,"Mineral/Other",4,"Other Mineral",5,"Mica",1,"unmodified/natural mica",NA,NA
+"MICF",11,"Mineral/Other",4,"Other Mineral",5,"Mica",3,"mica fuse window",NA,NA
+"MICS",11,"Mineral/Other",4,"Other Mineral",5,"Mica",2,"mica stove window",NA,NA
+"MIRR",9,"Glass",6,"Other Glass",6,"Mirror",1,"mirror glass",NA,NA
+"MLBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",13,"milk-colored bottle glass",NA,NA
+"MLCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",11,"milk-colored curved glass",NA,NA
+"MLLG",9,"Glass",6,"Other Glass",1,"Lamp Glass",4,"milk-colored lamp glass",NA,NA
+"MLTG",9,"Glass",4,"Glass Vessel",1,"Tableware",10,"colored table glass, milk",NA,NA
+"MMIC",11,"Mineral/Other",4,"Other Mineral",5,"Mica",99,"other modified mica",NA,NA
+"MOC",8,"Ceramics",2,"Sherd",3,"Creamware",7,"molded creamware",1762,1820
+"MOCA",8,"Ceramics",2,"Sherd",16,"Whiteware",21,"mocha whiteware",NA,NA
+"MOI",8,"Ceramics",2,"Sherd",16,"Whiteware",23,"molded whiteware",1845,1885
+"MOII",8,"Ceramics",2,"Sherd",4,"Ironstone",3,"molded ironstone",1813,1885
+"MORE",7,"Metal",7,"Metallurgy",2,"Iron Smelting",1,"iron ore",NA,NA
+"MOSL",7,"Metal",7,"Metallurgy",2,"Iron Smelting",3,"iron slag",NA,NA
+"MOTR",3,"Ground or Rough Stone",1,"Rough Tool",4,"Mortar",0,"mortar stone",NA,NA
+"MOZ",8,"Ceramics",2,"Sherd",6,"Porcelain",7,"molded porcelain",NA,NA
+"MP",8,"Ceramics",2,"Sherd",5,"Pearlware",14,"mocha pearlware",1795,1890
+"MPAN",7,"Metal",6,"Domestic/Activity",10,"Cookware",3,"metal pan/dish",NA,NA
+"MPIG",7,"Metal",7,"Metallurgy",2,"Iron Smelting",4,"pig iron",NA,NA
+"MPIP",7,"Metal",2,"Personal Item",8,"Pipe",1,"metal smoking pipe",NA,NA
+"MPNL",7,"Metal",6,"Domestic/Activity",23,"Pens/Pencils",2,"pencil parts (metal)",NA,NA
+"MPPT",1,"Chipped Stone",1,"Projectile Point",3,"Modified Projectile Point",0,"modified projectile point",NA,NA
+"MPUL",7,"Metal",6,"Domestic/Activity",26,"Tools",13,"pulley (metal)",NA,NA
+"MRB",3,"Ground or Rough Stone",7,"Architectural Stone",2,"Marble",0,"architectural marble frag",NA,NA
+"MRBT",3,"Ground or Rough Stone",99,"Other Modified Stone",1,"Marble",1,"marble table top",NA,NA
+"MRC",8,"Ceramics",3,"Non-Tableware Ceramic",4,"Clay Marble",0,"clay marble",NA,NA
+"MRG",9,"Glass",2,"Glass Object",5,"Marble",0,"glass marble",NA,NA
+"MS",5,"Shell",1,"Refuse/Unmodified",4,"Mussel Shell",0,"mussel shell",NA,NA
+"MSCA",7,"Metal",7,"Metallurgy",2,"Iron Smelting",2,"iron scale",NA,NA
+"MSK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",4,"Kaolin pipe stem frag, 4/64 in. bore",NA,NA
+"MTAP",13,"Other",4,"Plastic",8,"Plastic",9,"magnetic ""cassette"" tape",1945,NA
+"MTAX",7,"Metal",6,"Domestic/Activity",26,"Tools",12,"metal trade axe",NA,NA
+"MTI",8,"Ceramics",2,"Sherd",16,"Whiteware",16,"mulberry transfer-printed whiteware",1825,1875
+"MTOY",7,"Metal",6,"Domestic/Activity",27,"Toys",1,"metal toy",NA,NA
+"MULE",7,"Metal",6,"Domestic/Activity",16,"Horse/Ox/Mule Equipment",5,"mule shoe",NA,NA
+"MULL",3,"Ground or Rough Stone",1,"Rough Tool",5,"Muller",0,"muller",NA,NA
+"MUTI",8,"Ceramics",2,"Sherd",16,"Whiteware",20,"multiple color transfer-printed whiteware",NA,NA
+"MXAG",9,"Glass",6,"Other Glass",5,"Automotive Glass",98,"automotive glass with other material attached",NA,NA
+"MXAM",7,"Metal",3,"Architectural Hardware",99,"Other Architectural Metal",98,"other architectural metal with other material attached",NA,NA
+"MXAR",7,"Metal",5,"Arms/Military",99,"Other Arms/Military",98,"other arms/military metal with other material attached",NA,NA
+"MXAS",3,"Ground or Rough Stone",7,"Architectural Stone",99,"Other Architectural Stone",98,"other architectural stone with other material attached",NA,NA
+"MXAU",7,"Metal",6,"Domestic/Activity",2,"Automotive",98,"automotive metal with other material attached",NA,NA
+"MXBA",6,"Botanical",3,"Architectural",99,"Other Botanical Architectural Object",98,"botanical architectural object with other material attached",NA,NA
+"MXBD",2,"Prehistoric Pottery",3,"Body Sherd",3,"Body Sherd",98,"body sherd, prehistoric pottery vessel with other material attached",NA,NA
+"MXBO",6,"Botanical",5,"Other",99,"Other Botanical",98,"other botanical with other material attached",NA,NA
+"MXBP",4,"Bone/Antler",3,"Personal Item",99,"Other Personal Item",98,"bone/antler personal Item with other material attached",NA,NA
+"MXC",7,"Metal",3,"Architectural Hardware",2,"Cut Nail",98,"cut nail with other material attached",1790,NA
+"MXCK",7,"Metal",6,"Domestic/Activity",7,"Clock",98,"clock components with other material attached",NA,NA
+"MXCL",7,"Metal",2,"Personal Item",2,"Clothing Related",98,"clothing-related metal object with other material attached",NA,NA
+"MXCN",7,"Metal",2,"Personal Item",3,"Coin",98,"coin/token with other material attached",NA,NA
+"MXCO",7,"Metal",6,"Domestic/Activity",10,"Cookware",98,"cookware with other material attached",NA,NA
+"MXCP",7,"Metal",6,"Domestic/Activity",6,"Cap/Lid",98,"cap/lid with other material attached",NA,NA
+"MXCT",7,"Metal",6,"Domestic/Activity",11,"Cutlery",97,"cutlery with other material attached",NA,NA
+"MXDB",13,"Other",1,"Debris",99,"Other Debris",98,"debris with other material attached",NA,NA
+"MXDG",9,"Glass",6,"Other Glass",9,"Domestic/Activity",98,"domestic/activity glass with other material attached",NA,NA
+"MXEL",7,"Metal",6,"Domestic/Activity",12,"Electronic Component",98,"electronic component with other material attached",NA,NA
+"MXFB",13,"Other",2,"Fabric",99,"Other Fabric",98,"fabric with other material attached",NA,NA
+"MXFE",4,"Bone/Antler",5,"Feather",99,"Other Feather",98,"feather with other material attached",NA,NA
+"MXFM",7,"Metal",6,"Domestic/Activity",13,"Farm Implements",98,"farm implement with other material attached",NA,NA
+"MXFR",7,"Metal",6,"Domestic/Activity",14,"Funerary",98,"metal coffin hardware with other material attached",NA,NA
+"MXFT",3,"Ground or Rough Stone",2,"Fine Tool",99,"Other Fine Tool",98,"fine stone tool with other material attached",NA,NA
+"MXFU",9,"Glass",6,"Other Glass",7,"Fuse",98,"fuse glass with other material attached",NA,NA
+"MXGB",9,"Glass",3,"Glass Bead",3,"Mixed Media Glass Bead",98,"glass bead with other material attached",NA,NA
+"MXGI",9,"Glass",6,"Other Glass",3,"Insulator",98,"glass insulator with other material attached",NA,NA
+"MXGN",7,"Metal",5,"Arms/Military",1,"Guns/Bullets",98,"gun/bullets related metal with other material attached",NA,NA
+"MXGO",9,"Glass",2,"Glass Object",99,"Other Glass Object",98,"glass object with other material attached",NA,NA
+"MXHO",7,"Metal",6,"Domestic/Activity",16,"Horse/Ox/Mule Equipment",98,"metal horse equipment/parts with other material attached",NA,NA
+"MXHW",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",98,"hardware with other material attached",NA,NA
+"MXJL",7,"Metal",2,"Personal Item",4,"Jewelry",98,"jewelry with other material attached",NA,NA
+"MXLB",9,"Glass",6,"Other Glass",2,"Light Bulb",98,"light bulb glass with other material attached",NA,NA
+"MXLE",13,"Other",3,"Leather",1,"Belt/Harness",98,"leather belt/harness with other material attached",NA,NA
+"MXLN",9,"Glass",6,"Other Glass",4,"Eyeglass Lens",98,"eyeglass lens with other material attached",NA,NA
+"MXLP",9,"Glass",6,"Other Glass",1,"Lamp Glass",98,"lamp glass with other material attached",NA,NA
+"MXLT",7,"Metal",6,"Domestic/Activity",20,"Lighting",98,"metal lighting object with other material attached",NA,NA
+"MXMB",7,"Metal",2,"Personal Item",1,"Bead",98,"metal bead with other material attached",NA,NA
+"MXMC",8,"Ceramics",6,"Architectural Ceramic",5,"Miscellaneous Ceramic",98,"architectural ceramics with other material attached",NA,NA
+"MXMD",7,"Metal",2,"Personal Item",5,"Medal",98,"medal with other material attached",NA,NA
+"MXME",7,"Metal",4,"Projectile Point",99,"Other Projectile Point",98,"metal projectile point with other material attached",NA,NA
+"MXMF",11,"Mineral/Other",4,"Other Mineral",5,"Mica",98,"mica with other material attached",NA,NA
+"MXMI",7,"Metal",2,"Personal Item",6,"Musical Instrument",98,"metal musical instrument with other material attached",NA,NA
+"MXMO",6,"Botanical",1,"Manufactured Object",99,"Other Manufactured Object",98,"manufactured botanical object with other material attached",NA,NA
+"MXMP",7,"Metal",2,"Personal Item",8,"Pipe",98,"metal pipe with other material attached",NA,NA
+"MXMR",9,"Glass",6,"Other Glass",6,"Mirror",98,"mirror glass with other material attached",NA,NA
+"MXMT",7,"Metal",6,"Domestic/Activity",99,"Other Domestic/Activity Metal",98,"domestic/activity-related metal object with other material attached",NA,NA
+"MXN",7,"Metal",3,"Architectural Hardware",4,"Other Nail",97,"nail with other material attached",NA,NA
+"MXNT",8,"Ceramics",3,"Non-Tableware Ceramic",99,"Other Non-Tableware Ceramic",98,"non-tableware ceramic with other material attached",NA,NA
+"MXO",13,"Other",6,"Other Organic",99,"Other Organic",98,"other organic with other material attached",NA,NA
+"MXOA",9,"Glass",6,"Other Glass",8,"Architectural",98,"architectural glass with other material attached",NA,NA
+"MXOG",9,"Glass",6,"Other Glass",99,"Other Glass",98,"other glass with other material attached",NA,NA
+"MXOL",13,"Other",3,"Leather",99,"Other Leather",98,"other leather with other material attached",NA,NA
+"MXON",7,"Metal",2,"Personal Item",7,"Ornament",98,"metal ornament with other material attached",NA,NA
+"MXOP",2,"Prehistoric Pottery",6,"Other Prehistoric Pottery",99,"Other Prehistoric Ceramic",98,"prehistoric ceramic with other material attached",NA,NA
+"MXOR",2,"Prehistoric Pottery",5,"Ornament",5,"Ornament",98,"prehistoric ceramic ornament with other material attached",NA,NA
+"MXOT",1,"Chipped Stone",2,"Other Tool",99,"Other Tool",98,"chipped stone tool with other material attached",NA,NA
+"MXPA",7,"Metal",6,"Domestic/Activity",22,"Pail/Bucket",98,"pail/bucket with other material attached",NA,NA
+"MXPB",7,"Metal",3,"Architectural Hardware",6,"Plumbing",98,"plumbing-related hardware with other material attached",NA,NA
+"MXPE",7,"Metal",2,"Personal Item",99,"Other Metal Personal Item",98,"other metal personal item with other material attached",NA,NA
+"MXPI",2,"Prehistoric Pottery",4,"Pipe",4,"Pipe",98,"prehistoric pipe with other material attached",NA,NA
+"MXPM",3,"Ground or Rough Stone",3,"Personal Item",99,"Other Personal Item",98,"stone personal item with other material attached",NA,NA
+"MXPN",7,"Metal",6,"Domestic/Activity",8,"Clothespins",98,"clothespin spring with other material attached",NA,NA
+"MXPP",3,"Ground or Rough Stone",6,"Projectile Point",99,"Other Projectile Point",98,"ground/rough stone projectile point with other material attached",NA,NA
+"MXPT",1,"Chipped Stone",1,"Projectile Point",99,"Other Projectile Point",98,"projectile point with other material attached",NA,NA
+"MXRD",8,"Ceramics",6,"Architectural Ceramic",3,"Redware",98,"architectural redware with other material attached",NA,NA
+"MXRM",2,"Prehistoric Pottery",2,"Rim Sherd",2,"Rim Sherd",98,"rim sherd, prehistoric pottery vessel with other material attached",NA,NA
+"MXRT",3,"Ground or Rough Stone",1,"Rough Tool",99,"Other Rough Tool",98,"rough stone tool with other material attached",NA,NA
+"MXSH",13,"Other",3,"Leather",2,"Footwear",98,"leather shoe or boot frag with other material attached",NA,NA
+"MXSP",3,"Ground or Rough Stone",4,"Stone Pipe",99,"Other Stone Pipe",98,"stone pipe with other material attached",NA,NA
+"MXSS",3,"Ground or Rough Stone",5,"All Steatite/Soapstone",99,"Other Steatite/Soapstone",98,"steatite/soapstone with other material attached",NA,NA
+"MXST",3,"Ground or Rough Stone",99,"Other Modified Stone",99,"Other Modified Stone",98,"modified stone with other material attached",NA,NA
+"MXSV",7,"Metal",6,"Domestic/Activity",24,"Stove/Furnaces",98,"cast iron stove or furnace with other material attached",NA,NA
+"MXTL",7,"Metal",6,"Domestic/Activity",26,"Tools",98,"metal tool with other material attached",NA,NA
+"MXTO",5,"Shell",2,"Tool",99,"Other Shell Tool",98,"worked shell tool with other material attached",NA,NA
+"MXTY",7,"Metal",6,"Domestic/Activity",27,"Toys",98,"metal toy with other material attached",NA,NA
+"MXUM",7,"Metal",1,"Unidentified",99,"Other Metal",98,"metal with other material attached",NA,NA
+"MXVS",2,"Prehistoric Pottery",1,"Whole Vessel",1,"Whole Vessel",98,"whole prehistoric pottery vessel with other material attached",NA,NA
+"MXWA",7,"Metal",2,"Personal Item",9,"Watch",98,"metal watch part with other material attached",NA,NA
+"MXWM",5,"Shell",4,"Wampum",99,"Other Wampum",98,"wampum with other material attached",NA,NA
+"MXWN",7,"Metal",3,"Architectural Hardware",3,"Wire Nail",98,"wire nail with other material attached",NA,NA
+"MXWO",6,"Botanical",4,"Worked",98,"Other Worked Botanical",98,"worked botanical object with other material attached",NA,NA
+"MXWR",7,"Metal",3,"Architectural Hardware",1,"Wrought Nail",98,"wrought nail with other material attached",NA,1820
+"MXWS",5,"Shell",3,"Worked",99,"Other Worked Shell",98,"worked shell with other material attached",NA,NA
+"MXWT",4,"Bone/Antler",2,"Tool",99,"Other Worked Tool",98,"worked bone/antler tool with other material attached",NA,NA
+"NBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",1,"amber bottle glass",NA,NA
+"NBK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",20,"decorated Kaolin pipe bowl/stem frag, 5/64 in. bore",NA,NA
+"NCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",1,"amber curved glass",NA,NA
+"NETS",3,"Ground or Rough Stone",1,"Rough Tool",6,"Netsinker",0,"netsinker",NA,NA
+"NSK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",5,"Kaolin pipe stem frag, 5/64 in. bore",NA,NA
+"NUT",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",19,"nut (metal hardware)",NA,NA
+"NYLO",13,"Other",2,"Fabric",3,"Nylon",0,"nylon",NA,NA
+"OAMT",7,"Metal",3,"Architectural Hardware",99,"Other Architectural Metal",99,"other architectural metal",NA,NA
+"OANT",4,"Bone/Antler",6,"Other Worked Object",97,"Other Antler",97,"other worked antler",NA,NA
+"OAR",8,"Ceramics",6,"Architectural Ceramic",3,"Redware",99,"other architectural redware",NA,NA
+"OASP",13,"Other",1,"Debris",1,"Asphalt",99,"other asphalt object/frag",NA,NA
+"OAUT",7,"Metal",6,"Domestic/Activity",2,"Automotive",99,"other automotive metal",NA,NA
+"OBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",14,"olive-green bottle glass",NA,NA
+"OBK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",21,"decorated Kaolin pipe bowl/stem frag, 6/64 in. bore",NA,NA
+"OBLK",7,"Metal",7,"Metallurgy",1,"Blacksmithing",99,"other blacksmithing metal",NA,NA
+"OBM",8,"Ceramics",5,"Brick",1,"Brick",2,"machine-made brick",NA,NA
+"OBMA",6,"Botanical",1,"Manufactured Object",99,"Other Manufactured Object",99,"other manufactured botanical object",NA,NA
+"OBON",4,"Bone/Antler",6,"Other Worked Object",99,"Other Bone",99,"other worked bone",NA,NA
+"OBOT",6,"Botanical",5,"Other",99,"Other Botanical",99,"other botanical",NA,NA
+"OBPR",4,"Bone/Antler",3,"Personal Item",99,"Other Personal Item",99,"other bone/antler personal item",NA,NA
+"OBR",8,"Ceramics",5,"Brick",1,"Brick",97,"unidentified brick",NA,NA
+"OBS",8,"Ceramics",2,"Sherd",12,"Stoneware",14,"buff salt-glazed stoneware, brown slip",1820,1900
+"OBWO",6,"Botanical",4,"Worked",98,"Other Worked Botanical",99,"other worked botanical object",NA,NA
+"OCAN",7,"Metal",6,"Domestic/Activity",5,"Cans",99,"other can-related metal object",NA,NA
+"OCAR",9,"Glass",6,"Other Glass",5,"Automotive Glass",99,"other automotive glass",NA,NA
+"OCE",13,"Other",1,"Debris",2,"Cement",0,"cement frag",NA,NA
+"OCER",8,"Ceramics",2,"Sherd",99,"Other Ceramic",99,"other ceramic tableware",NA,NA
+"OCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",12,"olive-green curved glass",NA,NA
+"OCH",6,"Botanical",2,"Sample",2,"Charcoal",0,"charcoal",NA,NA
+"OCI",13,"Other",1,"Debris",3,"Coal",1,"cinder",NA,NA
+"OCMT",7,"Metal",2,"Personal Item",2,"Clothing Related",99,"other clothing-related metal object",NA,NA
+"OCN",7,"Metal",3,"Architectural Hardware",2,"Cut Nail",99,"other cut nail",1835,1880
+"OCO",13,"Other",1,"Debris",3,"Coal",2,"coal",NA,NA
+"OCOO",7,"Metal",6,"Domestic/Activity",10,"Cookware",99,"other cookware",NA,NA
+"OCOR",6,"Botanical",4,"Worked",8,"Cork",1,"other worked cork",NA,NA
+"OCS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",8,"combed brown slip-decorated redware",1770,1830
+"OCTG",9,"Glass",4,"Glass Vessel",1,"Tableware",9,"colored table glass, cut",NA,NA
+"OCTN",7,"Metal",6,"Domestic/Activity",9,"Containers",99,"other container",NA,NA
+"OCUT",7,"Metal",6,"Domestic/Activity",11,"Cutlery",98,"other cutlery",NA,NA
+"ODEB",13,"Other",1,"Debris",99,"Other Debris",99,"other debris",NA,NA
+"ODF",8,"Ceramics",2,"Sherd",13,"Tin-Glazed Ware",99,"other delftware",NA,NA
+"ODMT",7,"Metal",6,"Domestic/Activity",99,"Other Domestic/Activity Metal",99,"other domestic/activity-related metal object",NA,NA
+"ODWE",8,"Ceramics",2,"Sherd",15,"White Earthenware",96,"other decorated unidentified white earthenware",NA,NA
+"OEZ",8,"Ceramics",2,"Sherd",6,"Porcelain",8,"overglaze enameled China trade porcelain",1790,1825
+"OFAB",13,"Other",2,"Fabric",99,"Other Fabric",99,"other fabric",NA,NA
+"OFB",8,"Ceramics",2,"Sherd",12,"Stoneware",6,"brown-glazed fine brown stoneware",NA,NA
+"OFI",8,"Ceramics",2,"Sherd",16,"Whiteware",8,"flow brown whiteware",1835,1870
+"OFR",8,"Ceramics",2,"Sherd",8,"Red Stoneware",3,"brown-glazed fine red stoneware",NA,NA
+"OFRE",8,"Ceramics",2,"Sherd",7,"Red Earthenware",99,"other fine red earthenware",NA,NA
+"OFST",3,"Ground or Rough Stone",2,"Fine Tool",99,"Other Fine Tool",99,"other fine stone tool",NA,NA
+"OFUR",7,"Metal",6,"Domestic/Activity",15,"Furniture Hardware",99,"furniture hardware",NA,NA
+"OG",9,"Glass",6,"Other Glass",99,"Other Glass",99,"other glass",NA,NA
+"OGAR",9,"Glass",6,"Other Glass",8,"Architectural",99,"other architectural glass",NA,NA
+"OGDO",9,"Glass",6,"Other Glass",9,"Domestic/Activity",99,"other domestic/activity glass",NA,NA
+"OGR",8,"Ceramics",2,"Sherd",9,"Redware",4,"brown-glazed redware",NA,NA
+"OGS",8,"Ceramics",2,"Sherd",12,"Stoneware",36,"grey salt-glazed stoneware, brown slip",NA,NA
+"OGUN",7,"Metal",5,"Arms/Military",1,"Guns/Bullets",99,"other gun/bullets related metal",NA,NA
+"OHMT",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",99,"other hardware",NA,NA
+"OKAO",8,"Ceramics",3,"Non-Tableware Ceramic",12,"Other Kaolin Object",97,"other kaolin object",NA,NA
+"OKIT",7,"Metal",6,"Domestic/Activity",11,"Cutlery",99,"other kitchen utensil",NA,NA
+"OLET",13,"Other",3,"Leather",1,"Belt/Harness",99,"other leather belt/harness",NA,NA
+"OLLT",9,"Glass",6,"Other Glass",5,"Automotive Glass",5,"orange automotive light cover",NA,NA
+"OM",7,"Metal",1,"Unidentified",99,"Other Metal",99,"other metal",NA,NA
+"OMAR",3,"Ground or Rough Stone",99,"Other Modified Stone",1,"Marble",2,"other marble frag",NA,NA
+"OMIL",7,"Metal",5,"Arms/Military",99,"Other Arms/Military",99,"other arms/military metal",NA,NA
+"OMIN",11,"Mineral/Other",4,"Other Mineral",99,"Other Mineral",99,"other mineral",NA,NA
+"OMMT",7,"Metal",6,"Domestic/Activity",99,"Other Domestic/Activity Metal",97,"other machinery metal object",NA,NA
+"OMO",8,"Ceramics",5,"Brick",2,"Mortar/Plaster",1,"mortar",NA,NA
+"OMUS",7,"Metal",2,"Personal Item",6,"Musical Instrument",99,"other metal musical instrument",NA,NA
+"ON",7,"Metal",3,"Architectural Hardware",4,"Other Nail",99,"other nail",NA,NA
+"ONTC",8,"Ceramics",3,"Non-Tableware Ceramic",99,"Other Non-Tableware Ceramic",99,"other non-tableware ceramic",NA,NA
+"OOLS",13,"Other",6,"Other Organic",99,"Other Organic",97,"other organic liquid sample",NA,NA
+"OORG",13,"Other",6,"Other Organic",99,"Other Organic",99,"other organic",NA,NA
+"OOS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",4,"brown & yellow slip-trail decorated redware",1770,1830
+"OOSW",8,"Ceramics",2,"Sherd",12,"Stoneware",3,"brown salt-glazed stoneware, brown slip",1820,1900
+"OPC",8,"Ceramics",2,"Sherd",3,"Creamware",8,"overglaze enameled polychrome creamware",1765,1810
+"OPL",8,"Ceramics",5,"Brick",2,"Mortar/Plaster",2,"plaster",NA,NA
+"OPLA",13,"Other",4,"Plastic",8,"Plastic",99,"other plastic",NA,NA
+"OPMT",7,"Metal",2,"Personal Item",99,"Other Metal Personal Item",99,"other metal personal item",NA,NA
+"OPOP",7,"Metal",6,"Domestic/Activity",5,"Cans",3,"aluminum can pull tab",NA,NA
+"OPRH",7,"Metal",3,"Architectural Hardware",6,"Plumbing",99,"other plumbing-related hardware",NA,NA
+"OPTG",9,"Glass",4,"Glass Vessel",1,"Tableware",11,"colored table glass, pressed",NA,NA
+"ORBU",13,"Other",1,"Debris",12,"Tar",2,"Orangeburg pipe",1890,1970
+"ORE",8,"Ceramics",2,"Sherd",7,"Red Earthenware",98,"other red earthenware",NA,NA
+"OREC",13,"Other",4,"Plastic",8,"Plastic",52,"other record material",NA,NA
+"ORNA",7,"Metal",2,"Personal Item",7,"Ornament",1,"metal ornament",NA,NA
+"ORST",3,"Ground or Rough Stone",1,"Rough Tool",99,"Other Rough Tool",99,"other rough stone tool",NA,NA
+"ORSW",8,"Ceramics",2,"Sherd",8,"Red Stoneware",98,"other red stoneware",NA,NA
+"ORUB",13,"Other",5,"Rubber",11,"Rubber",4,"other rubber",NA,NA
+"OS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",5,"brown glazed slip-decorated redware",1770,1830
+"OSAM",6,"Botanical",2,"Sample",99,"Other Botanical Sample",99,"other botanical sample",NA,NA
+"OSDR",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",96,"other slip-decorated redware",NA,NA
+"OSH",5,"Shell",1,"Refuse/Unmodified",99,"Other Shell",99,"other shell",NA,NA
+"OSHT",5,"Shell",2,"Tool",99,"Other Shell Tool",99,"other worked shell tool",NA,NA
+"OSK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",6,"Kaolin pipe stem frag, 6/64 in. bore",NA,NA
+"OSL",13,"Other",1,"Debris",3,"Coal",3,"slag",NA,NA
+"OSMT",7,"Metal",7,"Metallurgy",2,"Iron Smelting",99,"other iron smelting metal",NA,NA
+"OSPI",3,"Ground or Rough Stone",3,"Personal Item",99,"Other Personal Item",99,"other stone personal item",NA,NA
+"OSTE",3,"Ground or Rough Stone",5,"All Steatite/Soapstone",99,"Other Steatite/Soapstone",99,"other steatite/soapstone",NA,NA
+"OSTN",3,"Ground or Rough Stone",7,"Architectural Stone",99,"Other Architectural Stone",99,"other architectural stone frag",NA,NA
+"OTAC",8,"Ceramics",6,"Architectural Ceramic",5,"Miscellaneous Ceramic",99,"other architectural ceramics",NA,NA
+"OTAP",13,"Other",4,"Plastic",9,"Tape",5,"other tape",NA,NA
+"OTBA",6,"Botanical",3,"Architectural",99,"Other Botanical Architectural Object",99,"other botanical architectural object",NA,NA
+"OTBE",8,"Ceramics",2,"Sherd",2,"Buff Earthenware",99,"other buff earthenware",NA,NA
+"OTBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",99,"other bottle glass",NA,NA
+"OTBR",8,"Ceramics",5,"Brick",1,"Brick",99,"other brick",NA,NA
+"OTC",8,"Ceramics",2,"Sherd",3,"Creamware",99,"other creamware",NA,NA
+"OTCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",99,"other curved glass",NA,NA
+"OTCS",1,"Chipped Stone",5,"Other Chipped Stone",99,"Other Chipped Stone",99,"other chipped stone",NA,NA
+"OTDB",1,"Chipped Stone",3,"Debitage",99,"Other Debitage",99,"other debitage",NA,NA
+"OTFG",9,"Glass",1,"Flat Glass",1,"Flat Glass",99,"other flat glass",NA,NA
+"OTFR",8,"Ceramics",2,"Sherd",8,"Red Stoneware",99,"other fine red stoneware",NA,NA
+"OTGW",8,"Ceramics",2,"Sherd",13,"Tin-Glazed Ware",98,"other tin-glazed ware",NA,NA
+"OTHG",9,"Glass",2,"Glass Object",99,"Other Glass Object",99,"other glass object",NA,NA
+"OTHW",8,"Ceramics",2,"Sherd",16,"Whiteware",99,"other whiteware",NA,NA
+"OTI",8,"Ceramics",2,"Sherd",16,"Whiteware",14,"brown transfer-printed whiteware",1825,1875
+"OTII",8,"Ceramics",2,"Sherd",4,"Ironstone",99,"other ironstone",1813,1885
+"OTIL",8,"Ceramics",6,"Architectural Ceramic",4,"Tile",99,"other tile",NA,NA
+"OTJW",7,"Metal",2,"Personal Item",4,"Jewelry",99,"other jewelry",NA,NA
+"OTLR",13,"Other",3,"Leather",99,"Other Leather",99,"other leather",NA,NA
+"OTOL",7,"Metal",6,"Domestic/Activity",26,"Tools",19,"other type of tool",NA,NA
+"OTP",8,"Ceramics",2,"Sherd",5,"Pearlware",7,"brown transfer-printed pearlware",1787,1830
+"OTPC",8,"Ceramics",2,"Sherd",3,"Creamware",15,"brown transfer-printed creamware",1765,1815
+"OTPP",2,"Prehistoric Pottery",6,"Other Prehistoric Pottery",99,"Other Prehistoric Ceramic",99,"other prehistoric ceramic",NA,NA
+"OTPW",8,"Ceramics",2,"Sherd",5,"Pearlware",99,"other pearlware",1780,1830
+"OTRR",7,"Metal",6,"Domestic/Activity",21,"Locomotive",99,"other railroad metal",NA,NA
+"OTRW",8,"Ceramics",2,"Sherd",9,"Redware",99,"other redware",NA,NA
+"OTS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",6,"brown slip-trail decorated redware",1770,1830
+"OTSD",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",96,"other slip-decorated redware",NA,NA
+"OTSL",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",99,"other slip-decorated redware",1770,1830
+"OTSV",8,"Ceramics",2,"Sherd",10,"Semi-Vitreous China",99,"other semi-vitreous china",1880,1970
+"OTSW",8,"Ceramics",2,"Sherd",12,"Stoneware",99,"other stoneware",NA,NA
+"OTTG",9,"Glass",4,"Glass Vessel",1,"Tableware",99,"other table glass",NA,NA
+"OTTL",1,"Chipped Stone",2,"Other Tool",99,"Other Tool",99,"other chipped stone tool",NA,NA
+"OTW",8,"Ceramics",2,"Sherd",14,"Transitional Whiteware",99,"other transitional whiteware",1820,1850
+"OTWE",8,"Ceramics",2,"Sherd",15,"White Earthenware",99,"other white earthenware",NA,NA
+"OTWN",7,"Metal",3,"Architectural Hardware",3,"Wire Nail",99,"other wire nail",NA,NA
+"OTYW",8,"Ceramics",2,"Sherd",17,"Yellowware",99,"other yellowware",1830,1940
+"OTZ",8,"Ceramics",2,"Sherd",6,"Porcelain",99,"other porcelain",NA,NA
+"OUS",8,"Ceramics",2,"Sherd",12,"Stoneware",30,"grey salt-glazed blue decorated stoneware, brown slip",NA,NA
+"OWBN",4,"Bone/Antler",2,"Tool",99,"Other Worked Tool",99,"other worked bone/antler tool",NA,NA
+"OWE",8,"Ceramics",2,"Sherd",15,"White Earthenware",5,"other transfer-printed unidentified white earthenware",NA,NA
+"OWN",7,"Metal",3,"Architectural Hardware",1,"Wrought Nail",99,"other wrought nail",1750,1820
+"OWOO",6,"Botanical",4,"Worked",97,"Other worked wood",0,"other worked wood",NA,NA
+"OWS",8,"Ceramics",2,"Sherd",12,"Stoneware",47,"white salt-glazed stoneware, scratch brown",1720,1730
+"OWSH",5,"Shell",3,"Worked",99,"Other Worked Shell",99,"other worked shell",NA,NA
+"OXSH",7,"Metal",6,"Domestic/Activity",16,"Horse/Ox/Mule Equipment",4,"ox shoe",NA,NA
+"OYS",5,"Shell",1,"Refuse/Unmodified",5,"Oyster Shell",0,"oyster shell",NA,NA
+"PAIL",7,"Metal",6,"Domestic/Activity",22,"Pail/Bucket",1,"pail/bucket",NA,NA
+"PAIN",13,"Other",1,"Debris",6,"Paint",0,"paint sample",NA,NA
+"PAPR",13,"Other",1,"Debris",7,"Paper",0,"paper",NA,NA
+"PB",13,"Other",4,"Plastic",8,"Plastic",16,"plastic button",NA,NA
+"PBED",13,"Other",4,"Plastic",8,"Plastic",13,"plastic bead",NA,NA
+"PBK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",14,"undecorated Kaolin pipe bowl/stem frag, 4/64 in. bore",NA,NA
+"PBOD",2,"Prehistoric Pottery",3,"Body Sherd",3,"Body Sherd",0,"body sherd, prehistoric pottery vessel",NA,NA
+"PBOT",13,"Other",4,"Plastic",8,"Plastic",14,"plastic bottle/jar",NA,NA
+"PCAP",13,"Other",4,"Plastic",8,"Plastic",15,"plastic bottle/jar cap",NA,NA
+"PCAR",13,"Other",4,"Plastic",8,"Plastic",11,"plastic automobile light cover",NA,NA
+"PCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",13,"pink curved glass",NA,NA
+"PCL",6,"Botanical",4,"Worked",5,"Pencil",0,"pencil parts (wood)",NA,NA
+"PCUP",13,"Other",4,"Plastic",8,"Plastic",18,"plastic cup",NA,NA
+"PCUT",13,"Other",4,"Plastic",8,"Plastic",19,"plastic cutlery",NA,NA
+"PDF",8,"Ceramics",2,"Sherd",13,"Tin-Glazed Ware",3,"polychrome delftware",NA,NA
+"PDOL",13,"Other",4,"Plastic",8,"Plastic",20,"plastic doll part",NA,NA
+"PEG",6,"Botanical",3,"Architectural",1,"Peg",0,"peg",NA,NA
+"PELC",8,"Ceramics",6,"Architectural Ceramic",1,"Porcelain",1,"porcelain electrical object",NA,NA
+"PELT",13,"Other",6,"Other Organic",2,"Animal Pelt",0,"animal pelt",NA,NA
+"PEN",7,"Metal",6,"Domestic/Activity",23,"Pens/Pencils",1,"pen (metal)",NA,NA
+"PEND",7,"Metal",2,"Personal Item",4,"Jewelry",5,"pendant",NA,NA
+"PEST",3,"Ground or Rough Stone",1,"Rough Tool",8,"Pestle",0,"pestle",NA,NA
+"PEYE",7,"Metal",2,"Personal Item",2,"Clothing Related",2,"eyelet/grommet clothing fastener",NA,NA
+"PFB",8,"Ceramics",2,"Sherd",12,"Stoneware",21,"fine brown stoneware, color-slipped",NA,NA
+"PFI",8,"Ceramics",2,"Sherd",16,"Whiteware",10,"flow purple whiteware",1835,1870
+"PFIT",7,"Metal",3,"Architectural Hardware",6,"Plumbing",2,"pipe fitting",NA,NA
+"PFLK",1,"Chipped Stone",3,"Debitage",2,"Flake",2,"flake, primary",NA,NA
+"PFR",8,"Ceramics",2,"Sherd",8,"Red Stoneware",4,"color-slipped fine red stoneware",NA,NA
+"PINS",8,"Ceramics",6,"Architectural Ceramic",1,"Porcelain",3,"porcelain insulator, white",NA,NA
+"PIPE",7,"Metal",3,"Architectural Hardware",6,"Plumbing",1,"metal plumbing pipe",NA,NA
+"PIT",6,"Botanical",2,"Sample",5,"Fruit Pit",0,"fruit pit",NA,NA
+"PLAS",13,"Other",4,"Plastic",8,"Plastic",98,"unidentified plastic",NA,NA
+"PLED",11,"Mineral/Other",4,"Other Mineral",6,"Pencil Lead",0,"pencil lead ""graphite""",NA,NA
+"PLID",13,"Other",4,"Plastic",8,"Plastic",6,"coffee/soda lid",NA,NA
+"PLOW",7,"Metal",6,"Domestic/Activity",13,"Farm Implements",2,"metal plow frag",NA,NA
+"PLUM",3,"Ground or Rough Stone",2,"Fine Tool",7,"Plummet",0,"plummet",NA,NA
+"POP",7,"Metal",6,"Domestic/Activity",5,"Cans",4,"aluminum pop top",NA,NA
+"PORC",8,"Ceramics",6,"Architectural Ceramic",1,"Porcelain",4,"porcelain sink/bathtub/toilet",NA,NA
+"PORN",2,"Prehistoric Pottery",5,"Ornament",5,"Ornament",0,"prehistoric ceramic ornament",NA,NA
+"POST",6,"Botanical",3,"Architectural",2,"Post",0,"post",NA,NA
+"PPEN",13,"Other",4,"Plastic",8,"Plastic",9,"pen (plastic)",NA,NA
+"PPIP",2,"Prehistoric Pottery",4,"Pipe",4,"Pipe",0,"prehistoric pipe",NA,NA
+"PPNL",13,"Other",4,"Plastic",8,"Plastic",10,"mechanical pencil",NA,NA
+"PPRS",13,"Other",4,"Plastic",8,"Plastic",22,"plastic personal object",NA,NA
+"PPT",1,"Chipped Stone",1,"Projectile Point",1,"Whole Projectile Point",0,"whole projectile point",NA,NA
+"PRIM",2,"Prehistoric Pottery",2,"Rim Sherd",2,"Rim Sherd",0,"rim sherd, prehistoric pottery vessel",NA,NA
+"PRL",5,"Shell",5,"Pearl",1,"Pearl Jewelry",0,"pearl jewelry",NA,NA
+"PSEA",13,"Other",4,"Plastic",8,"Plastic",26,"plastic twist top cap seal",NA,NA
+"PTI",8,"Ceramics",2,"Sherd",16,"Whiteware",17,"purple transfer-printed whiteware",1825,1875
+"PTIE",13,"Other",4,"Plastic",8,"Plastic",27,"plastic wrapper pull-tie opener",NA,NA
+"PTLE",8,"Ceramics",6,"Architectural Ceramic",3,"Redware",4,"redware roofing tile/pan tile",NA,NA
+"PTOY",13,"Other",4,"Plastic",8,"Plastic",24,"plastic toy",NA,NA
+"PTST",3,"Ground or Rough Stone",1,"Rough Tool",9,"Pitted Stone",0,"pitted stone",NA,NA
+"PULL",6,"Botanical",3,"Architectural",3,"Pulley",0,"pulley (wooden)",NA,NA
+"PUNC",7,"Metal",7,"Metallurgy",1,"Blacksmithing",2,"punch biscuit",NA,NA
+"PUTT",13,"Other",1,"Debris",10,"Putty",0,"putty",NA,NA
+"PVES",2,"Prehistoric Pottery",1,"Whole Vessel",1,"Whole Vessel",0,"whole prehistoric pottery vessel",NA,NA
+"PWRA",13,"Other",4,"Plastic",8,"Plastic",28,"plastic wrapper(s)",NA,NA
+"PYTP",8,"Ceramics",2,"Sherd",5,"Pearlware",22,"polychrome transfer-printed pearlware",1795,1840
+"PZIP",13,"Other",4,"Plastic",8,"Plastic",29,"plastic zip tie",NA,NA
+"QBK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",15,"undecorated Kaolin pipe bowl/stem frag, 5/64 in. bore",NA,NA
+"QUIL",4,"Bone/Antler",5,"Feather",2,"Altered Feather",2,"quill",NA,NA
+"RB",13,"Other",5,"Rubber",11,"Rubber",2,"rubber button",NA,NA
+"RBK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",16,"undecorated Kaolin pipe bowl/stem frag, 6/64 in. bore",NA,NA
+"RBS",8,"Ceramics",2,"Sherd",12,"Stoneware",16,"buff salt-glazed stoneware, red slip",1820,1900
+"RBY",8,"Ceramics",2,"Sherd",17,"Yellowware",3,"Rockingham/Bennington yellowware",1830,1940
+"RCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",14,"red curved glass",NA,NA
+"RCN",7,"Metal",3,"Architectural Hardware",2,"Cut Nail",1,"cut nail, wrought 'rose' head",1790,1835
+"RCS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",9,"combed red slip-decorated redware",1770,1830
+"RFLK",1,"Chipped Stone",3,"Debitage",2,"Flake",6,"flake, pressure",NA,NA
+"RGS",8,"Ceramics",2,"Sherd",12,"Stoneware",38,"grey salt-glazed stoneware, red slip",NA,NA
+"RING",7,"Metal",2,"Personal Item",4,"Jewelry",3,"ring (jewelry)",NA,NA
+"RN",7,"Metal",3,"Architectural Hardware",3,"Wire Nail",4,"wire roofing nail",1875,1970
+"RNG",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",20,"ring (hardware)",NA,NA
+"ROCK",11,"Mineral/Other",2,"Rock/Stone",1,"Unmodified Rock/Stone",0,"unmodified rock/stone",NA,NA
+"ROD",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",22,"rod",NA,NA
+"ROLL",3,"Ground or Rough Stone",1,"Rough Tool",10,"Roller",0,"roller",NA,NA
+"ROPE",13,"Other",2,"Fabric",4,"Rope",0,"rope",NA,NA
+"ROS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",13,"red & yellow slip-trail decorated redware",1770,1830
+"RRS",7,"Metal",6,"Domestic/Activity",21,"Locomotive",1,"railroad spike",NA,NA
+"RS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",14,"red glazed slip-decorated redware",1770,1830
+"RTI",8,"Ceramics",2,"Sherd",16,"Whiteware",18,"red transfer-printed whiteware",1825,1875
+"RTS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",15,"red slip-trail decorated redware",1770,1830
+"RUBB",13,"Other",5,"Rubber",11,"Rubber",0,"rubber",NA,NA
+"RUS",8,"Ceramics",2,"Sherd",12,"Stoneware",32,"grey salt-glazed blue decorated stoneware, red slip",NA,NA
+"RVT",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",21,"rivet",NA,NA
+"RWN",7,"Metal",3,"Architectural Hardware",1,"Wrought Nail",1,"wrought nail, 'rose' head",1750,1820
+"SANI",8,"Ceramics",6,"Architectural Ceramic",2,"Stoneware",2,"white 'sanitary stoneware' frag",NA,NA
+"SAW",7,"Metal",6,"Domestic/Activity",26,"Tools",14,"saw",NA,NA
+"SAXE",3,"Ground or Rough Stone",2,"Fine Tool",2,"Axe",0,"axe (stone)",NA,NA
+"SB",5,"Shell",3,"Worked",3,"Button",0,"shell button",NA,NA
+"SBEA",3,"Ground or Rough Stone",3,"Personal Item",4,"Stone Bead",0,"stone bead",NA,NA
+"SBK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",18,"decorated Kaolin pipe bowl/stem frag, smaller than 4/64"" bore",NA,NA
+"SBSK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",13,"undecorated Kaolin pipe bowl/stem frag, smaller than 4/64"" bore",NA,NA
+"SCHO",3,"Ground or Rough Stone",2,"Fine Tool",8,"Sandstone Chopper",0,"sandstone chopper",NA,NA
+"SCIS",7,"Metal",6,"Domestic/Activity",26,"Tools",15,"scissors",NA,NA
+"SCL",4,"Bone/Antler",1,"Refuse/Unmodified",5,"Fish",2,"scales",NA,NA
+"SCLP",7,"Metal",2,"Personal Item",2,"Clothing Related",6,"suspender clamp",NA,NA
+"SCON",5,"Shell",1,"Refuse/Unmodified",2,"Conch Shell",0,"conch shell",NA,NA
+"SCR",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",24,"screw",NA,NA
+"SCRP",1,"Chipped Stone",2,"Other Tool",9,"Scraper",0,"scraper",NA,NA
+"SCSH",5,"Shell",1,"Refuse/Unmodified",6,"Scallop Shell",0,"scallop shell",NA,NA
+"SDC",8,"Ceramics",2,"Sherd",3,"Creamware",9,"sponge-decorated creamware",1762,1820
+"SDI",8,"Ceramics",2,"Sherd",16,"Whiteware",24,"sponge-decorated whiteware",1830,1865
+"SDP",8,"Ceramics",2,"Sherd",5,"Pearlware",16,"sponge-decorated pearlware",1780,1830
+"SDR",8,"Ceramics",2,"Sherd",9,"Redware",9,"slip-decorated redware",NA,NA
+"SDRV",7,"Metal",6,"Domestic/Activity",26,"Tools",16,"screwdriver",NA,NA
+"SDWI",8,"Ceramics",2,"Sherd",16,"Whiteware",22,"slip-decorated whiteware",NA,NA
+"SDY",8,"Ceramics",2,"Sherd",17,"Yellowware",4,"sponge-decorated yellowware",1830,1940
+"SEED",6,"Botanical",2,"Sample",7,"Seed",0,"seed",NA,NA
+"SEFF",5,"Shell",3,"Worked",4,"Ornament",1,"shell effigy",NA,NA
+"SFB",8,"Ceramics",2,"Sherd",12,"Stoneware",24,"fine brown stoneware, sprigged",1690,1775
+"SFIG",3,"Ground or Rough Stone",3,"Personal Item",6,"Stone Figurine",0,"stone figurine",NA,NA
+"SFLK",1,"Chipped Stone",3,"Debitage",2,"Flake",3,"flake, secondary",NA,NA
+"SFR",8,"Ceramics",2,"Sherd",8,"Red Stoneware",9,"sprigged fine red stoneware",1690,1775
+"SHAT",1,"Chipped Stone",3,"Debitage",3,"Shatter",0,"shatter",NA,NA
+"SHEB",5,"Shell",3,"Worked",2,"Bead",0,"shell bead",NA,NA
+"SHFG",5,"Shell",3,"Worked",1,"Shell Manufacturing",2,"shell manufacturing frag",NA,NA
+"SHHO",5,"Shell",2,"Tool",1,"Hoe",0,"shell hoe",NA,NA
+"SHOE",13,"Other",3,"Leather",2,"Footwear",1,"leather shoe or boot frag",NA,NA
+"SHOR",5,"Shell",3,"Worked",4,"Ornament",0,"shell ornament",NA,NA
+"SHOT",7,"Metal",5,"Arms/Military",1,"Guns/Bullets",9,"shot",NA,NA
+"SHST",5,"Shell",3,"Worked",1,"Shell Manufacturing",1,"shell strip",NA,NA
+"SHT",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",18,"metal sheeting/sheathing",NA,NA
+"SIDS",1,"Chipped Stone",2,"Other Tool",10,"Side Scraper",0,"side scraper",NA,NA
+"SINS",3,"Ground or Rough Stone",1,"Rough Tool",11,"Sinewstone",0,"sinewstone",NA,NA
+"SLAT",3,"Ground or Rough Stone",7,"Architectural Stone",3,"Slate Roofing",0,"slate roofing frag",NA,NA
+"slip",5,"Shell",1,"Refuse/Unmodified",7,"Slipper Shell",0,"slipper  shell",NA,NA
+"SNAL",5,"Shell",1,"Refuse/Unmodified",8,"Snail Shell",0,"snail shell",NA,NA
+"SNAP",7,"Metal",2,"Personal Item",2,"Clothing Related",5,"snap-type clothing fastener",NA,NA
+"SNW",13,"Other",6,"Other Organic",4,"Sinew",0,"sinew frag",NA,NA
+"SOIL",10,"Soil",1,"Soil",1,"Soil",0,"soil sample",NA,NA
+"SORN",3,"Ground or Rough Stone",3,"Personal Item",7,"Stone Ornament",0,"stone ornament",NA,NA
+"SPCL",3,"Ground or Rough Stone",98,"Other Worked Stone",1,"Slate",1,"slate pencil",NA,NA
+"SPCN",7,"Metal",3,"Architectural Hardware",2,"Cut Nail",7,"cut spike",1790,1880
+"SPIG",7,"Metal",3,"Architectural Hardware",6,"Plumbing",3,"spigot",NA,NA
+"SPIP",3,"Ground or Rough Stone",4,"Stone Pipe",1,"Stone Pipe",0,"stone pipe",NA,NA
+"SPK",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",25,"spike",NA,NA
+"SPOL",3,"Ground or Rough Stone",2,"Fine Tool",10,"Spool",0,"spool",NA,NA
+"SPOO",7,"Metal",6,"Domestic/Activity",11,"Cutlery",3,"spoon",NA,NA
+"SPPT",3,"Ground or Rough Stone",6,"Projectile Point",1,"Projectile Point",0,"ground/rough stone projectile point",NA,NA
+"SPRG",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",26,"spring",NA,NA
+"SPRK",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",27,"sprockets",NA,NA
+"SPRL",5,"Shell",5,"Pearl",3,"Pearl Button",0,"pearl button",NA,NA
+"SPSH",1,"Chipped Stone",2,"Other Tool",11,"Spokeshave",0,"spokeshave",NA,NA
+"SPZ",8,"Ceramics",2,"Sherd",6,"Porcelain",10,"soft-paste porcelain",1840,1895
+"SQTU",7,"Metal",6,"Domestic/Activity",9,"Containers",1,"squeeze tube",NA,NA
+"SSBR",1,"Chipped Stone",2,"Other Tool",10,"Side Scraper",1,"side scraper biface retouched",NA,NA
+"SSC",5,"Shell",1,"Refuse/Unmodified",9,"Soft Shell Clam Shell",0,"soft shell clam shell",NA,NA
+"SSCR",5,"Shell",2,"Tool",2,"Scraper",0,"shell scraper",NA,NA
+"SSK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",3,"Kaolin pipe stem frag. smaller than 4/64"" bore",NA,NA
+"SSP",8,"Ceramics",6,"Architectural Ceramic",2,"Stoneware",1,"stoneware sewer pipe frag",NA,NA
+"SSPN",5,"Shell",2,"Tool",3,"Spoon",0,"shell spoon",NA,NA
+"SSUR",1,"Chipped Stone",2,"Other Tool",10,"Side Scraper",2,"side scraper uniface retouched",NA,NA
+"STAF",8,"Ceramics",2,"Sherd",12,"Stoneware",42,"Staffordshire Brown English stoneware",1700,1800
+"STAP",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",28,"staple",NA,NA
+"STC",8,"Ceramics",2,"Sherd",3,"Creamware",10,"stamped creamware",1762,1820
+"STDI",8,"Ceramics",2,"Sherd",16,"Whiteware",25,"stamped-sponge decorated whiteware",1840,1920
+"STES",3,"Ground or Rough Stone",5,"All Steatite/Soapstone",2,"Vessel Sherd",0,"steatite/soapstone vessel sherd",NA,NA
+"STEV",3,"Ground or Rough Stone",5,"All Steatite/Soapstone",1,"Whole Vessel",0,"whole steatite/soapstone vessel",NA,NA
+"STKA",1,"Chipped Stone",2,"Other Tool",8,"Knife",1,"stone knife, asymmetrical",NA,NA
+"STKK",7,"Metal",6,"Domestic/Activity",11,"Cutlery",4,"steak knife",NA,NA
+"STKN",1,"Chipped Stone",2,"Other Tool",8,"Knife",0,"stone knife",NA,NA
+"STMB",8,"Ceramics",3,"Non-Tableware Ceramic",11,"Stoneware Marble",0,"stoneware marble",NA,NA
+"STOK",7,"Metal",7,"Metallurgy",1,"Blacksmithing",3,"stock metal fragment",NA,NA
+"STOL",7,"Metal",6,"Domestic/Activity",26,"Tools",17,"small tool",NA,NA
+"STOV",7,"Metal",6,"Domestic/Activity",24,"Stove/Furnaces",1,"cast iron stove or furnace",NA,NA
+"STP",8,"Ceramics",2,"Sherd",5,"Pearlware",17,"stamped pearlware",1780,1830
+"STPL",4,"Bone/Antler",1,"Refuse/Unmodified",5,"Fish",3,"sturgeon plate",NA,NA
+"STRP",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",29,"strapping",NA,NA
+"STRW",13,"Other",4,"Plastic",8,"Plastic",23,"plastic straw",NA,NA
+"STTW",13,"Other",2,"Fabric",5,"String/Twine",0,"string/twine",NA,NA
+"STY",13,"Other",4,"Plastic",8,"Plastic",30,"Styrofoam",1954,1970
+"SWN",7,"Metal",3,"Architectural Hardware",3,"Wire Nail",5,"square wire nail",NA,NA
+"SWOR",7,"Metal",5,"Arms/Military",2,"Swords",1,"sword",NA,NA
+"TACK",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",30,"tack",NA,NA
+"TAG",7,"Metal",6,"Domestic/Activity",25,"Tags",1,"tag",NA,NA
+"TAPE",13,"Other",4,"Plastic",9,"Tape",1,"masking tape",1925,NA
+"TAR",13,"Other",1,"Debris",12,"Tar",0,"tar",NA,NA
+"TARP",13,"Other",1,"Debris",12,"Tar",1,"tarpaper",NA,NA
+"TBS",8,"Ceramics",2,"Sherd",12,"Stoneware",17,"buff salt-glazed stoneware, tan slip",NA,NA
+"TCN",7,"Metal",3,"Architectural Hardware",2,"Cut Nail",3,"cut nail, wrought 'T' head",1790,1835
+"TEXT",6,"Botanical",1,"Manufactured Object",4,"Textile",0,"textile",NA,NA
+"TFLK",1,"Chipped Stone",3,"Debitage",2,"Flake",4,"flake, tertiary",NA,NA
+"TGS",8,"Ceramics",2,"Sherd",12,"Stoneware",39,"grey salt-glazed stoneware, tan slip",NA,NA
+"THIM",7,"Metal",6,"Domestic/Activity",26,"Tools",18,"thimble",NA,NA
+"TILE",8,"Ceramics",6,"Architectural Ceramic",4,"Tile",1,"ceramic tile",NA,NA
+"TLLT",9,"Glass",6,"Other Glass",5,"Automotive Glass",3,"red automotive taillight cover",NA,NA
+"TOBA",6,"Botanical",2,"Sample",8,"Tobacco",0,"tobacco",NA,NA
+"TOKE",7,"Metal",2,"Personal Item",3,"Coin",2,"token",NA,NA
+"TOOL",7,"Metal",6,"Domestic/Activity",26,"Tools",8,"large-handled tool part",NA,NA
+"TOOT",4,"Bone/Antler",1,"Refuse/Unmodified",7,"Tooth/Tusk",1,"tooth",NA,NA
+"TORT",4,"Bone/Antler",1,"Refuse/Unmodified",8,"Tortoise",0,"tortoise shell",NA,NA
+"TOYZ",8,"Ceramics",2,"Sherd",6,"Porcelain",9,"porcelain toy dish",NA,NA
+"TRAS",13,"Other",1,"Debris",5,"Modern Trash",0,"modern trash, not collected",NA,NA
+"TRIM",7,"Metal",7,"Metallurgy",1,"Blacksmithing",4,"trimmings/scrap",NA,NA
+"TRNG",7,"Metal",6,"Domestic/Activity",6,"Cap/Lid",4,"twist top bottle cap ring",NA,NA
+"TSC",8,"Ceramics",2,"Sherd",3,"Creamware",11,"tortoise-shell creamware",1740,1780
+"TSV",8,"Ceramics",2,"Sherd",10,"Semi-Vitreous China",4,"transfer-printed semi-vitreous china",1880,NA
+"TTEA",8,"Ceramics",3,"Non-Tableware Ceramic",8,"Toys",0,"children's tea set pieces",NA,NA
+"TUBE",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",31,"tubing",NA,NA
+"TURT",4,"Bone/Antler",1,"Refuse/Unmodified",8,"Turtle",0,"turtle shell",NA,NA
+"TUSK",4,"Bone/Antler",1,"Refuse/Unmodified",7,"Tooth/Tusk",2,"tusk",NA,NA
+"TWIS",13,"Other",4,"Plastic",8,"Plastic",25,"plastic twist top cap",NA,NA
+"TWN",7,"Metal",3,"Architectural Hardware",1,"Wrought Nail",3,"wrought nail, 'T' head",1750,1820
+"TWS",8,"Ceramics",2,"Sherd",12,"Stoneware",49,"white stoneware, transfer-printed",1755,1765
+"TWST",7,"Metal",6,"Domestic/Activity",6,"Cap/Lid",3,"twist top bottle cap",NA,NA
+"UB",4,"Bone/Antler",1,"Refuse/Unmodified",3,"Bone",1,"unmodified bone",NA,NA
+"UBP",8,"Ceramics",2,"Sherd",5,"Pearlware",18,"underglaze blue hand-painted pearlware",1780,1830
+"UBZ",8,"Ceramics",2,"Sherd",6,"Porcelain",12,"underglaze blue Chinese porcelain",1660,1800
+"UCN",7,"Metal",3,"Architectural Hardware",2,"Cut Nail",97,"unidentified cut nail",1790,1880
+"UCUT",7,"Metal",6,"Domestic/Activity",11,"Cutlery",96,"unidentified cutlery",NA,NA
+"UDB",4,"Bone/Antler",1,"Refuse/Unmodified",3,"Bone",3,"unidentified bone frag",NA,NA
+"UDLR",13,"Other",3,"Leather",99,"Other Leather",97,"unidentified leather",NA,NA
+"UDM",7,"Metal",1,"Unidentified",97,"Unidentified",97,"unidentified metal",NA,NA
+"UDSK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",99,"unidentified Kaolin pipe stem frag",NA,NA
+"UDSW",8,"Ceramics",2,"Sherd",12,"Stoneware",97,"unidentified stoneware",NA,NA
+"UDUD",14,"Unidentified",0,"Unidentified",0,"Unidentified",0,"unidentified material",NA,NA
+"UDZ",8,"Ceramics",2,"Sherd",6,"Porcelain",97,"unidentified porcelain",NA,NA
+"UFB",8,"Ceramics",2,"Sherd",12,"Stoneware",26,"fine brown stoneware, unidentified",1690,1775
+"UFI",8,"Ceramics",2,"Sherd",16,"Whiteware",7,"flow blue whiteware",1835,1870
+"UFP",8,"Ceramics",2,"Sherd",5,"Pearlware",11,"flow blue pearlware",1795,1840
+"UFR",8,"Ceramics",2,"Sherd",8,"Red Stoneware",10,"unidentified fine red stoneware",NA,NA
+"UGB",8,"Ceramics",2,"Sherd",12,"Stoneware",8,"buff bodied stoneware, molded w/blue glaze",NA,NA
+"UIC",7,"Metal",1,"Unidentified",3,"Cuprous",0,"unidentified cuprous metal",NA,NA
+"UIS",7,"Metal",1,"Unidentified",4,"Ferrous",0,"unidentified iron/steel",NA,NA
+"ULU",3,"Ground or Rough Stone",2,"Fine Tool",11,"Ulu",0,"ulu",NA,NA
+"UN",7,"Metal",3,"Architectural Hardware",4,"Other Nail",98,"unidentified nail",NA,NA
+"UNB",8,"Ceramics",2,"Sherd",2,"Buff Earthenware",8,"unidentified buff earthenware",NA,NA
+"UNBN",4,"Bone/Antler",2,"Tool",8,"Unidentified Tool",0,"unidentified worked bone/antler tool",NA,NA
+"UNI",8,"Ceramics",2,"Sherd",16,"Whiteware",97,"unidentified whiteware",1820,1900
+"UNIF",1,"Chipped Stone",2,"Other Tool",12,"Uniface",0,"uniface",NA,NA
+"UNR",8,"Ceramics",2,"Sherd",9,"Redware",97,"unidentified redware",NA,NA
+"UNS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",97,"unidentified slip-decorated redware",1770,1830
+"UNW",8,"Ceramics",2,"Sherd",15,"White Earthenware",97,"unidentified white earthenware",NA,NA
+"UNZ",8,"Ceramics",2,"Sherd",6,"Porcelain",1,"undecorated porcelain",NA,NA
+"UPOB",2,"Prehistoric Pottery",3,"Body Sherd",3,"Body Sherd",2,"undecorated body sherd, prehistoric pottery vessel",NA,NA
+"UPP",8,"Ceramics",2,"Sherd",5,"Pearlware",19,"underglaze polychrome hand-painted pearlware",1780,1840
+"URIM",2,"Prehistoric Pottery",2,"Rim Sherd",2,"Rim Sherd",2,"undecorated rim sherd, prehistoric pottery vessel",NA,NA
+"URN",7,"Metal",3,"Architectural Hardware",3,"Wire Nail",97,"unidentified wire nail",1875,1970
+"US",5,"Shell",1,"Refuse/Unmodified",97,"Unidentified Shell",97,"unidentified shell",NA,NA
+"USN",7,"Metal",3,"Architectural Hardware",4,"Other Nail",96,"unidentified square nail",NA,NA
+"USTN",3,"Ground or Rough Stone",99,"Other Modified Stone",99,"Other Modified Stone",99,"other modified stone",NA,NA
+"UTC",8,"Ceramics",2,"Sherd",3,"Creamware",4,"blue transfer-printed creamware",1765,1815
+"UTF1",1,"Chipped Stone",3,"Debitage",4,"Utilized Flake",1,"utilized flake, primary",NA,NA
+"UTF2",1,"Chipped Stone",3,"Debitage",4,"Utilized Flake",2,"utilized flake, secondary",NA,NA
+"UTF3",1,"Chipped Stone",3,"Debitage",4,"Utilized Flake",3,"utilized flake, tertiary",NA,NA
+"UTI",8,"Ceramics",2,"Sherd",16,"Whiteware",13,"blue transfer-printed whiteware",1830,1865
+"UTIL",1,"Chipped Stone",3,"Debitage",4,"Utilized Flake",0,"utilized flake",NA,NA
+"UTP",8,"Ceramics",2,"Sherd",5,"Pearlware",6,"blue transfer-printed pearlware",1795,1840
+"UTTW",8,"Ceramics",2,"Sherd",14,"Transitional Whiteware",3,"blue transfer-print transitional whiteware",1820,1850
+"UWAM",5,"Shell",4,"Wampum",1,"Wampum",3,"unfinished wampum beads (just before drilling or drilling started)",NA,NA
+"UWN",7,"Metal",3,"Architectural Hardware",1,"Wrought Nail",97,"unidentified wrought nail",NA,NA
+"UWS",8,"Ceramics",2,"Sherd",12,"Stoneware",46,"white salt-glazed stoneware, scratch blue",1744,1775
+"UXSH",7,"Metal",6,"Domestic/Activity",16,"Horse/Ox/Mule Equipment",97,"unidentified animal shoe",NA,NA
+"VBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",2,"amethyst bottle glass",1880,1914
+"VCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",2,"amethyst curved glass",1840,1914
+"VFG",9,"Glass",1,"Flat Glass",1,"Flat Glass",1,"amethyst flat glass",NA,NA
+"VLG",9,"Glass",6,"Other Glass",1,"Lamp Glass",3,"amethyst lamp glass",1880,1914
+"VTG",9,"Glass",4,"Glass Vessel",1,"Tableware",8,"colored table glass, amethyst",1840,1918
+"VYNL",13,"Other",4,"Plastic",8,"Plastic",50,"vinyl plastic piece",NA,NA
+"WAG",7,"Metal",6,"Domestic/Activity",13,"Farm Implements",3,"wagon parts",NA,NA
+"WAMP",5,"Shell",4,"Wampum",1,"Wampum",1,"finished wampum",NA,NA
+"WAS",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",32,"washer",NA,NA
+"WAST",8,"Ceramics",3,"Non-Tableware Ceramic",1,"Kiln Furniture",2,"ceramic wasters",NA,NA
+"WATC",7,"Metal",2,"Personal Item",9,"Watch",1,"watch part",NA,NA
+"WB",6,"Botanical",4,"Worked",3,"Button",0,"wood button",NA,NA
+"WEDG",8,"Ceramics",2,"Sherd",12,"Stoneware",43,"Wedgwood Jasper style stoneware",1775,NA
+"WGII",8,"Ceramics",2,"Sherd",4,"Ironstone",4,"white granite ironstone",1840,1880
+"WGS",8,"Ceramics",2,"Sherd",12,"Stoneware",10,"buff bodied stoneware, white ext., brown slip interior",1820,1900
+"WHET",3,"Ground or Rough Stone",2,"Fine Tool",12,"Whetstone",0,"whetstone",NA,NA
+"WIRE",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",34,"wire",NA,NA
+"WLAT",7,"Metal",3,"Architectural Hardware",5,"Other Hardware",33,"window latch/lock",NA,NA
+"WOOD",6,"Botanical",2,"Sample",9,"Wood",0,"wood frag",NA,NA
+"WPUT",13,"Other",1,"Debris",10,"Putty",1,"window putty",NA,NA
+"WRAP",7,"Metal",6,"Domestic/Activity",1,"Aluminum",2,"aluminum foil wrapper frag",NA,NA
+"WSLT",3,"Ground or Rough Stone",98,"Other Worked Stone",1,"Slate",0,"worked slate",NA,NA
+"WSTN",3,"Ground or Rough Stone",98,"Other Worked Stone",99,"Other Worked Stone",97,"other worked stone",NA,NA
+"WTI",8,"Ceramics",2,"Sherd",16,"Whiteware",28,"willow pattern transfer-printed whiteware",1825,1840
+"WTP",8,"Ceramics",2,"Sherd",5,"Pearlware",20,"willow pattern transfer-printed pearlware",1795,1840
+"WUS",8,"Ceramics",2,"Sherd",12,"Stoneware",41,"grey salt-glazed Westerwald stoneware",1700,1775
+"WWC",8,"Ceramics",2,"Sherd",3,"Creamware",14,"Whieldon ware",1740,1780
+"XB",8,"Ceramics",2,"Sherd",2,"Buff Earthenware",1,"undecorated buff earthenware",1830,1940
+"XBK",8,"Ceramics",4,"Pipe",1,"Kaolin Pipe",1,"undecorated Kaolin pipe bowl frag",NA,NA
+"XBS",8,"Ceramics",2,"Sherd",12,"Stoneware",18,"buff salt-glazed stoneware, unslipped",1820,1900
+"XC",8,"Ceramics",2,"Sherd",3,"Creamware",1,"undecorated creamware",1762,1820
+"XDC",8,"Ceramics",2,"Sherd",3,"Creamware",12,"undecorated deeper yellow creamware",1762,1820
+"XDF",8,"Ceramics",2,"Sherd",13,"Tin-Glazed Ware",1,"undecorated delftware",1640,1800
+"XFB",8,"Ceramics",2,"Sherd",12,"Stoneware",25,"fine brown stoneware, unglazed",1690,1775
+"XFR",8,"Ceramics",2,"Sherd",8,"Red Stoneware",1,"unglazed fine red stoneware",1690,1775
+"XGR",8,"Ceramics",2,"Sherd",9,"Redware",1,"unglazed redware",NA,NA
+"XGS",8,"Ceramics",2,"Sherd",12,"Stoneware",40,"grey salt-glazed stoneware, unslipped",NA,NA
+"XI",8,"Ceramics",2,"Sherd",16,"Whiteware",1,"undecorated whiteware",1820,1950
+"XII",8,"Ceramics",2,"Sherd",4,"Ironstone",0,"undecorated ironstone",1813,1885
+"XLC",8,"Ceramics",2,"Sherd",3,"Creamware",13,"undecorated lighter yellow creamware",1775,1820
+"XMAG",11,"Mineral/Other",3,"Magnet",0,"Magnet",1,"magnet with other material attached",NA,NA
+"XOSW",8,"Ceramics",2,"Sherd",12,"Stoneware",5,"brown salt-glazed stoneware, unslipped",1820,1900
+"XP",8,"Ceramics",2,"Sherd",5,"Pearlware",1,"undecorated pearlware",1780,1830
+"XPRL",5,"Shell",5,"Pearl",4,"Other Pearl",0,"pearl with other material attached",NA,NA
+"XRP",8,"Ceramics",4,"Pipe",2,"Red Clay Pipe",1,"undecorated red clay pipe frag",NA,NA
+"XRUB",13,"Other",5,"Rubber",11,"Rubber",98,"rubber with other material attached",NA,NA
+"XSV",8,"Ceramics",2,"Sherd",10,"Semi-Vitreous China",1,"undecorated semi-vitreous china",1880,1970
+"XTAP",13,"Other",4,"Plastic",9,"Tape",6,"tape with other material attached",NA,NA
+"XTGW",8,"Ceramics",2,"Sherd",13,"Tin-Glazed Ware",8,"undecorated tin-glazed ware",NA,NA
+"XTW",8,"Ceramics",2,"Sherd",14,"Transitional Whiteware",1,"undecorated transitional whiteware",1820,1850
+"XTWE",8,"Ceramics",2,"Sherd",15,"White Earthenware",95,"transitional refined white earthenware",NA,NA
+"XUS",8,"Ceramics",2,"Sherd",12,"Stoneware",33,"grey salt-glazed blue decorated stoneware, unslipped",NA,NA
+"XWS",8,"Ceramics",2,"Sherd",12,"Stoneware",44,"white salt-glazed stoneware",1720,1780
+"XY",8,"Ceramics",2,"Sherd",17,"Yellowware",1,"undecorated yellowware",1830,1940
+"XZ",8,"Ceramics",2,"Sherd",6,"Porcelain",11,"undecorated Chinese porcelain",1660,1890
+"YBE",8,"Ceramics",2,"Sherd",2,"Buff Earthenware",7,"yellow lead-glazed buff earthenware",1670,1795
+"YBG",9,"Glass",4,"Glass Vessel",3,"Bottle Glass",15,"yellow bottle glass",NA,NA
+"YBR",8,"Ceramics",5,"Brick",1,"Brick",3,"yellow brick",NA,NA
+"YCG",9,"Glass",4,"Glass Vessel",2,"Curved Glass",15,"yellow curved glass",NA,NA
+"YGI",8,"Ceramics",2,"Sherd",16,"Whiteware",29,"yellow-glazed whiteware",NA,NA
+"YGR",8,"Ceramics",2,"Sherd",9,"Redware",10,"yellow-glazed redware",NA,NA
+"YLLT",9,"Glass",6,"Other Glass",5,"Automotive Glass",4,"yellow automotive light cover",NA,NA
+"YS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",16,"yellow glazed slip-decorated redware",1770,1830
+"YSR",8,"Ceramics",2,"Sherd",9,"Redware",8,"mottled or spotted yellow-glazed redware",NA,NA
+"YTI",8,"Ceramics",2,"Sherd",16,"Whiteware",19,"yellow transfer-printed whiteware",NA,NA
+"YTS",8,"Ceramics",2,"Sherd",11,"Slip-Decorated Redware",17,"yellow slip-trail decorated redware",1770,1830
+"ZIP",7,"Metal",2,"Personal Item",2,"Clothing Related",7,"zipper",NA,NA
