@@ -5,8 +5,13 @@ require(ggraph)
 
 # Import data from file ---------------------------------------------------
 
+# Data for Site A
 dat_raw <- read_csv("./data/Catalog_SiteA.csv",
                 col_select = c(LEVEL_ID, CODE))
+
+# Data for Sites A and C
+# dat_raw <- read_csv("./data/Catalog_AC.csv",
+#                     col_select = c(LEVEL_ID, CODE))
 
 # Artifact to exclude from analysis
 exclude_artifacts <-
@@ -566,9 +571,11 @@ ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
 
 # Community detection -----------------------------------------------------
 
-# artifact_adj <- power_adj(artifact_sim_ssoc, beta = 3)
+# artifact_adj <- power_adj(artifact_sim_ssoc, beta = 14)
 
-artifact_adj <- signum_adj(artifact_sim_ssoc, tau = 0.69)
+artifact_adj <- signum_adj(artifact_sim_ssoc, tau = 0.7)
+
+# artifact_adj<- signum_adj(artifact_sim_sd, tau = 0.45)
 
 g_artifact <-
   graph_from_adjacency_matrix(
@@ -578,6 +585,26 @@ g_artifact <-
     diag = FALSE
   )
 
+g_artifact %>%
+  ggraph(layout = "mds") +
+  geom_edge_link(color = "gray", alpha = 0.4) +
+  geom_node_point(color = "darkblue")
+
+
+g_artifact2 <-
+  graph_from_adjacency_matrix(
+    signum_adj(artifact_sim_sd, tau = 0.55),
+    mode = 'undirected',
+    weighted = NULL,
+    diag = FALSE
+  )
+
+g_artifact2 %>%
+  ggraph(layout = "kk") +
+  geom_edge_link(color = "gray", alpha = 0.4) +
+  geom_node_point(color = "darkblue")
+
+
 prov_adj_signum <- signum_adj(prov_sim_ssoc, tau = 0.25)
 
 g_prov <-
@@ -585,4 +612,9 @@ g_prov <-
                               mode = 'undirected',
                               weighted = NULL,
                               diag = FALSE)
+
+g_prov %>%
+  ggraph(layout = "mds") +
+  geom_edge_link(color = "gray", alpha = 0.4) +
+  geom_node_point(color = "darkgreen")
 

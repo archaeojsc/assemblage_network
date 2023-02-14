@@ -424,7 +424,7 @@ Soft thresholds consist of a transformation of the raw similarity score by passi
 
 Soft thresholds result in weighted graphs, therefore they do not reduce the graph's density or alter the degree distribution, unless a subsequent (hard) threshold is applied as well. In a weighted network, though, the density is less of an issue, since all metrics become proportional to the associated edge weights. It does, however, become rather more computationally intensive. The advantage of that trade-off is that more of the information about the relationships is retained in the graph's structure.
 
-Since our similarity scores are already in the range $[0,1]$, we don't really need quite the same sort transformation as we would if we needed to take any real number as an input. We just need to "bend" our linear input range to suppress some range of the smaller values. Luckily, there is a very simple way to do that by using an exponential function. We'll define a power adjacency[^4] function:
+Since our similarity scores are already in the range $[0,1]$, we don't really need quite the same sort transformation as we would if we needed to take any real number as an input. We just need to "bend" our linear input range to minimize some portion of the smaller values. Luckily, there is a very simple way to do that by using an exponential function. We'll define a power adjacency[^4] function:
 
 [^4]: Again, we're following after @Zhang2005.
 
@@ -444,7 +444,7 @@ power_adj <- function(x, beta) {
 
 ```
 
-Increasing $\beta$ can be seen to push the smaller values towards zero, which increases the minimum value at which the adjacency score exceeds $0.5$ (thus, it's a *soft* threshold). At $\beta=2$, only similarity values of $S_{i,j} \geq 0.71$ would break the $0.5$ adjacency threshold and the weights of all lower values penalized. At $\beta=3$ it would take $S_{i,j} \geq 0.79$ and so on.
+Increasing $\beta$ can be seen to push the smaller values towards zero, which increases the minimum value at which the adjacency score exceeds $0.5$ (thus, it's a *soft* threshold). For example, at $\beta=2$ only similarity values of $S_{i,j} \geq 0.71$ would break the $0.5$ adjacency threshold and the weights of all lower values penalized. At $\beta=3$ it would take $S_{i,j} \geq 0.79$ and so on.
 
 ```{r}
 #| label: fig-power-adjacency
@@ -465,4 +465,8 @@ ggplot(data.frame(x = seq(0, 1, length.out = 1000)), aes(x = x)) +
 
 ```
 
-## Choosing threshold type and parameters {#sec-choosing-threshold-type-and-parameters}
+### Choosing threshold type and parameters {#sec-choosing-threshold-type-and-parameters}
+
+So, now that we've explored some different types of similarity and adjacency methods, the question remains -- how do we choose between them? We're looking for non-random structure within our sample data, and we know that the non-random distribution of connections in our network *should* approximate a scale-free network. Therefore, we want to pick the similarity measure and adjacency threshold that result in a graph that best approximates such a network.
+
+How do we do that?
