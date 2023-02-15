@@ -469,4 +469,6 @@ ggplot(data.frame(x = seq(0, 1, length.out = 1000)), aes(x = x)) +
 
 So, now that we've explored some different types of similarity and adjacency methods, the question remains -- how do we choose between them? We're looking for non-random structure within our sample data, and we know that the non-random distribution of connections in our network *should* approximate a scale-free network. Therefore, we want to pick the similarity measure and adjacency threshold that result in a graph that best approximates such a network.
 
-How do we do that?
+How do we do that? Well, one proven method is that we can test the fit of a linear regression between the the observed distribution of node degrees and an ideal power law probability distribution of those degrees. The higher the $R^2$ of the model fit, the closer the observed data is to a scale-free topology.
+
+Basically we're doing a grid search. For each combination of similarity matrix and adjacency method,

@@ -571,9 +571,9 @@ ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
 
 # Community detection -----------------------------------------------------
 
-# artifact_adj <- power_adj(artifact_sim_ssoc, beta = 14)
+artifact_adj <- power_adj(artifact_sim_ssoc, beta = 3)
 
-artifact_adj <- signum_adj(artifact_sim_ssoc, tau = 0.7)
+# artifact_adj <- signum_adj(artifact_sim_ssoc, tau = 0.7)
 
 # artifact_adj<- signum_adj(artifact_sim_sd, tau = 0.45)
 
@@ -581,14 +581,21 @@ g_artifact <-
   graph_from_adjacency_matrix(
     artifact_adj,
     mode = 'undirected',
-    weighted = NULL,
+    weighted = TRUE,
     diag = FALSE
   )
 
+# Weighted graph 
 g_artifact %>%
   ggraph(layout = "mds") +
-  geom_edge_link(color = "gray", alpha = 0.4) +
+  geom_edge_link(color = "gray", aes(alpha = weight)) +
   geom_node_point(color = "darkblue")
+
+# Unweighted graph 
+# g_artifact %>%
+#   ggraph(layout = "mds") +
+#   geom_edge_link(color = "gray", alpha = 0.4) +
+#   geom_node_point(color = "darkblue")
 
 
 g_artifact2 <-
