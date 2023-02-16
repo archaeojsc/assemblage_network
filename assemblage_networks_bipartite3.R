@@ -571,11 +571,11 @@ ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
 
 # Community detection -----------------------------------------------------
 
-artifact_adj <- power_adj(artifact_sim_ssoc, beta = 3)
+artifact_adj <- power_adj(artifact_sim_ssoc, beta = 5)
 
 # artifact_adj <- signum_adj(artifact_sim_ssoc, tau = 0.7)
 
-# artifact_adj<- signum_adj(artifact_sim_sd, tau = 0.45)
+# artifact_adj<- signum_adj(artifact_sim_sd, tau = 0.55)
 
 g_artifact <-
   graph_from_adjacency_matrix(
@@ -624,4 +624,13 @@ g_prov %>%
   ggraph(layout = "mds") +
   geom_edge_link(color = "gray", alpha = 0.4) +
   geom_node_point(color = "darkgreen")
+
+
+
+# Testing scale-free adjacency construction -------------------------------
+
+sim_mat_artifact <-
+  c('artifact_sim_ssoc', 'artifact_sim_sd', 'artifact_sim_jacc')
+
+sim_mat_prov <- c('prov_sim_ssoc', 'prov_sim_sd', 'prov_sim_jacc')
 
