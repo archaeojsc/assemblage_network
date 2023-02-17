@@ -469,10 +469,8 @@ ggplot(data.frame(x = seq(0, 1, length.out = 1000)), aes(x = x)) +
 
 So, now that we've explored some different types of similarity and adjacency methods, the question remains -- how do we choose between them? We're looking for non-random structure within our sample data, and we know that the non-random distribution of connections in our network *should* approximate a scale-free network. Therefore, we want to pick the similarity measure and adjacency threshold that result in a graph that best approximates such a network.
 
-How do we do that? Well, one proven method is that we can test the fit of a linear regression between the the observed distribution of network connectivity and an ideal power law probability distribution. The higher the $R^2$ of the model fit, the closer the observed data is to a scale-free topology. The means of doing this are different between weighted (soft) and un-weighted (hard) adjacency, though.
+How do we do that?
 
-For un-weighted graphs formed by a hard threshold, connectivity is simply defined as the degree of each node. If the edges are weighted, though,
+Well, one proven method[^6] is that we can test the fit of a linear regression between the the observed distribution of network connectivity and an ideal power law probability distribution. The higher the $R^2$ of the model fit, the closer the observed data is to a scale-free topology. The meaning of "connectivity" is different for weighted (soft) and un-weighted (hard) adjacency, though. For un-weighted graphs, connectivity is simply the degree of each node. If the edges are weighted, though, connectivity is the sum of edge weights (or "strength") connected to each node.
 
-Basically we need to do a grid search. For each combination of similarity matrix and adjacency method, we evaluate the fit for a sequence of parameter values.
-
-Luckily, the `WGCNA` package in R has two methods (`pickHardThreshold.fromSimilarity` and `pickSoftThreshold.fromSimilarity`) to do just that.
+[^6]: See @Zhang2005

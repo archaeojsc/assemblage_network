@@ -621,7 +621,7 @@ g_prov <-
                               diag = FALSE)
 
 g_prov %>%
-  ggraph(layout = "mds") +
+  ggraph(layout = "kk") +
   geom_edge_link(color = "gray", alpha = 0.4) +
   geom_node_point(color = "darkgreen")
 
