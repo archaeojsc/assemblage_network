@@ -13,7 +13,7 @@ dat_raw <- read_csv("./data/Catalog_SiteA.csv",
 # dat_raw <- read_csv("./data/Catalog_AC.csv",
 #                     col_select = c(LEVEL_ID, CODE))
 
-# Artifact to exclude from analysis
+# Artifacts to exclude from analysis
 exclude_artifacts <-
   as.vector(read.csv("./data/code_exclude.csv", header = T)$x)
 

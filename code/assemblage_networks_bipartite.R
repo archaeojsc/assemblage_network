@@ -15,7 +15,7 @@ require(ade4)
 
 # Import data from file ---------------------------------------------------
 
-dat <- read_csv("Catalog_SiteA.csv")
+dat <- read_csv("..\data\Catalog_SiteA.csv")
 
 # Create bipartite graph from unique provenience & artifact code pairs ----
 
