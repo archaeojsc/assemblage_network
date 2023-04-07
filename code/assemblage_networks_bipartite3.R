@@ -153,21 +153,21 @@ artifact_sim_ssoc <- overlap_coef_bin(g_assemblages_bpg_inc)
 artifact_ssoc_sims <-
   artifact_sim_ssoc[lower.tri(artifact_sim_ssoc, diag = FALSE)]
 
-ggplot(data = data.frame(x = c(artifact_ssoc_sims)), aes(x = x)) +
+ggplot(data = data.frame(x = c(artifact_ssoc_sims^3)), aes(x = x)) +
   geom_density(fill = "darkblue", alpha = 0.4) +
   ggtitle("Distribution of Szymkiewicz-Simpson Similarity for Artifacts")
 
 g_assemblages_proj_artifact_oc <-
   graph_from_adjacency_matrix(
-    artifact_sim_ssoc^3,
+    artifact_sim_ssoc,
     mode = "undirected",
     weighted = TRUE,
     diag = FALSE
   )
 
 g_assemblages_proj_artifact_oc %>%
-  ggraph(layout = "kk") +
-  geom_edge_link(color = "darkgray", aes(alpha = weight)) +
+  ggraph(layout = "auto") +
+  geom_edge_link(aes(alpha = weight)) +
   geom_node_point(color = "darkblue") +
   ggtitle("Network of Artifacts")
 
@@ -633,4 +633,176 @@ sim_mat_artifact <-
   c('artifact_sim_ssoc', 'artifact_sim_sd', 'artifact_sim_jacc')
 
 sim_mat_prov <- c('prov_sim_ssoc', 'prov_sim_sd', 'prov_sim_jacc')
+
+g_test <- g_assemblages_proj_prov_jacc
+
+thresh.vals <- seq(.1, 0.9, by = 0.05)
+test.p<-c()
+
+for (i in 1:length(thresh.vals)) {
+  test.p[i] <-
+    fit_power_law(strength(delete.edges(
+      g_test, which(E(g_test)$weight <= thresh.vals[i])
+    )))$KS.p
+}
+
+plot(thresh.vals[1:40], test.p)
+abline(v=thresh.vals[which.max(test.p)], col = "red")
+
+
+ggplot(data = data.frame(x = strength(g_test)), aes(x = x)) +
+  geom_density()
+
+
+# testing Soft Threshold -------------------------------------------------
+
+old.par <- par(no.readonly = TRUE)
+
+test <-
+  pickSoftThreshold.fromSimilarity(artifact_sim_ssoc,
+                                   verbose = 5,
+                                   moreNetworkConcepts = TRUE)
+
+par(mfrow = c(1, 2))
+
+plot(
+  test$fitIndices[, 1],
+  -sign(test$fitIndices[, 3]) * test$fitIndices[, 2],
+  xlab = "Soft Threshold (power)",
+  ylab = "Scale Free Topology Model Fit, signed R^2",
+  main = paste("Scale independence"),
+  type = 'n'
+)
+
+text(
+  test$fitIndices[, 1],
+  -sign(test$fitIndices[, 3]) * test$fitIndices[, 2],
+  labels = c(seq(1, 10, by = 1), seq(12, 20, by = 2)),
+  cex = 0.9,
+  col = "red"
+)
+
+abline(h = 0.85, col = "red")
+
+plot(
+  test$fitIndices[, 1],
+  test$fitIndices[, 5],
+  xlab = "Soft Threshold (power)",
+  ylab = "Mean Connectivity",
+  type = "n",
+  main = paste("Mean connectivity")
+)
+
+text(
+  test$fitIndices[, 1],
+  test$fitIndices[, 5],
+  labels = test$fitIndices[, 1],
+  cex = .9,
+  col = "red"
+)
+
+par(old.par)
+
+SoftPower <- 3
+
+test.adj <-
+  adjacency.fromSimilarity(artifact_sim_ssoc, power = SoftPower)
+
+# Testing Hard Threshold --------------------------------------------------
+
+old.par <- par(no.readonly = TRUE)
+
+test <-
+  pickHardThreshold.fromSimilarity(prov_sim_ssoc,
+                                   moreNetworkConcepts = TRUE,
+                                   RsquaredCut = 0.80)
+
+par(mfrow = c(1, 2))
+
+plot(
+  test$fitIndices[, 1],
+  -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
+  xlab = "Hard Threshold",
+  ylab = "Scale Free Topology Model Fit, signed R^2",
+  main = paste("Scale independence"),
+  type = 'n'
+)
+
+text(
+  test$fitIndices[, 1],
+  -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
+  labels = test$fitIndices[, 1],
+  cex = 0.9,
+  col = "red"
+)
+
+abline(h = 0.85, col = "red")
+
+plot(
+  test$fitIndices[, 1],
+  test$fitIndices[, 6],
+  xlab = "Hard Threshold",
+  ylab = "Mean Connectivity",
+  type = "n",
+  main = paste("Mean connectivity")
+)
+
+text(
+  test$fitIndices[, 1],
+  test$fitIndices[, 6],
+  labels = test$fitIndices[, 1],
+  cex = .9,
+  col = "red"
+)
+
+par(old.par)
+
+sigNum <- 0.25
+
+test.adj <-
+  signumAdjacencyFunction(prov_sim_ssoc, threshold = sigNum)
+
+# Testing TOM clustering --------------------------------------------------
+
+
+
+test.TOM <- TOMsimilarity(test.adj)
+test.dissTOM <- 1 - test.TOM
+
+testTree <- hclust(as.dist(test.dissTOM), method = "average")
+
+plot(
+  testTree,
+  xlab = "",
+  sub = "",
+  main = "Clustering on TOM-based dissimilarity",
+  labels = FALSE,
+  hang = 0.04
+)
+
+# Module identification using dynamic tree cut:
+dynamicMods = cutreeDynamic(
+  dendro = testTree,
+  distM = test.dissTOM,
+  deepSplit = 2,
+  pamRespectsDendro = FALSE
+)
+
+table(dynamicMods)
+
+# Convert numeric labels into colors
+dynamicColors = labels2colors(dynamicMods)
+table(dynamicColors)
+
+plotDendroAndColors(
+  testTree,
+  dynamicColors,
+  "Dynamic Tree Cut",
+  dendroLabels = FALSE,
+  hang = 0.03,
+  addGuide = TRUE,
+  guideHang = 0.05,
+  main = "Dendrogram and module colors"
+)
+
 

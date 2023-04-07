@@ -271,7 +271,7 @@ artifact_sims <-
 #| warning: false
 
 # Plot densities by similarity measure
-prov_sims %>% stack() %>%
+prov_sims %>% stack() %>% filter(values > 0) %>% 
   ggplot(aes(x = values)) +
   geom_density(fill = "darkgreen",
                alpha = 0.4) +
@@ -291,7 +291,7 @@ For proveniences, it looks like there are quite a lot that have *some* similarit
 #| warning: false
 
 # Plot densities by similarity measure
-artifact_sims %>% stack() %>%
+artifact_sims %>% stack() %>% filter(values > 0) %>% 
   ggplot(aes(x = values)) +
   geom_density(fill = "darkblue",
                alpha = 0.4) +
@@ -300,9 +300,9 @@ artifact_sims %>% stack() %>%
 
 ```
 
-In contrast to proveniences, the artifact types show far *less* similarity in where they co-occur.
+We can see similar patterns in which artifacts occur together, depending on the choice of similarity metric. If you remember from the last installment, the overlap coefficient captures subsets and has a more "permissive" approach to scoring similarities. Sørensen--Dice and Jaccard, however, penalize differences in their scoring, which lead to lower overall similarity scores
 
-Now what we want to do is look at how to go about selecting our similarity metric, how to find the appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between proveniences and artifact types.
+Now what we want to do is look at how to go about selecting our similarity metric, how to find appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between proveniences and artifact types.
 
 ## Graph structure and scale-free networks {#sec-graph-structure-and-scale-free-networks}
 
@@ -465,12 +465,16 @@ ggplot(data.frame(x = seq(0, 1, length.out = 1000)), aes(x = x)) +
 
 ```
 
-### Choosing threshold type and parameters {#sec-choosing-threshold-type-and-parameters}
+## Choosing threshold type and parameters {#sec-choosing-threshold-type-and-parameters}
 
-So, now that we've explored some different types of similarity and adjacency methods, the question remains -- how do we choose between them? We're looking for non-random structure within our sample data, and we know that the non-random distribution of connections in our network *should* approximate a scale-free network. Therefore, we want to pick the similarity measure and adjacency threshold that result in a graph that best approximates such a network.
+So, now that we've explored some similarity and adjacency methods, the question remains -- how do we choose between them? We're looking for non-random structure within our sample data, and we know that the non-random distribution of connections in our network *should* approximate a scale-free network. Therefore, we want to pick the similarity measure and adjacency threshold that result in a graph that best approximates such a network.
 
 How do we do that?
 
-Well, one proven method[^6] is that we can test the fit of a linear regression between the the observed distribution of network connectivity and an ideal power law probability distribution. The higher the $R^2$ of the model fit, the closer the observed data is to a scale-free topology. The meaning of "connectivity" is different for weighted (soft) and un-weighted (hard) adjacency, though. For un-weighted graphs, connectivity is simply the degree of each node. If the edges are weighted, though, connectivity is the sum of edge weights (or "strength") connected to each node.
+Well, one proven method[^6] is that we can test the fit of a linear regression between the the observed distribution of network connectivity and an ideal power law probability distribution. The higher the $R^2$ of the model fit, the closer the observed data is to a scale-free topology.
 
 [^6]: See @Zhang2005
+
+It's important to note that the meaning of "connectivity" is different for weighted (soft) and un-weighted (hard) adjacency. For un-weighted graphs, connectivity is simply the degree of each node. If the edges are weighted, though, connectivity is the sum of edge weights (or "strength") connected to each node.
+
+Our next step, then, is to evaluate each of our similarity matrices to see which one most closely fits to a scale-free network. Before we do that, though, let's take a look at what the connectivity look like when just using the similarity scores as the network adjacency.
