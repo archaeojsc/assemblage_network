@@ -612,17 +612,17 @@ g_artifact2 %>%
   geom_node_point(color = "darkblue")
 
 
-prov_adj_signum <- signum_adj(prov_sim_ssoc, tau = 0.25)
+prov_adj_signum <- power_adj(prov_sim_ssoc, beta = 2)
 
 g_prov <-
   graph_from_adjacency_matrix(prov_adj_signum,
                               mode = 'undirected',
-                              weighted = NULL,
+                              weighted = TRUE,
                               diag = FALSE)
 
 g_prov %>%
-  ggraph(layout = "kk") +
-  geom_edge_link(color = "gray", alpha = 0.4) +
+  ggraph(layout = "auto") +
+  geom_edge_link(color = "gray", aes(alpha = weight)) +
   geom_node_point(color = "darkgreen")
 
 
@@ -659,7 +659,7 @@ ggplot(data = data.frame(x = strength(g_test)), aes(x = x)) +
 old.par <- par(no.readonly = TRUE)
 
 test <-
-  pickSoftThreshold.fromSimilarity(artifact_sim_ssoc,
+  pickSoftThreshold.fromSimilarity(prov_sim_ssoc,
                                    verbose = 5,
                                    moreNetworkConcepts = TRUE)
 
@@ -667,7 +667,7 @@ par(mfrow = c(1, 2))
 
 plot(
   test$fitIndices[, 1],
-  -sign(test$fitIndices[, 3]) * test$fitIndices[, 2],
+  -sign(test$fitIndices[, 3]) * test$fitIndices[, 4],
   xlab = "Soft Threshold (power)",
   ylab = "Scale Free Topology Model Fit, signed R^2",
   main = paste("Scale independence"),
@@ -676,7 +676,7 @@ plot(
 
 text(
   test$fitIndices[, 1],
-  -sign(test$fitIndices[, 3]) * test$fitIndices[, 2],
+  -sign(test$fitIndices[, 3]) * test$fitIndices[, 4],
   labels = c(seq(1, 10, by = 1), seq(12, 20, by = 2)),
   cex = 0.9,
   col = "red"
@@ -703,10 +703,10 @@ text(
 
 par(old.par)
 
-SoftPower <- 3
+SoftPower <- 2
 
 test.adj <-
-  adjacency.fromSimilarity(artifact_sim_ssoc, power = SoftPower)
+  adjacency.fromSimilarity(prov_sim_ssoc, power = SoftPower)
 
 # Testing Hard Threshold --------------------------------------------------
 

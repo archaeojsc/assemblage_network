@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="James Scott Cardinal">
-<meta name="dcterms.date" content="2023-02-09">
+<meta name="dcterms.date" content="2023-04-14">
 
 <title>From similarity to network: Building graphs for community detection</title>
 <style>
@@ -177,7 +177,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 9, 2023</p>
+      <p class="date">April 14, 2023</p>
     </div>
   </div>
   
@@ -243,7 +243,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>For proveniences, it looks like there are quite a lot that have <em>some</em> similarities in their artifact content.</p>
+<p>For proveniences, it looks like there are quite a lot that have at least <em>some</em> similarities in their artifact content. Looking at the density of scores for each methods, it appears that the majority of proveniences have non-zero similarity scores even though there are discernible “peaks” at zero.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-sim-artifact" class="quarto-figure quarto-figure-center anchored">
@@ -254,8 +254,20 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>In contrast to proveniences, the artifact types show far <em>less</em> similarity in where they co-occur.</p>
-<p>Now what we want to do is look at how to go about selecting our similarity metric, how to find the appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between proveniences and artifact types.</p>
+<p>Unlike the proveniences, the co-location of artifacts is obviously much more sparse and the density plot is dominated by the left-hand spike of zero similarities. Looking closely, though, we can notice some apparent “bumps” along the right tails (most obvious for the overlap coefficient) where we seem to have a fair number of higher similarity artifacts. In other words, some artifact types occur together quite often.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-sim-artifact-nonzero" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-sim-artifact-nonzero-1.png" class="img-fluid figure-img" alt="Non-zero similarity measures for artifact types." width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4: Non-zero similarity measures for artifact types.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Filtering the artifact similarities to only display non-zero values, we an see the distribution of similarities a little better within that right tail. Sørensen–Dice and Jaccard scores still concentrate on the lower end of the scale, while it’s apparent that the overlap coefficient is rating the similarities considerably higher.</p>
+<p>If you remember from the last installment, the overlap coefficient captures subsets and has a more “permissive” approach to scoring similarities. Sørensen–Dice and Jaccard, however, penalize differences in their scoring, which lead to lower overall similarity scores</p>
+<p>Now what we want to do is look at how to go about selecting our similarity metric, how to find appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between proveniences and artifact types.</p>
 </section>
 </section>
 <section id="sec-graph-structure-and-scale-free-networks" class="level2">
@@ -266,24 +278,24 @@ div.csl-indent {
 <p>The presence of a scale-free network suggests that there is some latent <em>non</em>-random process at play that is driving differential attachments between those nodes. It may be that there is a different process of growth in the network, which archaeologically would be some different spatial or temporal process of artifact deposition. Alternatively, there may be a clustering process or preferential attachment by which certain nodes are more closely associated than others as in the case of hub nodes. A certain suite of artifacts that are all related to the same activities (i.e., an <em>assemblage</em>) would cluster together, for example.</p>
 <section id="sec-detecting-scale-free-networks" class="level3">
 <h3 class="anchored" data-anchor-id="sec-detecting-scale-free-networks">Detecting scale-free networks</h3>
-<p>If a network is scale-free, then the distribution of node degree will approximate a power-law distribution of the form <span class="math inline">\(P_{\text{deg}}(k) \propto k^{-\gamma}\)</span> where <span class="math inline">\(k\)</span> is node degree and <span class="math inline">\(\gamma\)</span> is some exponent. We will know <span class="math inline">\(k\)</span>, but we would obviously need to find the appropriate value for <span class="math inline">\(\gamma\)</span> from our empirical distribution. To illustrate, lets look at the probability density function for various values of <span class="math inline">\(\gamma\)</span> (<a href="#fig-power-law">Figure&nbsp;4</a>). We have 251 artifact types in our archaeological sample data, so lets look at the ideal power-law distributions if each node could have a maximum of 251 degrees.</p>
+<p>If a network is scale-free, then the distribution of node degree will approximate a power-law distribution of the form <span class="math inline">\(P_{\text{deg}}(k) \propto k^{-\gamma}\)</span> where <span class="math inline">\(k\)</span> is node degree and <span class="math inline">\(\gamma\)</span> is some exponent. We will know <span class="math inline">\(k\)</span>, but we would obviously need to find the appropriate value for <span class="math inline">\(\gamma\)</span> from our empirical distribution. To illustrate, lets look at the probability density function for various values of <span class="math inline">\(\gamma\)</span> (<a href="#fig-power-law">Figure&nbsp;5</a>). We have 251 artifact types in our archaeological sample data, so lets look at the ideal power-law distributions if each node could have a maximum of 251 degrees.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-power-law" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="assemblage_network_doc_3_building_files/figure-html/fig-power-law-1.png" class="img-fluid figure-img" alt="Power-law distribution for different values of gamma." width="672"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;4: Power-law distribution for different values of gamma.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;5: Power-law distribution for different values of gamma.</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Pretty easy to see that if our artifact type graph were scale free, the vast majority of the nodes would have a <em>very</em> small degree. Not so easy to see how much that probability is affected by <span class="math inline">\(\gamma\)</span>, though. It’s a lot easier to see the effect of <span class="math inline">\(\gamma\)</span> if we take the <span class="math inline">\(\log\)</span> of <span class="math inline">\(P_{\text{deg}}(k)\)</span> (<a href="#fig-power-law-log">Figure&nbsp;5</a>).</p>
+<p>Pretty easy to see that if our artifact type graph were scale free, the vast majority of the nodes would have a <em>very</em> small degree. Not so easy to see how much that probability is affected by <span class="math inline">\(\gamma\)</span>, though. It’s a lot easier to see the effect of <span class="math inline">\(\gamma\)</span> if we take the <span class="math inline">\(\log\)</span> of <span class="math inline">\(P_{\text{deg}}(k)\)</span> (<a href="#fig-power-law-log">Figure&nbsp;6</a>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-power-law-log" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="assemblage_network_doc_3_building_files/figure-html/fig-power-law-log-1.png" class="img-fluid figure-img" alt="Log-scale power-law distribution for different values of gamma." width="672"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;5: Log-scale power-law distribution for different values of gamma.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;6: Log-scale power-law distribution for different values of gamma.</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -301,7 +313,7 @@ div.csl-indent {
 <section id="sec-from-similarity-to-adjacency" class="level2">
 <h2 class="anchored" data-anchor-id="sec-from-similarity-to-adjacency">From similarity to adjacency</h2>
 <p>We could simply use our raw similarity scores to build our networks, but we would still have very dense and noisy graphs. Instead, we want to find a method that boosts the <em>signal</em> of our graph structure, while suppressing the <em>noise</em> from spurious associations. To do that, we need to filter our similarity scores to form a graph adjacency matrix containing (as much as possible) only the most significant associations between entities. There are essentially two ways we can go about this.</p>
-<p>The simplest is to just set a hard cutoff threshold – e.g., a specific value or quantile – and build an un-weighted or binary adjacency matrix. If we select the right threshold, this can be very effective and results in a more sparse graph. The downside is that it risks discarding legitimate connections along with the noise, and tends to leave isolated nodes (i.e., nodes that aren’t connected to any others).</p>
+<p>The simplest is to just set a hard cutoff threshold – e.g., a specific value or quantile – and build an un-weighted or binary adjacency matrix. If we select the right threshold, this can be very effective and results in a more sparse graph. The downside is that it risks discarding legitimate (albeit lower strength) connections along with the noise, and tends to leave isolated nodes (i.e., nodes that aren’t connected to any others).</p>
 <p>Another approach is to use a function to calculate a <em>soft</em> threshold value, along the lines of an activation function. This results in a weighted graph in which smaller similarity values are pushed closer towards zero, while very high similarity values would stay closer to one. The advantage is that there is less risk of suppressing significant connections. The downside is that the noise is still in there, albeit substantially dampened, and doesn’t decrease the graph’s overall density. Weighted graphs are also just a bit more complicated to parse for community detection. Some methods consider edge weight as strength of connection, while others require the edge weights to be a measure of distance between nodes.</p>
 <p>Thankfully, the two are not mutually exclusive! A hybrid approach would be to boost the similarity signal by employing a soft threshold function, and <em>then</em> finding an appropriate hard threshold. This is, in effect, what ultimately happens when you apply a clustering algorithm to a distance matrix. Whether it’s selecting the number of clusters or setting a cutoff distance to a dendrogram, you’re essentially deciding membership by picking a hard threshold to the measure being evaluated.</p>
 <p>Graph community detection is quite closely related to non-graph clustering, particularly hierarchical clustering. Setting a threshold for building the adjacency matrix determines the resulting structure of the graph.</p>
@@ -327,9 +339,9 @@ A_{i,j} = f(S_{i,j}, \tau) \equiv
 <h3 class="anchored" data-anchor-id="sec-soft-thresholds">Soft thresholds</h3>
 <p>Soft thresholds consist of a transformation of the raw similarity score by passing it through a function that boosts stronger similarities and suppresses weaker ones. Those familiar with activation functions in deep learning will already be accustomed to the variety of approaches available – e.g., sigmoid function, tangent hyperbolic or “tanh” function, etc. Soft thresholds work the same way, transforming the input values into a monotonically increasing output value.</p>
 <p>Soft thresholds result in weighted graphs, therefore they do not reduce the graph’s density or alter the degree distribution, unless a subsequent (hard) threshold is applied as well. In a weighted network, though, the density is less of an issue, since all metrics become proportional to the associated edge weights. It does, however, become rather more computationally intensive. The advantage of that trade-off is that more of the information about the relationships is retained in the graph’s structure.</p>
-<p>Since our similarity scores are already in the range <span class="math inline">\([0,1]\)</span>, we don’t really need quite the same sort transformation as we would if we needed to take any real number as an input. We just need to “bend” our linear input range to suppress some range of the smaller values. Luckily, there is a very simple way to do that by using an exponential function. We’ll define a power adjacency<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> function:</p>
+<p>Since our similarity scores are already in the range <span class="math inline">\([0,1]\)</span>, we don’t really need quite the same sort transformation as we would if we needed to take any real number as an input. We just need to “bend” our linear input range to minimize some portion of the smaller values. Luckily, there is a very simple way to do that by using an exponential function. We’ll define a power adjacency<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> function:</p>
 <p><span id="eq-power-adj"><span class="math display">\[
-Power(s_{i,j}) = |s_{i,j}|^{\beta}
+Power(S_{i,j}) = |S_{i,j}|^{\beta}
 \tag{2}\]</span></span></p>
 <p>This is simply raising the absolute value of our raw input value to some power <span class="math inline">\(\beta\)</span>. Our similarity scores are all <span class="math inline">\([0,1]\)</span> so the absolute value is irrelevant in this case. For other use cases, it would be necessary.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
 <div class="cell">
@@ -337,13 +349,13 @@ Power(s_{i,j}) = |s_{i,j}|^{\beta}
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abs</span>(x) <span class="sc">^</span> beta</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Increasing <span class="math inline">\(\beta\)</span> can be seen to push the smaller values towards zero, which increases the minimum value at which the adjacency score exceeds <span class="math inline">\(0.5\)</span> (thus, it’s a <em>soft</em> threshold). At <span class="math inline">\(\beta=2\)</span>, only similarity values of <span class="math inline">\(s_{i,j} \geq 0.71\)</span> would break the <span class="math inline">\(0.5\)</span> adjacency threshold and the weights of all lower values penalized. At <span class="math inline">\(\beta=3\)</span> it would take <span class="math inline">\(s_{i,j} \geq 0.79\)</span> and so on.</p>
+<p>Increasing <span class="math inline">\(\beta\)</span> can be seen to push the smaller values towards zero, which increases the minimum value at which the adjacency score exceeds <span class="math inline">\(0.5\)</span> (thus, it’s a <em>soft</em> threshold). For example, at <span class="math inline">\(\beta=2\)</span> only similarity values of <span class="math inline">\(S_{i,j} \geq 0.71\)</span> would break the <span class="math inline">\(0.5\)</span> adjacency threshold and the weights of all lower values penalized. At <span class="math inline">\(\beta=3\)</span> it would take <span class="math inline">\(S_{i,j} \geq 0.79\)</span> and so on.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-power-adjacency" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="assemblage_network_doc_3_building_files/figure-html/fig-power-adjacency-1.png" class="img-fluid figure-img" alt="Power adjacency distribution for different values of beta." width="672"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;6: Power adjacency distribution for different values of beta.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7: Power adjacency distribution for different values of beta.</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -352,7 +364,11 @@ Power(s_{i,j}) = |s_{i,j}|^{\beta}
 </section>
 <section id="sec-choosing-threshold-type-and-parameters" class="level2">
 <h2 class="anchored" data-anchor-id="sec-choosing-threshold-type-and-parameters">Choosing threshold type and parameters</h2>
-<p>…</p>
+<p>So, now that we’ve explored some similarity and adjacency methods, the question remains – how do we choose between them? We’re looking for non-random structure within our sample data, and we know that the non-random distribution of connections in our network <em>should</em> approximate a scale-free network. Therefore, we want to pick the similarity measure and adjacency threshold that result in a graph that best approximates such a network.</p>
+<p>How do we do that?</p>
+<p>Well, one proven method<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> is that we can test the fit of a linear regression between the the observed distribution of network connectivity and an ideal power law probability distribution. The higher the <span class="math inline">\(R^2\)</span> of the model fit, the closer the observed data is to a scale-free topology.</p>
+<p>It’s important to note that the meaning of “connectivity” is different for weighted (soft) and un-weighted (hard) adjacency. For un-weighted graphs, connectivity is simply the degree of each node. If the edges are weighted, though, connectivity is the sum of edge weights (or “strength”) connected to each node.</p>
+<p>Our next step, then, is to evaluate each of our similarity matrices to see which one most closely fits to a scale-free network. Before we do that, though, let’s take a look at what the connectivity look like when just using the similarity scores as the network adjacency.</p>
 
 
 
@@ -377,6 +393,7 @@ Zhang, Bin, and Steve Horvath. 2005. <span>“A General Framework for Weighted G
 <li id="fn3"><p>Adapted from <span class="citation" data-cites="Zhang2005">Zhang and Horvath (<a href="#ref-Zhang2005" role="doc-biblioref">2005</a>)</span><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Again, we’re following after <span class="citation" data-cites="Zhang2005">Zhang and Horvath (<a href="#ref-Zhang2005" role="doc-biblioref">2005</a>)</span>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>For example, if we were including multiplicities of events (i.e., how <em>many</em> of each artifact type was found at each location), then different similarity measures or correlations would be appropriate that might produced signed values.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>See <span class="citation" data-cites="Zhang2005">Zhang and Horvath (<a href="#ref-Zhang2005" role="doc-biblioref">2005</a>)</span><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

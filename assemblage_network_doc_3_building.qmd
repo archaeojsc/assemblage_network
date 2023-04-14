@@ -271,7 +271,7 @@ artifact_sims <-
 #| warning: false
 
 # Plot densities by similarity measure
-prov_sims %>% stack() %>% filter(values > 0) %>% 
+prov_sims %>% stack() %>% 
   ggplot(aes(x = values)) +
   geom_density(fill = "darkgreen",
                alpha = 0.4) +
@@ -280,7 +280,7 @@ prov_sims %>% stack() %>% filter(values > 0) %>%
 
 ```
 
-For proveniences, it looks like there are quite a lot that have *some* similarities in their artifact content.
+For proveniences, it looks like there are quite a lot that have at least *some* similarities in their artifact content. Looking at the density of scores for each methods, it appears that the majority of proveniences have non-zero similarity scores even though there are discernible "peaks" at zero.
 
 ```{r}
 #| label: fig-sim-artifact
@@ -291,7 +291,7 @@ For proveniences, it looks like there are quite a lot that have *some* similarit
 #| warning: false
 
 # Plot densities by similarity measure
-artifact_sims %>% stack() %>% filter(values > 0) %>% 
+artifact_sims %>% stack() %>%
   ggplot(aes(x = values)) +
   geom_density(fill = "darkblue",
                alpha = 0.4) +
@@ -300,7 +300,30 @@ artifact_sims %>% stack() %>% filter(values > 0) %>%
 
 ```
 
-We can see similar patterns in which artifacts occur together, depending on the choice of similarity metric. If you remember from the last installment, the overlap coefficient captures subsets and has a more "permissive" approach to scoring similarities. Sørensen--Dice and Jaccard, however, penalize differences in their scoring, which lead to lower overall similarity scores
+Unlike the proveniences, the co-location of artifacts is obviously much more sparse and the density plot is dominated by the left-hand spike of zero similarities. Looking closely, though, we can notice some apparent "bumps" along the right tails (most obvious for the overlap coefficient) where we seem to have a fair number of higher similarity artifacts. In other words, some artifact types occur together quite often.
+
+```{r}
+#| label: fig-sim-artifact-nonzero
+#| fig-cap: "Non-zero similarity measures for artifact types."
+#| fig-alt: "Non-zero similarity measures for artifact types."
+#| echo: false
+#| message: false
+#| warning: false
+
+# Plot densities by similarity measure
+artifact_sims %>% 
+  stack() %>%
+  filter(values > 0) %>% 
+  ggplot(aes(x = values)) +
+  geom_density(fill = "darkblue",
+               alpha = 0.4) +
+  facet_grid(ind ~ ., scales = "free") +
+  ggtitle("Non-zero similarity Measures for Artifact Types")
+```
+
+Filtering the artifact similarities to only display non-zero values, we an see the distribution of similarities a little better within that right tail. Sørensen--Dice and Jaccard scores still concentrate on the lower end of the scale, while it's apparent that the overlap coefficient is rating the similarities considerably higher.
+
+If you remember from the last installment, the overlap coefficient captures subsets and has a more "permissive" approach to scoring similarities. Sørensen--Dice and Jaccard, however, penalize differences in their scoring, which lead to lower overall similarity scores
 
 Now what we want to do is look at how to go about selecting our similarity metric, how to find appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between proveniences and artifact types.
 
@@ -338,7 +361,8 @@ ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
   stat_function(fun = powerlaw_pdf, args = list(gamma = 5), aes(color = "5")) +
   stat_function(fun = powerlaw_pdf, args = list(gamma = 6), aes(color = "6")) +
   labs(color = "Gamma") +
-  ylab("P(k)") + xlab("k")
+  ylab("P(k)") + xlab("k") +
+  ggtitle("Power-law distributions for different values of gamma")
 
 ```
 
@@ -360,11 +384,12 @@ ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
   stat_function(fun = powerlaw_pdf, args = list(gamma = 6), aes(color = "6")) +
   scale_y_continuous(trans = "log10") +
   labs(color = "Gamma") +
-  ylab("log P(k)") + xlab("k")
+  ylab("log P(k)") + xlab("k") +
+  ggtitle("Log-scale power-law distribution for different values of gamma")
 
 ```
 
-For every increment of the exponent $\gamma$, the probability of higher-degree nodes decreases much more quickly. This will help in selecting our similarity metric, when we look at which one produces a graph network that follows this sort of power-law in its degree distribution.
+For every increment of the exponent $\gamma$, the probability of higher-degree nodes decreases much more quickly. This will help in selecting our similarity metric, when we look at which one produces a graph network that approximates this sort of power-law in its degree distribution.
 
 ### Why a scale-free network? {#sec-why-a-scale-free-network}
 
