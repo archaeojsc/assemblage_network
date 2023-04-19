@@ -1,4 +1,7 @@
 
+# Required libraries ------------------------------------------------------
+
+
 require(tidyverse)
 require(igraph)
 require(ggraph)
@@ -112,17 +115,17 @@ overlap_coef_bin <- function(x) {
 
 ## Project provenience -----------------------------------------------------
 
-prov_sim_ssoc <- overlap_coef_bin(t(g_assemblages_bpg_inc))
+sim_oc_prov <- overlap_coef_bin(t(g_assemblages_bpg_inc))
 
 prov_ssoc_sims <-
-  prov_sim_ssoc[lower.tri(prov_sim_ssoc, diag = FALSE)]
+  sim_oc_prov[lower.tri(sim_oc_prov, diag = FALSE)]
 
 ggplot(data = data.frame(x = c(prov_ssoc_sims)), aes(x = x)) +
   geom_density(fill = "darkgreen", alpha = 0.4) +
   ggtitle("Distribution of Szymkiewicz-Simpson Similarity for Proveniences")
 
 g_assemblages_proj_prov_oc <-
-  graph_from_adjacency_matrix(prov_sim_ssoc,
+  graph_from_adjacency_matrix(sim_oc_prov,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
@@ -148,10 +151,10 @@ ggplot(data = data.frame(x = E(g_assemblages_proj_prov_oc)$weight), aes(x = x)) 
 
 ## Project artifact types --------------------------------------------------
 
-artifact_sim_ssoc <- overlap_coef_bin(g_assemblages_bpg_inc)
+sim_oc_artifact <- overlap_coef_bin(g_assemblages_bpg_inc)
 
 artifact_ssoc_sims <-
-  artifact_sim_ssoc[lower.tri(artifact_sim_ssoc, diag = FALSE)]
+  sim_oc_artifact[lower.tri(sim_oc_artifact, diag = FALSE)]
 
 ggplot(data = data.frame(x = c(artifact_ssoc_sims^3)), aes(x = x)) +
   geom_density(fill = "darkblue", alpha = 0.4) +
@@ -159,7 +162,7 @@ ggplot(data = data.frame(x = c(artifact_ssoc_sims^3)), aes(x = x)) +
 
 g_assemblages_proj_artifact_oc <-
   graph_from_adjacency_matrix(
-    artifact_sim_ssoc,
+    sim_oc_artifact,
     mode = "undirected",
     weighted = TRUE,
     diag = FALSE
@@ -213,17 +216,17 @@ soren_dice_sim_bin <- function(x) {
 
 ## Project provenience -----------------------------------------------------
 
-prov_sim_sd <- soren_dice_sim_bin(t(g_assemblages_bpg_inc))
+sim_sd_prov <- soren_dice_sim_bin(t(g_assemblages_bpg_inc))
 
 prov_sd_sims <-
-  prov_sim_sd[lower.tri(prov_sim_sd, diag = FALSE)]
+  sim_sd_prov[lower.tri(sim_sd_prov, diag = FALSE)]
 
 ggplot(data = data.frame(x = prov_sd_sims), aes(x = x)) +
   geom_density(fill = "darkgreen", alpha = 0.4) +
   ggtitle("Distribution of Sorenson-Dice Similarity for Provenience")
 
 g_assemblages_proj_prov_sd <-
-  graph_from_adjacency_matrix(prov_sim_sd,
+  graph_from_adjacency_matrix(sim_sd_prov,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
@@ -256,17 +259,17 @@ ggplot(data = data.frame(x = E(g_assemblages_proj_prov_sd)$weight), aes(x = x)) 
 
 ## Project artifact types --------------------------------------------------
 
-artifact_sim_sd <- soren_dice_sim_bin(g_assemblages_bpg_inc)
+sim_sd_artifact <- soren_dice_sim_bin(g_assemblages_bpg_inc)
 
 artifact_sd_sims <-
-  artifact_sim_sd[lower.tri(artifact_sim_sd, diag = FALSE)]
+  sim_sd_artifact[lower.tri(sim_sd_artifact, diag = FALSE)]
 
 ggplot(data = data.frame(x = artifact_sd_sims), aes(x = x)) +
   geom_density(fill = "darkblue", alpha = 0.4) +
   ggtitle("Distribution of Sorenson-Dice Similarity for Artifacts")
 
 g_assemblages_proj_artifact_sd <-
-  graph_from_adjacency_matrix(artifact_sim_sd,
+  graph_from_adjacency_matrix(sim_sd_artifact,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
@@ -321,17 +324,17 @@ jaccard_sim_bin <- function(x) {
 
 ## Project provenience -----------------------------------------------------
 
-prov_sim_jacc <- jaccard_sim_bin(t(g_assemblages_bpg_inc))
+sim_jacc_prov <- jaccard_sim_bin(t(g_assemblages_bpg_inc))
 
 prov_jacc_sims <-
-  prov_sim_jacc[lower.tri(prov_sim_jacc, diag = FALSE)]
+  sim_jacc_prov[lower.tri(sim_jacc_prov, diag = FALSE)]
 
 ggplot(data = data.frame(x = prov_jacc_sims), aes(x = x)) +
   geom_density(fill = "darkgreen", alpha = 0.4) +
   ggtitle("Distribution of Jaccard Similarity for Provenience")
 
 g_assemblages_proj_prov_jacc <-
-  graph_from_adjacency_matrix(prov_sim_jacc,
+  graph_from_adjacency_matrix(sim_jacc_prov,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
@@ -357,10 +360,10 @@ ggplot(data = data.frame(x = E(g_assemblages_proj_prov_jacc)$weight), aes(x = x)
 
 ## Project artifact types --------------------------------------------------
 
-artifact_sim_jacc <- jaccard_sim_bin(g_assemblages_bpg_inc)
+sim_jacc_artifact <- jaccard_sim_bin(g_assemblages_bpg_inc)
 
 artifact_jacc_sims <-
-  artifact_sim_jacc[lower.tri(artifact_sim_jacc, diag = FALSE)]
+  sim_jacc_artifact[lower.tri(sim_jacc_artifact, diag = FALSE)]
 
 ggplot(data = data.frame(x = artifact_jacc_sims), aes(x = x)) +
   geom_density(fill = "darkblue", alpha = 0.4) +
@@ -368,7 +371,7 @@ ggplot(data = data.frame(x = artifact_jacc_sims), aes(x = x)) +
 
 g_assemblages_proj_artifact_jacc <-
   graph_from_adjacency_matrix(
-    artifact_sim_jacc,
+    sim_jacc_artifact,
     mode = "undirected",
     weighted = TRUE,
     diag = FALSE
@@ -612,7 +615,7 @@ g_artifact2 %>%
   geom_node_point(color = "darkblue")
 
 
-prov_adj_signum <- power_adj(prov_sim_ssoc, beta = 2)
+# prov_adj_signum <- power_adj(prov_sim_ssoc, beta = 2)
 
 g_prov <-
   graph_from_adjacency_matrix(prov_adj_signum,
@@ -634,175 +637,177 @@ sim_mat_artifact <-
 
 sim_mat_prov <- c('prov_sim_ssoc', 'prov_sim_sd', 'prov_sim_jacc')
 
-g_test <- g_assemblages_proj_prov_jacc
+g_test <- g_assemblages_proj_artifact_oc
 
-thresh.vals <- seq(.1, 0.9, by = 0.05)
+thresh.vals <- seq(0.6, 0.8, by = 0.001)
 test.p<-c()
 
 for (i in 1:length(thresh.vals)) {
   test.p[i] <-
-    fit_power_law(strength(delete.edges(
-      g_test, which(E(g_test)$weight <= thresh.vals[i])
-    )))$KS.p
+    fit_power_law(degree(delete.edges(
+      g_test, which(E(g_test)$weight < thresh.vals[i])
+    )))$KS.stat
 }
 
-plot(thresh.vals[1:40], test.p)
-abline(v=thresh.vals[which.max(test.p)], col = "red")
+plot(thresh.vals, test.p)
+abline(v=thresh.vals[which.min(test.p[test.p>0])], col = "red")
 
 
-ggplot(data = data.frame(x = strength(g_test)), aes(x = x)) +
+ggplot(data = data.frame(x = degree(delete.edges(
+  g_test, which(E(g_test)$weight < thresh.vals[which.min(test.p[test.p>0])])
+))), aes(x = x)) +
   geom_density()
 
 
-# testing Soft Threshold -------------------------------------------------
-
-old.par <- par(no.readonly = TRUE)
-
-test <-
-  pickSoftThreshold.fromSimilarity(prov_sim_ssoc,
-                                   verbose = 5,
-                                   moreNetworkConcepts = TRUE)
-
-par(mfrow = c(1, 2))
-
-plot(
-  test$fitIndices[, 1],
-  -sign(test$fitIndices[, 3]) * test$fitIndices[, 4],
-  xlab = "Soft Threshold (power)",
-  ylab = "Scale Free Topology Model Fit, signed R^2",
-  main = paste("Scale independence"),
-  type = 'n'
-)
-
-text(
-  test$fitIndices[, 1],
-  -sign(test$fitIndices[, 3]) * test$fitIndices[, 4],
-  labels = c(seq(1, 10, by = 1), seq(12, 20, by = 2)),
-  cex = 0.9,
-  col = "red"
-)
-
-abline(h = 0.85, col = "red")
-
-plot(
-  test$fitIndices[, 1],
-  test$fitIndices[, 5],
-  xlab = "Soft Threshold (power)",
-  ylab = "Mean Connectivity",
-  type = "n",
-  main = paste("Mean connectivity")
-)
-
-text(
-  test$fitIndices[, 1],
-  test$fitIndices[, 5],
-  labels = test$fitIndices[, 1],
-  cex = .9,
-  col = "red"
-)
-
-par(old.par)
-
-SoftPower <- 2
-
-test.adj <-
-  adjacency.fromSimilarity(prov_sim_ssoc, power = SoftPower)
-
-# Testing Hard Threshold --------------------------------------------------
-
-old.par <- par(no.readonly = TRUE)
-
-test <-
-  pickHardThreshold.fromSimilarity(prov_sim_ssoc,
-                                   moreNetworkConcepts = TRUE,
-                                   RsquaredCut = 0.80)
-
-par(mfrow = c(1, 2))
-
-plot(
-  test$fitIndices[, 1],
-  -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
-  xlab = "Hard Threshold",
-  ylab = "Scale Free Topology Model Fit, signed R^2",
-  main = paste("Scale independence"),
-  type = 'n'
-)
-
-text(
-  test$fitIndices[, 1],
-  -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
-  labels = test$fitIndices[, 1],
-  cex = 0.9,
-  col = "red"
-)
-
-abline(h = 0.85, col = "red")
-
-plot(
-  test$fitIndices[, 1],
-  test$fitIndices[, 6],
-  xlab = "Hard Threshold",
-  ylab = "Mean Connectivity",
-  type = "n",
-  main = paste("Mean connectivity")
-)
-
-text(
-  test$fitIndices[, 1],
-  test$fitIndices[, 6],
-  labels = test$fitIndices[, 1],
-  cex = .9,
-  col = "red"
-)
-
-par(old.par)
-
-sigNum <- 0.25
-
-test.adj <-
-  signumAdjacencyFunction(prov_sim_ssoc, threshold = sigNum)
-
-# Testing TOM clustering --------------------------------------------------
-
-
-
-test.TOM <- TOMsimilarity(test.adj)
-test.dissTOM <- 1 - test.TOM
-
-testTree <- hclust(as.dist(test.dissTOM), method = "average")
-
-plot(
-  testTree,
-  xlab = "",
-  sub = "",
-  main = "Clustering on TOM-based dissimilarity",
-  labels = FALSE,
-  hang = 0.04
-)
-
-# Module identification using dynamic tree cut:
-dynamicMods = cutreeDynamic(
-  dendro = testTree,
-  distM = test.dissTOM,
-  deepSplit = 2,
-  pamRespectsDendro = FALSE
-)
-
-table(dynamicMods)
-
-# Convert numeric labels into colors
-dynamicColors = labels2colors(dynamicMods)
-table(dynamicColors)
-
-plotDendroAndColors(
-  testTree,
-  dynamicColors,
-  "Dynamic Tree Cut",
-  dendroLabels = FALSE,
-  hang = 0.03,
-  addGuide = TRUE,
-  guideHang = 0.05,
-  main = "Dendrogram and module colors"
-)
-
+# # testing Soft Threshold -------------------------------------------------
+# 
+# old.par <- par(no.readonly = TRUE)
+# 
+# test <-
+#   pickSoftThreshold.fromSimilarity(prov_sim_ssoc,
+#                                    verbose = 5,
+#                                    moreNetworkConcepts = TRUE)
+# 
+# par(mfrow = c(1, 2))
+# 
+# plot(
+#   test$fitIndices[, 1],
+#   -sign(test$fitIndices[, 3]) * test$fitIndices[, 4],
+#   xlab = "Soft Threshold (power)",
+#   ylab = "Scale Free Topology Model Fit, signed R^2",
+#   main = paste("Scale independence"),
+#   type = 'n'
+# )
+# 
+# text(
+#   test$fitIndices[, 1],
+#   -sign(test$fitIndices[, 3]) * test$fitIndices[, 4],
+#   labels = c(seq(1, 10, by = 1), seq(12, 20, by = 2)),
+#   cex = 0.9,
+#   col = "red"
+# )
+# 
+# abline(h = 0.85, col = "red")
+# 
+# plot(
+#   test$fitIndices[, 1],
+#   test$fitIndices[, 5],
+#   xlab = "Soft Threshold (power)",
+#   ylab = "Mean Connectivity",
+#   type = "n",
+#   main = paste("Mean connectivity")
+# )
+# 
+# text(
+#   test$fitIndices[, 1],
+#   test$fitIndices[, 5],
+#   labels = test$fitIndices[, 1],
+#   cex = .9,
+#   col = "red"
+# )
+# 
+# par(old.par)
+# 
+# SoftPower <- 2
+# 
+# test.adj <-
+#   adjacency.fromSimilarity(prov_sim_ssoc, power = SoftPower)
+# 
+# # Testing Hard Threshold --------------------------------------------------
+# 
+# old.par <- par(no.readonly = TRUE)
+# 
+# test <-
+#   pickHardThreshold.fromSimilarity(prov_sim_ssoc,
+#                                    moreNetworkConcepts = TRUE,
+#                                    RsquaredCut = 0.80)
+# 
+# par(mfrow = c(1, 2))
+# 
+# plot(
+#   test$fitIndices[, 1],
+#   -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
+#   xlab = "Hard Threshold",
+#   ylab = "Scale Free Topology Model Fit, signed R^2",
+#   main = paste("Scale independence"),
+#   type = 'n'
+# )
+# 
+# text(
+#   test$fitIndices[, 1],
+#   -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
+#   labels = test$fitIndices[, 1],
+#   cex = 0.9,
+#   col = "red"
+# )
+# 
+# abline(h = 0.85, col = "red")
+# 
+# plot(
+#   test$fitIndices[, 1],
+#   test$fitIndices[, 6],
+#   xlab = "Hard Threshold",
+#   ylab = "Mean Connectivity",
+#   type = "n",
+#   main = paste("Mean connectivity")
+# )
+# 
+# text(
+#   test$fitIndices[, 1],
+#   test$fitIndices[, 6],
+#   labels = test$fitIndices[, 1],
+#   cex = .9,
+#   col = "red"
+# )
+# 
+# par(old.par)
+# 
+# sigNum <- 0.25
+# 
+# test.adj <-
+#   signumAdjacencyFunction(prov_sim_ssoc, threshold = sigNum)
+# 
+# # Testing TOM clustering --------------------------------------------------
+# 
+# 
+# 
+# test.TOM <- TOMsimilarity(test.adj)
+# test.dissTOM <- 1 - test.TOM
+# 
+# testTree <- hclust(as.dist(test.dissTOM), method = "average")
+# 
+# plot(
+#   testTree,
+#   xlab = "",
+#   sub = "",
+#   main = "Clustering on TOM-based dissimilarity",
+#   labels = FALSE,
+#   hang = 0.04
+# )
+# 
+# # Module identification using dynamic tree cut:
+# dynamicMods = cutreeDynamic(
+#   dendro = testTree,
+#   distM = test.dissTOM,
+#   deepSplit = 2,
+#   pamRespectsDendro = FALSE
+# )
+# 
+# table(dynamicMods)
+# 
+# # Convert numeric labels into colors
+# dynamicColors = labels2colors(dynamicMods)
+# table(dynamicColors)
+# 
+# plotDendroAndColors(
+#   testTree,
+#   dynamicColors,
+#   "Dynamic Tree Cut",
+#   dendroLabels = FALSE,
+#   hang = 0.03,
+#   addGuide = TRUE,
+#   guideHang = 0.05,
+#   main = "Dendrogram and module colors"
+# )
+# 
 

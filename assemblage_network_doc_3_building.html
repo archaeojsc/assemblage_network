@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="James Scott Cardinal">
-<meta name="dcterms.date" content="2023-04-14">
+<meta name="dcterms.date" content="2023-04-19">
 
 <title>From similarity to network: Building graphs for community detection</title>
 <style>
@@ -177,7 +177,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 14, 2023</p>
+      <p class="date">April 19, 2023</p>
     </div>
   </div>
   
@@ -243,7 +243,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>For proveniences, it looks like there are quite a lot that have at least <em>some</em> similarities in their artifact content. Looking at the density of scores for each methods, it appears that the majority of proveniences have non-zero similarity scores even though there are discernible “peaks” at zero.</p>
+<p>For proveniences, it looks like there are quite a few that have in their artifact content. Looking at the density of scores for each methods, it appears that in fact the <em>majority</em> of proveniences have non-zero similarity scores. There are discernible “peaks” at zero and, for Jaccard and Sørensen-Dice at least, most scores are below <span class="math inline">\(0.5\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-sim-artifact" class="quarto-figure quarto-figure-center anchored">
@@ -254,7 +254,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Unlike the proveniences, the co-location of artifacts is obviously much more sparse and the density plot is dominated by the left-hand spike of zero similarities. Looking closely, though, we can notice some apparent “bumps” along the right tails (most obvious for the overlap coefficient) where we seem to have a fair number of higher similarity artifacts. In other words, some artifact types occur together quite often.</p>
+<p>Unlike the proveniences, the co-location of artifacts is obviously much more sparse and the density plot is dominated by the left-hand “spike” of zero similarities. Looking closely, though, we can notice some apparent “bumps” along the right tails (most obvious for the overlap coefficient) where we seem to have a fair number of higher similarity artifacts. In other words, some artifact types occur together quite often.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-sim-artifact-nonzero" class="quarto-figure quarto-figure-center anchored">
@@ -300,7 +300,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>For every increment of the exponent <span class="math inline">\(\gamma\)</span>, the probability of higher-degree nodes decreases much more quickly. This will help in selecting our similarity metric, when we look at which one produces a graph network that follows this sort of power-law in its degree distribution.</p>
+<p>For every increment of the exponent <span class="math inline">\(\gamma\)</span>, the probability of higher-degree nodes decreases much more quickly. This will help in selecting our similarity metric, when we look at which one produces a graph network that approximates this sort of power-law in its degree distribution.</p>
 </section>
 <section id="sec-why-a-scale-free-network" class="level3">
 <h3 class="anchored" data-anchor-id="sec-why-a-scale-free-network">Why a scale-free network?</h3>

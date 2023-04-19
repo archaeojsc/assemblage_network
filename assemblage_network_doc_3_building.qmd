@@ -280,7 +280,7 @@ prov_sims %>% stack() %>%
 
 ```
 
-For proveniences, it looks like there are quite a lot that have at least *some* similarities in their artifact content. Looking at the density of scores for each methods, it appears that the majority of proveniences have non-zero similarity scores even though there are discernible "peaks" at zero.
+For proveniences, it looks like there are quite a few that have in their artifact content. Looking at the density of scores for each methods, it appears that in fact the *majority* of proveniences have non-zero similarity scores. There are discernible "peaks" at zero and, for Jaccard and Sørensen-Dice at least, most scores are below $0.5$.
 
 ```{r}
 #| label: fig-sim-artifact
@@ -300,7 +300,7 @@ artifact_sims %>% stack() %>%
 
 ```
 
-Unlike the proveniences, the co-location of artifacts is obviously much more sparse and the density plot is dominated by the left-hand spike of zero similarities. Looking closely, though, we can notice some apparent "bumps" along the right tails (most obvious for the overlap coefficient) where we seem to have a fair number of higher similarity artifacts. In other words, some artifact types occur together quite often.
+Unlike the proveniences, the co-location of artifacts is obviously much more sparse and the density plot is dominated by the left-hand "spike" of zero similarities. Looking closely, though, we can notice some apparent "bumps" along the right tails (most obvious for the overlap coefficient) where we seem to have a fair number of higher similarity artifacts. In other words, some artifact types occur together quite often.
 
 ```{r}
 #| label: fig-sim-artifact-nonzero
@@ -327,7 +327,9 @@ If you remember from the last installment, the overlap coefficient captures subs
 
 Now what we want to do is look at how to go about selecting our similarity metric, how to find appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between proveniences and artifact types.
 
-## Graph structure and scale-free networks {#sec-graph-structure-and-scale-free-networks}
+## Degree distribution in graphs
+
+### Graph structure and scale-free networks {#sec-graph-structure-and-scale-free-networks}
 
 What we're trying to do is find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it is *random*. If the structure does *not* appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where. In archaeological terms, that means that it's likely that there is some intentional organization to the use of space for certain activities or that certain artifact assemblages are associated with different activities. If so, then we can find some partitioning of the artifacts and/or proveniences that have meaningful interpretations.
 
