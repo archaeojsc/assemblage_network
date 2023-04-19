@@ -71,13 +71,13 @@ g_assemblages_proj_artifact <- g_assemblages_proj$proj2
 
 g_assemblages_proj_prov %>%
   ggraph(layout = "kk") +
-  geom_edge_link(color = "darkgray", aes(alpha = weight)) +
+  geom_edge_link(color = "gray", aes(alpha = weight)) +
   geom_node_point(color = "darkgreen") +
   ggtitle("Network of Proveniences")
 
 g_assemblages_proj_artifact %>%
   ggraph(layout = "kk") +
-  geom_edge_link(color = "darkgray", aes(alpha = weight)) +
+  geom_edge_link(color = "gray", aes(alpha = weight)) +
   geom_node_point(color = "darkblue") +
   ggtitle("Network of Artifact Types")
 
@@ -128,7 +128,7 @@ g_assemblages_proj_prov_oc <-
                               diag = FALSE)
 
 g_assemblages_proj_prov_oc %>%
-  ggraph(layout = "mds") +
+  ggraph(layout = "auto") +
   geom_edge_link(color = "darkgray", aes(alpha = weight)) +
   geom_node_point(color = "darkgreen") +
   ggtitle("Network of Proveniences")
@@ -167,7 +167,7 @@ g_assemblages_proj_artifact_oc <-
 
 g_assemblages_proj_artifact_oc %>%
   ggraph(layout = "auto") +
-  geom_edge_link(aes(alpha = weight)) +
+  geom_edge_link(color = "gray", aes(alpha = weight)) +
   geom_node_point(color = "darkblue") +
   ggtitle("Network of Artifacts")
 
