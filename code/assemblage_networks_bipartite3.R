@@ -634,7 +634,7 @@ sim_mat_prov <- c('prov_sim_ssoc', 'prov_sim_sd', 'prov_sim_jacc')
 
 g_test <- g_prov_sd
 
-thresh.vals <- seq(0.5, 0.6, by = 0.001)
+thresh.vals <- seq(0.1, 0.3, by = 0.005)
 test.p<-c()
 
 for (i in 1:length(thresh.vals)) {
@@ -709,53 +709,53 @@ ggplot(data = data.frame(x = strength(delete.edges(
 #   adjacency.fromSimilarity(prov_sim_ssoc, power = SoftPower)
 # 
 # # Testing Hard Threshold --------------------------------------------------
-# 
-# old.par <- par(no.readonly = TRUE)
-# 
-# test <-
-#   pickHardThreshold.fromSimilarity(prov_sim_ssoc,
-#                                    moreNetworkConcepts = TRUE,
-#                                    RsquaredCut = 0.80)
-# 
-# par(mfrow = c(1, 2))
-# 
-# plot(
-#   test$fitIndices[, 1],
-#   -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
-#   xlab = "Hard Threshold",
-#   ylab = "Scale Free Topology Model Fit, signed R^2",
-#   main = paste("Scale independence"),
-#   type = 'n'
-# )
-# 
-# text(
-#   test$fitIndices[, 1],
-#   -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
-#   labels = test$fitIndices[, 1],
-#   cex = 0.9,
-#   col = "red"
-# )
-# 
-# abline(h = 0.85, col = "red")
-# 
-# plot(
-#   test$fitIndices[, 1],
-#   test$fitIndices[, 6],
-#   xlab = "Hard Threshold",
-#   ylab = "Mean Connectivity",
-#   type = "n",
-#   main = paste("Mean connectivity")
-# )
-# 
-# text(
-#   test$fitIndices[, 1],
-#   test$fitIndices[, 6],
-#   labels = test$fitIndices[, 1],
-#   cex = .9,
-#   col = "red"
-# )
-# 
-# par(old.par)
+
+old.par <- par(no.readonly = TRUE)
+
+test <-
+  pickHardThreshold.fromSimilarity(sim_prov_sd,
+                                   moreNetworkConcepts = TRUE,
+                                   RsquaredCut = 0.80)
+
+par(mfrow = c(1, 2))
+
+plot(
+  test$fitIndices[, 1],
+  -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
+  xlab = "Hard Threshold",
+  ylab = "Scale Free Topology Model Fit, signed R^2",
+  main = paste("Scale independence"),
+  type = 'n'
+)
+
+text(
+  test$fitIndices[, 1],
+  -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
+  labels = test$fitIndices[, 1],
+  cex = 0.9,
+  col = "red"
+)
+
+abline(h = 0.85, col = "red")
+
+plot(
+  test$fitIndices[, 1],
+  test$fitIndices[, 6],
+  xlab = "Hard Threshold",
+  ylab = "Mean Connectivity",
+  type = "n",
+  main = paste("Mean connectivity")
+)
+
+text(
+  test$fitIndices[, 1],
+  test$fitIndices[, 6],
+  labels = test$fitIndices[, 1],
+  cex = .9,
+  col = "red"
+)
+
+par(old.par)
 # 
 # sigNum <- 0.25
 # 
@@ -806,9 +806,9 @@ ggplot(data = data.frame(x = strength(delete.edges(
 # )
 # 
 
-https://book.archnetworks.net/index.html
+# https://book.archnetworks.net/index.html
 
-http://networksciencebook.com/
+# http://networksciencebook.com/
   
-https://ona-book.org/index.html
+# https://ona-book.org/index.html
 

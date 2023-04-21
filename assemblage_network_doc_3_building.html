@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="James Scott Cardinal">
-<meta name="dcterms.date" content="2023-04-19">
+<meta name="dcterms.date" content="2023-04-21">
 
 <title>From similarity to network: Building graphs for community detection</title>
 <style>
@@ -177,7 +177,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 19, 2023</p>
+      <p class="date">April 21, 2023</p>
     </div>
   </div>
   
@@ -270,12 +270,15 @@ div.csl-indent {
 <p>Now what we want to do is look at how to go about selecting our similarity metric, how to find appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between proveniences and artifact types.</p>
 </section>
 </section>
-<section id="sec-graph-structure-and-scale-free-networks" class="level2">
-<h2 class="anchored" data-anchor-id="sec-graph-structure-and-scale-free-networks">Graph structure and scale-free networks</h2>
+<section id="degree-distribution-in-graphs" class="level2">
+<h2 class="anchored" data-anchor-id="degree-distribution-in-graphs">Degree distribution in graphs</h2>
+<section id="sec-graph-structure-and-scale-free-networks" class="level3">
+<h3 class="anchored" data-anchor-id="sec-graph-structure-and-scale-free-networks">Graph structure and scale-free networks</h3>
 <p>What we’re trying to do is find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it is <em>random</em>. If the structure does <em>not</em> appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where. In archaeological terms, that means that it’s likely that there is some intentional organization to the use of space for certain activities or that certain artifact assemblages are associated with different activities. If so, then we can find some partitioning of the artifacts and/or proveniences that have meaningful interpretations.</p>
 <p>Mind you, we’re not actually trying to <em>induce</em> a structure. We are, however, expecting that there has been some manner of degradation in the “signal” of our data (see the introduction to <a href="https://medium.com/p/648a2f20d389" title="Bipartite Graphs for Archaeological Assemblage Networks">Part I</a> as to why). Our selection of similarity and threshold are meant to dampen the “noise” introduced to the site over time.</p>
 <p>One way to determine if we have non-random structure in our graph is to find out if it exhibits <a href="https://en.wikipedia.org/wiki/Scale-free_network" title="Scale-free network | WikipediA"><em>scale-free network</em></a> properties. A scale-free network is one in which the distribution for the degree of nodes in the graph approximate a power-law distribution, meaning that most nodes in the graphs have few connections while a few “hub” nodes have many. In a random network, there would be a more <em>even</em>ly distributed probability of node degrees and hub nodes would be far less likely to occur.</p>
 <p>The presence of a scale-free network suggests that there is some latent <em>non</em>-random process at play that is driving differential attachments between those nodes. It may be that there is a different process of growth in the network, which archaeologically would be some different spatial or temporal process of artifact deposition. Alternatively, there may be a clustering process or preferential attachment by which certain nodes are more closely associated than others as in the case of hub nodes. A certain suite of artifacts that are all related to the same activities (i.e., an <em>assemblage</em>) would cluster together, for example.</p>
+</section>
 <section id="sec-detecting-scale-free-networks" class="level3">
 <h3 class="anchored" data-anchor-id="sec-detecting-scale-free-networks">Detecting scale-free networks</h3>
 <p>If a network is scale-free, then the distribution of node degree will approximate a power-law distribution of the form <span class="math inline">\(P_{\text{deg}}(k) \propto k^{-\gamma}\)</span> where <span class="math inline">\(k\)</span> is node degree and <span class="math inline">\(\gamma\)</span> is some exponent. We will know <span class="math inline">\(k\)</span>, but we would obviously need to find the appropriate value for <span class="math inline">\(\gamma\)</span> from our empirical distribution. To illustrate, lets look at the probability density function for various values of <span class="math inline">\(\gamma\)</span> (<a href="#fig-power-law">Figure&nbsp;5</a>). We have 251 artifact types in our archaeological sample data, so lets look at the ideal power-law distributions if each node could have a maximum of 251 degrees.</p>
