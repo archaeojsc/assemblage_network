@@ -627,31 +627,31 @@ ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
 
 # Testing scale-free adjacency construction -------------------------------
 
-sim_mat_artifact <-
-  c('artifact_sim_ssoc', 'artifact_sim_sd', 'artifact_sim_jacc')
-
-sim_mat_prov <- c('prov_sim_ssoc', 'prov_sim_sd', 'prov_sim_jacc')
-
-g_test <- g_prov_sd
-
-thresh.vals <- seq(0.1, 0.3, by = 0.005)
-test.p<-c()
-
-for (i in 1:length(thresh.vals)) {
-  test.p[i] <-
-    fit_power_law(degree(delete.edges(
-      g_test, which(E(g_test)$weight < thresh.vals[i])
-    )))$KS.stat
-}
-
-plot(thresh.vals, test.p)
-abline(v=thresh.vals[which.min(test.p[test.p>0])], col = "red")
-
-
-ggplot(data = data.frame(x = strength(delete.edges(
-  g_test, which(E(g_test)$weight < thresh.vals[which.min(test.p[test.p>0])])
-))), aes(x = x)) +
-  geom_density()
+# sim_mat_artifact <-
+#   c('artifact_sim_ssoc', 'artifact_sim_sd', 'artifact_sim_jacc')
+# 
+# sim_mat_prov <- c('prov_sim_ssoc', 'prov_sim_sd', 'prov_sim_jacc')
+# 
+# g_test <- g_prov_sd
+# 
+# thresh.vals <- seq(0.1, 0.3, by = 0.005)
+# test.p<-c()
+# 
+# for (i in 1:length(thresh.vals)) {
+#   test.p[i] <-
+#     fit_power_law(degree(delete.edges(
+#       g_test, which(E(g_test)$weight < thresh.vals[i])
+#     )))$KS.stat
+# }
+# 
+# plot(thresh.vals, test.p)
+# abline(v=thresh.vals[which.min(test.p[test.p>0])], col = "red")
+# 
+# 
+# ggplot(data = data.frame(x = strength(delete.edges(
+#   g_test, which(E(g_test)$weight < thresh.vals[which.min(test.p[test.p>0])])
+# ))), aes(x = x)) +
+#   geom_density()
 
 
 # # testing Soft Threshold -------------------------------------------------
@@ -710,52 +710,52 @@ ggplot(data = data.frame(x = strength(delete.edges(
 # 
 # # Testing Hard Threshold --------------------------------------------------
 
-old.par <- par(no.readonly = TRUE)
-
-test <-
-  pickHardThreshold.fromSimilarity(sim_prov_sd,
-                                   moreNetworkConcepts = TRUE,
-                                   RsquaredCut = 0.80)
-
-par(mfrow = c(1, 2))
-
-plot(
-  test$fitIndices[, 1],
-  -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
-  xlab = "Hard Threshold",
-  ylab = "Scale Free Topology Model Fit, signed R^2",
-  main = paste("Scale independence"),
-  type = 'n'
-)
-
-text(
-  test$fitIndices[, 1],
-  -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
-  labels = test$fitIndices[, 1],
-  cex = 0.9,
-  col = "red"
-)
-
-abline(h = 0.85, col = "red")
-
-plot(
-  test$fitIndices[, 1],
-  test$fitIndices[, 6],
-  xlab = "Hard Threshold",
-  ylab = "Mean Connectivity",
-  type = "n",
-  main = paste("Mean connectivity")
-)
-
-text(
-  test$fitIndices[, 1],
-  test$fitIndices[, 6],
-  labels = test$fitIndices[, 1],
-  cex = .9,
-  col = "red"
-)
-
-par(old.par)
+# old.par <- par(no.readonly = TRUE)
+# 
+# test <-
+#   pickHardThreshold.fromSimilarity(sim_prov_sd,
+#                                    moreNetworkConcepts = TRUE,
+#                                    RsquaredCut = 0.80)
+# 
+# par(mfrow = c(1, 2))
+# 
+# plot(
+#   test$fitIndices[, 1],
+#   -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
+#   xlab = "Hard Threshold",
+#   ylab = "Scale Free Topology Model Fit, signed R^2",
+#   main = paste("Scale independence"),
+#   type = 'n'
+# )
+# 
+# text(
+#   test$fitIndices[, 1],
+#   -sign(test$fitIndices[, 4]) * test$fitIndices[, 3],
+#   labels = test$fitIndices[, 1],
+#   cex = 0.9,
+#   col = "red"
+# )
+# 
+# abline(h = 0.85, col = "red")
+# 
+# plot(
+#   test$fitIndices[, 1],
+#   test$fitIndices[, 6],
+#   xlab = "Hard Threshold",
+#   ylab = "Mean Connectivity",
+#   type = "n",
+#   main = paste("Mean connectivity")
+# )
+# 
+# text(
+#   test$fitIndices[, 1],
+#   test$fitIndices[, 6],
+#   labels = test$fitIndices[, 1],
+#   cex = .9,
+#   col = "red"
+# )
+# 
+# par(old.par)
 # 
 # sigNum <- 0.25
 # 

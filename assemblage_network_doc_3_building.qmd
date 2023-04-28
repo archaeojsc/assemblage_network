@@ -10,7 +10,7 @@ bibliography: references.bib
 
 ![Why is there math in my archaeology? ...or is the archaeology in my math? (Image by Author)](archaeo_DS_mine.png){fig-alt="Archaeology and Data Science" fig-align="center"}
 
-It has been a little while since my last installment ([Part II](https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1 "Similarity Measures and Graph Adjacency with Sets")). End of year projects, deadlines, and (of course) the holidays kept me overly busy. My thanks for your patience, and I'll try and make it worth the wait.
+It has been a little while since my last installment ([Part II](https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1 "Similarity Measures and Graph Adjacency with Sets")). Projects, deadlines, and (of course) life has kept me overly busy. My thanks for your patience, and I'll try and make it worth the wait.
 
 Last time, we talked about different similarity metrics for sets or combinatorial problems, and the particular strengths and idiosyncrasies of each. We were trying to find the best way to project our bipartite graph of archaeological proveniences and artifacts into individual one-mode graphs. Our goal is to find communities in each of those projected graphs to find meaningful *assemblages* (communities of artifacts) and *contexts* (communities of provenience locations).
 
