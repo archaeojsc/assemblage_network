@@ -6,6 +6,8 @@ require(igraph)
 require(ggraph)
 require(WGCNA)
 
+WGCNA::enableWGCNAThreads()
+
 # Import data from file ---------------------------------------------------
 
 # Data for Site A

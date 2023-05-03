@@ -12,13 +12,13 @@ bibliography: references.bib
 
 It has been a little while since my last installment ([Part II](https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1 "Similarity Measures and Graph Adjacency with Sets")). Projects, deadlines, and (of course) life has kept me overly busy. My thanks for your patience, and I'll try and make it worth the wait.
 
-Last time, we talked about different similarity metrics for sets or combinatorial problems, and the particular strengths and idiosyncrasies of each. We were trying to find the best way to project our bipartite graph of archaeological proveniences and artifacts into individual one-mode graphs. Our goal is to find communities in each of those projected graphs to find meaningful *assemblages* (communities of artifacts) and *contexts* (communities of provenience locations).
+Last time, we talked about different similarity metrics for sets or combinatorial problems, and the particular strengths and idiosyncrasies of each. We were trying to find the best way to project our bipartite graph of archaeological provenience and artifact types into individual one-mode graphs. Our goal is to find communities in each of those projected graphs to find meaningful *assemblages* (communities of artifacts) and *contexts* (communities of provenience locations).
 
 That does, however, require that we talk about how we determine "best" for this particular scenario. Since our goal is community detection, we want to choose the metric that connects vertices that have the strongest associations while *avoiding* spurious or non-informative edges. I mentioned last time that we are, in part, looking to see if our projected graphs exhibit characteristics of a *scale-free* network. We'll talk about that more later in this post, but it boils down to finding a network where most nodes have a few strong connections rather than a lot of weak ones.
 
 Since this is likely to be a fairly large and involved topic, I'm breaking Part III into two posts. This one (Part III.a.) will talk about translating our similarity measures into a network, and building the graphs. The next one (Part III.b.) will tackle the community detection methods, of which there are many.
 
-For those just joining in, this is the third installment of a series on archaeological data science covering:
+For those just joining in, this is part of the third installment of a series on archaeological data science covering:
 
 -   [Part I](https://medium.com/p/648a2f20d389 "Bipartite Graphs for Archaeological Assemblage Networks") -- Creating and exploring bipartite and one-mode graphs,
 
@@ -325,7 +325,7 @@ Filtering the artifact similarities to only display non-zero values, we an see t
 
 If you remember from the last installment, the overlap coefficient captures subsets and has a more "permissive" approach to scoring similarities. Sørensen--Dice and Jaccard, however, penalize differences in their scoring, which lead to lower overall similarity scores
 
-Now what we want to do is look at how to go about selecting our similarity metric, how to find appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between proveniences and artifact types.
+Now what we want to do is look at how to go about selecting our similarity metric, how to find appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between provenience and artifact types.
 
 ## Degree distribution in graphs
 
