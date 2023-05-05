@@ -571,6 +571,25 @@ ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
 
 # Community detection -----------------------------------------------------
 
+test <-
+  simplify(
+    contract(
+      g_prov_sd,
+      membership(
+        cluster_spinglass(
+          g_prov_sd,
+          # weights = E(g_prov_sd)$weight ^3,
+          update.rule = "simple",
+          implementation = "orig",
+          spins = 25
+        )
+      ),
+      vertex.attr.comb = "ignore"
+    ),
+    edge.attr.comb = "mean"
+  )
+
+
 # artifact_adj <- power_adj(artifact_sim_ssoc, beta = 5)
 
 # artifact_adj <- signum_adj(artifact_sim_ssoc, tau = 0.7)
