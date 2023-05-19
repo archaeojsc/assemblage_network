@@ -5,6 +5,7 @@ require(tidyverse)
 require(igraph)
 require(ggraph)
 require(WGCNA)
+require(statnet)
 
 WGCNA::enableWGCNAThreads()
 
@@ -158,7 +159,7 @@ sim_artifact_oc <- overlap_coef_bin(g_assemblages_bpg_inc)
 artifact_ssoc_sims <-
   sim_artifact_oc[lower.tri(sim_artifact_oc, diag = FALSE)]
 
-ggplot(data = data.frame(x = c(artifact_ssoc_sims^3)), aes(x = x)) +
+ggplot(data = data.frame(x = c(artifact_ssoc_sims)), aes(x = x)) +
   geom_density(fill = "darkblue", alpha = 0.4) +
   ggtitle("Distribution of Szymkiewicz-Simpson Similarity for Artifacts")
 
@@ -574,11 +575,11 @@ ggplot(data.frame(x = c(1, 251)), aes(x = x)) +
 test <-
   simplify(
     contract(
-      g_prov_sd,
+      g_artifact_oc,
       membership(
         cluster_spinglass(
-          g_prov_sd,
-          # weights = E(g_prov_sd)$weight ^3,
+          g_artifact_oc,
+          weights = E(g_artifact_oc)$weight,
           update.rule = "simple",
           implementation = "orig",
           spins = 25

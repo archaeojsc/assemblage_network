@@ -154,17 +154,17 @@ overlap_coef_bin <- function(x) {
 
 ## Project provenience -----------------------------------------------------
 
-prov_sim_ssoc <- overlap_coef_bin(t(g_assemblages_bpg_inc))
+sim_prov_ssoc <- overlap_coef_bin(t(g_assemblages_bpg_inc))
 
 prov_ssoc_vals <-
-  prov_sim_ssoc[lower.tri(prov_sim_ssoc, diag = FALSE)]
+  sim_prov_ssoc[lower.tri(sim_prov_ssoc, diag = FALSE)]
 
 ## Project artifact types --------------------------------------------------
 
-artifact_sim_ssoc <- overlap_coef_bin(g_assemblages_bpg_inc)
+sim_artifact_ssoc <- overlap_coef_bin(g_assemblages_bpg_inc)
 
 artifact_ssoc_vals <-
-  artifact_sim_ssoc[lower.tri(artifact_sim_ssoc, diag = FALSE)]
+  sim_artifact_ssoc[lower.tri(sim_artifact_ssoc, diag = FALSE)]
 
 # Project one-mode graphs, Sorenson-Dice -----------------------------------
 
@@ -195,17 +195,17 @@ soren_dice_sim_bin <- function(x) {
 
 ## Project provenience -----------------------------------------------------
 
-prov_sim_sd <- soren_dice_sim_bin(t(g_assemblages_bpg_inc))
+sim_prov_sd <- soren_dice_sim_bin(t(g_assemblages_bpg_inc))
 
 prov_sd_vals <-
-  prov_sim_sd[lower.tri(prov_sim_sd, diag = FALSE)]
+  sim_prov_sd[lower.tri(sim_prov_sd, diag = FALSE)]
 
 ## Project artifact types --------------------------------------------------
 
-artifact_sim_sd <- soren_dice_sim_bin(g_assemblages_bpg_inc)
+sim_artifact_sd <- soren_dice_sim_bin(g_assemblages_bpg_inc)
 
 artifact_sd_vals <-
-  artifact_sim_sd[lower.tri(artifact_sim_sd, diag = FALSE)]
+  sim_artifact_sd[lower.tri(sim_artifact_sd, diag = FALSE)]
 
 # Project one-mode graphs, Jaccard ----------------------------------------
 
@@ -236,26 +236,26 @@ jaccard_sim_bin <- function(x) {
 
 ## Project provenience -----------------------------------------------------
 
-prov_sim_jacc <- jaccard_sim_bin(t(g_assemblages_bpg_inc))
+sim_prov_jacc <- jaccard_sim_bin(t(g_assemblages_bpg_inc))
 
 prov_jacc_vals <-
-  prov_sim_jacc[lower.tri(prov_sim_jacc, diag = FALSE)]
+  sim_prov_jacc[lower.tri(sim_prov_jacc, diag = FALSE)]
 
 ## Project artifact types --------------------------------------------------
 
-artifact_sim_jacc <- jaccard_sim_bin(g_assemblages_bpg_inc)
+sim_artifact_jacc <- jaccard_sim_bin(g_assemblages_bpg_inc)
 
 artifact_jacc_vals <-
-  artifact_sim_jacc[lower.tri(artifact_sim_jacc, diag = FALSE)]
+  sim_artifact_jacc[lower.tri(sim_artifact_jacc, diag = FALSE)]
 
 # Comparing similarity measures -------------------------------------------
 
-prov_sims <-
+sim_prov <-
   data.frame(ssoc = prov_ssoc_vals,
              jacc = prov_jacc_vals,
              sd = prov_sd_vals)
 
-artifact_sims <-
+sim_artifact <-
   data.frame(ssoc = artifact_ssoc_vals,
              jacc = artifact_jacc_vals,
              sd = artifact_sd_vals)
@@ -271,7 +271,7 @@ artifact_sims <-
 #| warning: false
 
 # Plot densities by similarity measure
-prov_sims %>% stack() %>% 
+sim_prov %>% stack() %>% 
   ggplot(aes(x = values)) +
   geom_density(fill = "darkgreen",
                alpha = 0.4) +
@@ -280,7 +280,7 @@ prov_sims %>% stack() %>%
 
 ```
 
-For proveniences, it looks like there are quite a few that have in their artifact content. Looking at the density of scores for each methods, it appears that in fact the *majority* of proveniences have non-zero similarity scores. There are discernible "peaks" at zero and, for Jaccard and Sørensen-Dice at least, most scores are below $0.5$.
+For proveniences, it looks like there are quite a few that have at least some similarities in their artifact content. Looking at the density of scores for each methods, it appears that in fact the *majority* of proveniences have non-zero similarity scores. There are discernible "peaks" at zero and, for Jaccard and Sørensen-Dice at least, most scores are below $0.5$.
 
 ```{r}
 #| label: fig-sim-artifact
@@ -291,7 +291,7 @@ For proveniences, it looks like there are quite a few that have in their artifac
 #| warning: false
 
 # Plot densities by similarity measure
-artifact_sims %>% stack() %>%
+sim_artifact %>% stack() %>%
   ggplot(aes(x = values)) +
   geom_density(fill = "darkblue",
                alpha = 0.4) +
@@ -311,14 +311,14 @@ Unlike the proveniences, the co-location of artifacts is obviously much more spa
 #| warning: false
 
 # Plot densities by similarity measure
-artifact_sims %>% 
+sim_artifact %>% 
   stack() %>%
   filter(values > 0) %>% 
   ggplot(aes(x = values)) +
   geom_density(fill = "darkblue",
                alpha = 0.4) +
   facet_grid(ind ~ ., scales = "free") +
-  ggtitle("Non-zero similarity Measures for Artifact Types")
+  ggtitle("Non-zero similarity measures for Artifact Types")
 ```
 
 Filtering the artifact similarities to only display non-zero values, we an see the distribution of similarities a little better within that right tail. Sørensen--Dice and Jaccard scores still concentrate on the lower end of the scale, while it's apparent that the overlap coefficient is rating the similarities considerably higher.
@@ -327,11 +327,15 @@ If you remember from the last installment, the overlap coefficient captures subs
 
 Now what we want to do is look at how to go about selecting our similarity metric, how to find appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between provenience and artifact types.
 
-## Degree distribution in graphs
+## Random Graphs versus Real Networks
+
+### Graph Properties
 
 ### Graph structure and scale-free networks {#sec-graph-structure-and-scale-free-networks}
 
-What we're trying to do is find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it is *random*. If the structure does *not* appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where. In archaeological terms, that means that it's likely that there is some intentional organization to the use of space for certain activities or that certain artifact assemblages are associated with different activities. If so, then we can find some partitioning of the artifacts and/or proveniences that have meaningful interpretations.
+What we're trying to do is find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it is possible to that it could be *random*. If the structure does *not* appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where.
+
+In archaeological terms, that means that it's likely that there is some intentional organization to the use of space for certain activities or that certain artifact assemblages are associated with different activities. If so, then we can find some partitioning of the artifacts and/or proveniences that have meaningful interpretations.
 
 Mind you, we're not actually trying to *induce* a structure. We are, however, expecting that there has been some manner of degradation in the "signal" of our data (see the introduction to [Part I](https://medium.com/p/648a2f20d389 "Bipartite Graphs for Archaeological Assemblage Networks") as to why). Our selection of similarity and threshold are meant to dampen the "noise" introduced to the site over time.
 
