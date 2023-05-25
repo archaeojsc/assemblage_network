@@ -93,7 +93,7 @@ To start we'll import the data from our text file, which is the database of the 
 
 ```{r, message=FALSE}
 
-dat <- read_csv("Catalog_SiteA.csv",
+dat <- read_csv("./data/Catalog_SiteA.csv",
                 col_select = c(LEVEL_ID, CODE)
                 )
 

@@ -16,7 +16,17 @@ Last time, we talked about different similarity metrics for sets or combinatoria
 
 That does, however, require that we talk about how we determine "best" for this particular scenario. Since our goal is community detection, we want to choose the metric that connects vertices that have the strongest associations while *avoiding* spurious or non-informative edges. I mentioned last time that we are, in part, looking to see if our projected graphs exhibit characteristics of a *scale-free* network. We'll talk about that more later in this post, but it boils down to finding a network where most nodes have a few strong connections rather than a lot of weak ones.
 
-Since this is likely to be a fairly large and involved topic, I'm breaking Part III into two posts. This one (Part III.a.) will talk about translating our similarity measures into a network, and building the graphs. The next one (Part III.b.) will tackle the community detection methods, of which there are many.
+Since this is a fairly large and involved topic, I'll break Part III into a few posts. This one (Part III.a.) will start it off by talking about:
+
+-   understanding and exploring some structural properties of our bipartite and projected graphs,
+
+-   talk a little about random versus real-world (i.e., empirical) graphs,
+
+-   gain some intuitions on how to interpret graph structure, and
+
+-   methods for transforming our similarity measures into adjacency.
+
+The next one (Part III.b.) will dive in to detecting signal and noise in real-world networks, using thresholds to filter the noise and boost the signal. The last one (Part III.c.) will dig into community detection methods, of which there are many.
 
 For those just joining in, this is part of the third installment of a series on archaeological data science covering:
 
@@ -26,9 +36,11 @@ For those just joining in, this is part of the third installment of a series on 
 
 -   Part III -- Graph structure and community detection methods,
 
-    -   a.) Scale-free and small world networks
+    -   a.) Structural properties of real-world and random graphs
 
-    -   b.) Community detection methods
+    -   b.) Signal and noise
+
+    -   b.) Community detection
 
 -   Part IV -- Geo-spatial networks
 
@@ -110,7 +122,50 @@ g_assemblages_bpg %>%
 
 ```
 
-Looking at the bipartite graph, it seems apparent that there are some natural clusters or groupings. We found, though, that projecting this graph into its one-mode counterparts resulted in very densely connected networks.
+Looking at the bipartite graph, it seems apparent that there are some natural clusters or groupings. We found, though, that projecting this graph into its one-mode counterparts resulted in very densely connected networks that were difficult to interpret (see @fig-simple-projections).
+
+```{r}
+#| label: simple-projection
+#| echo: false
+#| message: false
+#| warning: false
+
+require(gridExtra)
+
+assemblage_projections <-
+  bipartite_projection(g_assemblages_bpg, multiplicity = TRUE)
+
+g_assemblage_prov <- assemblage_projections$proj1
+
+g_assemblage_artifact <- assemblage_projections$proj2
+
+```
+
+```{r}
+#| label: fig-simple-projections
+#| fig-cap: "Simple overlap projections for Proveniences and Artifact Types."
+#| fig-alt: "Simple overlap projections for Proveniences and Artifact Types."
+#| echo: false
+#| message: false
+#| warning: false
+
+
+grid.arrange(
+  g_assemblage_prov %>%
+    ggraph(layout = "auto") +
+    geom_edge_link(color = "gray", aes(alpha = weight)) +
+    geom_node_point(color = "darkgreen", size = 2) +
+    ggtitle("Proveniences"),
+  
+  g_assemblage_artifact %>%
+    ggraph(layout = "auto") +
+    geom_edge_link(color = "gray", aes(alpha = weight)) +
+    geom_node_point(color = "darkblue", size = 2) +
+    ggtitle("Artifact Types"),
+  
+  ncol = 2
+)
+```
 
 Next, in [Part II](https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1 "Similarity Measures and Graph Adjacency with Sets"), we looked at different similarity metrics to find a better method of projection that the simple overlap provided in `igraph`. We looked at the similarities calculated with the Szymkiewicz-Simpson overlap coefficient, Jaccard similarity coefficient, and Sørensen--Dice coefficient for both provenience (@fig-sim-prov) and artifact types (@fig-sim-artifact).
 
@@ -329,15 +384,15 @@ Now what we want to do is look at how to go about selecting our similarity metri
 
 ## Random Graphs versus Real Networks
 
+What we're trying to do is find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it could just be *random* associations. If the structure does *not* appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where. In archaeological terms, that means that it's likely that there is some intentional organization to the use of space for certain activities or that certain artifact assemblages are associated with different activities. If so, then we can find some partitioning of the artifacts and/or proveniences that have meaningful interpretations.
+
+Mind you, we're not actually trying to *induce* a structure. We are, however, expecting that there has been some manner of degradation in the "signal" of our data (see the introduction to [Part I](https://medium.com/p/648a2f20d389 "Bipartite Graphs for Archaeological Assemblage Networks") as to why). Our selection of similarity and threshold are meant to dampen the "noise" introduced to the site over time.
+
+To do that, we need to understand some of the basic properties of graphs and how we can use those to identify and understand a graph's structure. One advantage of graph-based approaches is that these properties are universal to *any* graph, and have metrics that are (for the most of them) very efficient to calculate irrespective of the graph's size. This means that we can quickly gain some exploratory insights into the underlying structure of our data just by looking at the distribution of those properties.
+
 ### Graph Properties
 
 ### Graph structure and scale-free networks {#sec-graph-structure-and-scale-free-networks}
-
-What we're trying to do is find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it is possible to that it could be *random*. If the structure does *not* appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where.
-
-In archaeological terms, that means that it's likely that there is some intentional organization to the use of space for certain activities or that certain artifact assemblages are associated with different activities. If so, then we can find some partitioning of the artifacts and/or proveniences that have meaningful interpretations.
-
-Mind you, we're not actually trying to *induce* a structure. We are, however, expecting that there has been some manner of degradation in the "signal" of our data (see the introduction to [Part I](https://medium.com/p/648a2f20d389 "Bipartite Graphs for Archaeological Assemblage Networks") as to why). Our selection of similarity and threshold are meant to dampen the "noise" introduced to the site over time.
 
 One way to determine if we have non-random structure in our graph is to find out if it exhibits [*scale-free network*](https://en.wikipedia.org/wiki/Scale-free_network "Scale-free network | WikipediA") properties. A scale-free network is one in which the distribution for the degree of nodes in the graph approximate a power-law distribution, meaning that most nodes in the graphs have few connections while a few "hub" nodes have many. In a random network, there would be a more *even*ly distributed probability of node degrees and hub nodes would be far less likely to occur.
 
@@ -409,7 +464,7 @@ There are, actually, some surprising similarities with how different gene expres
 
 The biggest difference between the genetic applications, and what we're doing here archaeologically, is that we're aiming to do this along each dimension of the problem. We're first looking to see if there are groups of artifact types (i.e., assemblages) that are separable and reflect either different activities (e.g., domestic versus architectural artifacts) or different temporal occupations (e.g., 18th century versus 19th century). *Then* we're going to go back and see of those assemblages are separated spatially by groups of proveniences (i.e., contexts).
 
-It's a bi-clustering problem in some ways, but we have to first identify rough clusters *within* the locations or artifacts.
+It's a bi-clustering problem in some ways, but we have to first identify rough clusters *within* either the locations or the artifacts. From there, we can look to see how those projected clusters relate to each other.
 
 ## From similarity to adjacency {#sec-from-similarity-to-adjacency}
 

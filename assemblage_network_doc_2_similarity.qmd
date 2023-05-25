@@ -70,7 +70,7 @@ require(igraph)
 require(ggraph)
 
 # Read in edgelist into data frame
-dat <- read_csv("Catalog_SiteA.csv",
+dat <- read_csv("./data/Catalog_SiteA.csv",
                 col_select = c(LEVEL_ID, CODE))
 
 # Create graph

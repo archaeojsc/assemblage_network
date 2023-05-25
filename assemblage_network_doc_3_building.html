@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="James Scott Cardinal">
-<meta name="dcterms.date" content="2023-05-17">
+<meta name="dcterms.date" content="2023-05-25">
 
 <title>From similarity to network: Building graphs for community detection</title>
 <style>
@@ -149,7 +149,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 17, 2023</p>
+      <p class="date">May 25, 2023</p>
     </div>
   </div>
   
@@ -168,15 +168,23 @@ div.csl-indent {
 <p>It has been a little while since my last installment (<a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a>). Projects, deadlines, and (of course) life has kept me overly busy. My thanks for your patience, and I’ll try and make it worth the wait.</p>
 <p>Last time, we talked about different similarity metrics for sets or combinatorial problems, and the particular strengths and idiosyncrasies of each. We were trying to find the best way to project our bipartite graph of archaeological provenience and artifact types into individual one-mode graphs. Our goal is to find communities in each of those projected graphs to find meaningful <em>assemblages</em> (communities of artifacts) and <em>contexts</em> (communities of provenience locations).</p>
 <p>That does, however, require that we talk about how we determine “best” for this particular scenario. Since our goal is community detection, we want to choose the metric that connects vertices that have the strongest associations while <em>avoiding</em> spurious or non-informative edges. I mentioned last time that we are, in part, looking to see if our projected graphs exhibit characteristics of a <em>scale-free</em> network. We’ll talk about that more later in this post, but it boils down to finding a network where most nodes have a few strong connections rather than a lot of weak ones.</p>
-<p>Since this is likely to be a fairly large and involved topic, I’m breaking Part III into two posts. This one (Part III.a.) will talk about translating our similarity measures into a network, and building the graphs. The next one (Part III.b.) will tackle the community detection methods, of which there are many.</p>
+<p>Since this is a fairly large and involved topic, I’ll break Part III into a few posts. This one (Part III.a.) will start it off by talking about:</p>
+<ul>
+<li><p>understanding and exploring some structural properties of our bipartite and projected graphs,</p></li>
+<li><p>talk a little about random versus real-world (i.e., empirical) graphs,</p></li>
+<li><p>gain some intuitions on how to interpret graph structure, and</p></li>
+<li><p>methods for transforming our similarity measures into adjacency.</p></li>
+</ul>
+<p>The next one (Part III.b.) will dive in to detecting signal and noise in real-world networks, using thresholds to filter the noise and boost the signal. The last one (Part III.c.) will dig into community detection methods, of which there are many.</p>
 <p>For those just joining in, this is part of the third installment of a series on archaeological data science covering:</p>
 <ul>
 <li><p><a href="https://medium.com/p/648a2f20d389" title="Bipartite Graphs for Archaeological Assemblage Networks">Part I</a> – Creating and exploring bipartite and one-mode graphs,</p></li>
 <li><p><a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a> – Similarity measures for sets and graph adjacency,</p></li>
 <li><p>Part III – Graph structure and community detection methods,</p>
 <ul>
-<li><p>a.) Scale-free and small world networks</p></li>
-<li><p>b.) Community detection methods</p></li>
+<li><p>a.) Structural properties of real-world and random graphs</p></li>
+<li><p>b.) Signal and noise</p></li>
+<li><p>b.) Community detection</p></li>
 </ul></li>
 <li><p>Part IV – Geo-spatial networks</p></li>
 </ul>
@@ -197,25 +205,35 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Looking at the bipartite graph, it seems apparent that there are some natural clusters or groupings. We found, though, that projecting this graph into its one-mode counterparts resulted in very densely connected networks.</p>
-<p>Next, in <a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a>, we looked at different similarity metrics to find a better method of projection that the simple overlap provided in <code>igraph</code>. We looked at the similarities calculated with the Szymkiewicz-Simpson overlap coefficient, Jaccard similarity coefficient, and Sørensen–Dice coefficient for both provenience (<a href="#fig-sim-prov">Figure&nbsp;2</a>) and artifact types (<a href="#fig-sim-artifact">Figure&nbsp;3</a>).</p>
+<p>Looking at the bipartite graph, it seems apparent that there are some natural clusters or groupings. We found, though, that projecting this graph into its one-mode counterparts resulted in very densely connected networks that were difficult to interpret (see <a href="#fig-simple-projections">Figure&nbsp;2</a>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-simple-projections" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-simple-projections-1.png" class="img-fluid figure-img" alt="Simple overlap projections for Proveniences and Artifact Types." width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Simple overlap projections for Proveniences and Artifact Types.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Next, in <a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a>, we looked at different similarity metrics to find a better method of projection that the simple overlap provided in <code>igraph</code>. We looked at the similarities calculated with the Szymkiewicz-Simpson overlap coefficient, Jaccard similarity coefficient, and Sørensen–Dice coefficient for both provenience (<a href="#fig-sim-prov">Figure&nbsp;3</a>) and artifact types (<a href="#fig-sim-artifact">Figure&nbsp;4</a>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-sim-prov" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="assemblage_network_doc_3_building_files/figure-html/fig-sim-prov-1.png" class="img-fluid figure-img" alt="Similarity measures for proveniences." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;2: Similarity measures for proveniences.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;3: Similarity measures for proveniences.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>For proveniences, it looks like there are quite a few that have in their artifact content. Looking at the density of scores for each methods, it appears that in fact the <em>majority</em> of proveniences have non-zero similarity scores. There are discernible “peaks” at zero and, for Jaccard and Sørensen-Dice at least, most scores are below <span class="math inline">\(0.5\)</span>.</p>
+<p>For proveniences, it looks like there are quite a few that have at least some similarities in their artifact content. Looking at the density of scores for each methods, it appears that in fact the <em>majority</em> of proveniences have non-zero similarity scores. There are discernible “peaks” at zero and, for Jaccard and Sørensen-Dice at least, most scores are below <span class="math inline">\(0.5\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-sim-artifact" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="assemblage_network_doc_3_building_files/figure-html/fig-sim-artifact-1.png" class="img-fluid figure-img" alt="Similarity measures for artifact types." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;3: Similarity measures for artifact types.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;4: Similarity measures for artifact types.</figcaption>
 </figure>
 </div>
 </div>
@@ -226,7 +244,7 @@ div.csl-indent {
 <div id="fig-sim-artifact-nonzero" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="assemblage_network_doc_3_building_files/figure-html/fig-sim-artifact-nonzero-1.png" class="img-fluid figure-img" alt="Non-zero similarity measures for artifact types." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;4: Non-zero similarity measures for artifact types.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;5: Non-zero similarity measures for artifact types.</figcaption>
 </figure>
 </div>
 </div>
@@ -236,35 +254,39 @@ div.csl-indent {
 <p>Now what we want to do is look at how to go about selecting our similarity metric, how to find appropriate thresholds of similarity, and what effects these have on the resulting graph projections. The goal is to find the right metric and threshold that will allow us to detect the underlying structure of the relationships within and between provenience and artifact types.</p>
 </section>
 </section>
-<section id="degree-distribution-in-graphs" class="level2">
-<h2 class="anchored" data-anchor-id="degree-distribution-in-graphs">Degree distribution in graphs</h2>
+<section id="random-graphs-versus-real-networks" class="level2">
+<h2 class="anchored" data-anchor-id="random-graphs-versus-real-networks">Random Graphs versus Real Networks</h2>
+<p>What we’re trying to do is find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it could just be <em>random</em> associations. If the structure does <em>not</em> appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where. In archaeological terms, that means that it’s likely that there is some intentional organization to the use of space for certain activities or that certain artifact assemblages are associated with different activities. If so, then we can find some partitioning of the artifacts and/or proveniences that have meaningful interpretations.</p>
+<p>Mind you, we’re not actually trying to <em>induce</em> a structure. We are, however, expecting that there has been some manner of degradation in the “signal” of our data (see the introduction to <a href="https://medium.com/p/648a2f20d389" title="Bipartite Graphs for Archaeological Assemblage Networks">Part I</a> as to why). Our selection of similarity and threshold are meant to dampen the “noise” introduced to the site over time.</p>
+<p>To do that, we need to understand some of the basic properties of graphs and how we can use those to identify and understand a graph’s structure. One advantage of graph-based approaches is that these properties are universal to <em>any</em> graph, and have metrics that are (for the most of them) very efficient to calculate irrespective of the graph’s size. This means that we can quickly gain some exploratory insights into the underlying structure of our data just by looking at the distribution of those properties.</p>
+<section id="graph-properties" class="level3">
+<h3 class="anchored" data-anchor-id="graph-properties">Graph Properties</h3>
+</section>
 <section id="sec-graph-structure-and-scale-free-networks" class="level3">
 <h3 class="anchored" data-anchor-id="sec-graph-structure-and-scale-free-networks">Graph structure and scale-free networks</h3>
-<p>What we’re trying to do is find out if the inherent structure of our projected graphs, and therefore our bipartite graph as a whole, shows whether or not it is <em>random</em>. If the structure does <em>not</em> appear to be random, then we can reasonably infer that some other process is constraining or directing which artifacts appear where. In archaeological terms, that means that it’s likely that there is some intentional organization to the use of space for certain activities or that certain artifact assemblages are associated with different activities. If so, then we can find some partitioning of the artifacts and/or proveniences that have meaningful interpretations.</p>
-<p>Mind you, we’re not actually trying to <em>induce</em> a structure. We are, however, expecting that there has been some manner of degradation in the “signal” of our data (see the introduction to <a href="https://medium.com/p/648a2f20d389" title="Bipartite Graphs for Archaeological Assemblage Networks">Part I</a> as to why). Our selection of similarity and threshold are meant to dampen the “noise” introduced to the site over time.</p>
 <p>One way to determine if we have non-random structure in our graph is to find out if it exhibits <a href="https://en.wikipedia.org/wiki/Scale-free_network" title="Scale-free network | WikipediA"><em>scale-free network</em></a> properties. A scale-free network is one in which the distribution for the degree of nodes in the graph approximate a power-law distribution, meaning that most nodes in the graphs have few connections while a few “hub” nodes have many. In a random network, there would be a more <em>even</em>ly distributed probability of node degrees and hub nodes would be far less likely to occur.</p>
 <p>The presence of a scale-free network suggests that there is some latent <em>non</em>-random process at play that is driving differential attachments between those nodes. It may be that there is a different process of growth in the network, which archaeologically would be some different spatial or temporal process of artifact deposition. Alternatively, there may be a clustering process or preferential attachment by which certain nodes are more closely associated than others as in the case of hub nodes. A certain suite of artifacts that are all related to the same activities (i.e., an <em>assemblage</em>) would cluster together, for example.</p>
 </section>
 <section id="sec-detecting-scale-free-networks" class="level3">
 <h3 class="anchored" data-anchor-id="sec-detecting-scale-free-networks">Detecting scale-free networks</h3>
-<p>If a network is scale-free, then the distribution of node degree will approximate a power-law distribution of the form <span class="math inline">\(P_{\text{deg}}(k) \propto k^{-\gamma}\)</span> where <span class="math inline">\(k\)</span> is node degree and <span class="math inline">\(\gamma\)</span> is some exponent. We will know <span class="math inline">\(k\)</span>, but we would obviously need to find the appropriate value for <span class="math inline">\(\gamma\)</span> from our empirical distribution. To illustrate, lets look at the probability density function for various values of <span class="math inline">\(\gamma\)</span> (<a href="#fig-power-law">Figure&nbsp;5</a>). We have 251 artifact types in our archaeological sample data, so lets look at the ideal power-law distributions if each node could have a maximum of 251 degrees.</p>
+<p>If a network is scale-free, then the distribution of node degree will approximate a power-law distribution of the form <span class="math inline">\(P_{\text{deg}}(k) \propto k^{-\gamma}\)</span> where <span class="math inline">\(k\)</span> is node degree and <span class="math inline">\(\gamma\)</span> is some exponent. We will know <span class="math inline">\(k\)</span>, but we would obviously need to find the appropriate value for <span class="math inline">\(\gamma\)</span> from our empirical distribution. To illustrate, lets look at the probability density function for various values of <span class="math inline">\(\gamma\)</span> (<a href="#fig-power-law">Figure&nbsp;6</a>). We have 251 artifact types in our archaeological sample data, so lets look at the ideal power-law distributions if each node could have a maximum of 251 degrees.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-power-law" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="assemblage_network_doc_3_building_files/figure-html/fig-power-law-1.png" class="img-fluid figure-img" alt="Power-law distribution for different values of gamma." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;5: Power-law distribution for different values of gamma.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;6: Power-law distribution for different values of gamma.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Pretty easy to see that if our artifact type graph were scale free, the vast majority of the nodes would have a <em>very</em> small degree. Not so easy to see how much that probability is affected by <span class="math inline">\(\gamma\)</span>, though. It’s a lot easier to see the effect of <span class="math inline">\(\gamma\)</span> if we take the <span class="math inline">\(\log\)</span> of <span class="math inline">\(P_{\text{deg}}(k)\)</span> (<a href="#fig-power-law-log">Figure&nbsp;6</a>).</p>
+<p>Pretty easy to see that if our artifact type graph were scale free, the vast majority of the nodes would have a <em>very</em> small degree. Not so easy to see how much that probability is affected by <span class="math inline">\(\gamma\)</span>, though. It’s a lot easier to see the effect of <span class="math inline">\(\gamma\)</span> if we take the <span class="math inline">\(\log\)</span> of <span class="math inline">\(P_{\text{deg}}(k)\)</span> (<a href="#fig-power-law-log">Figure&nbsp;7</a>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-power-law-log" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="assemblage_network_doc_3_building_files/figure-html/fig-power-law-log-1.png" class="img-fluid figure-img" alt="Log-scale power-law distribution for different values of gamma." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;6: Log-scale power-law distribution for different values of gamma.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;7: Log-scale power-law distribution for different values of gamma.</figcaption>
 </figure>
 </div>
 </div>
@@ -324,7 +346,7 @@ Power(S_{i,j}) = |S_{i,j}|^{\beta}
 <div id="fig-power-adjacency" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="assemblage_network_doc_3_building_files/figure-html/fig-power-adjacency-1.png" class="img-fluid figure-img" alt="Power adjacency distribution for different values of beta." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;7: Power adjacency distribution for different values of beta.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;8: Power adjacency distribution for different values of beta.</figcaption>
 </figure>
 </div>
 </div>
