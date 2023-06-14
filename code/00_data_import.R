@@ -25,4 +25,5 @@ artifact_codes <-
            stringsAsFactors = FALSE)
 
 # Filter data set for excluded artifact types
+
 dat <- dat_raw %>% filter(!(CODE %in% exclude_artifacts))

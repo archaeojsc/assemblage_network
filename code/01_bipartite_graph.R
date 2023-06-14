@@ -28,7 +28,7 @@ g_assemblages_bpg_layout <-
 
 g_assemblages_bpg %>%
   ggraph(layout = g_assemblages_bpg_layout) +
-  geom_edge_link(color = "darkgray", alpha = 0.25) +
+  geom_edge_link(edge_color = "darkgray", edge_alpha = 0.25) +
   geom_node_point(aes(color = type)) +
   scale_color_manual(
     values = c("darkgreen", "darkblue"),
@@ -52,8 +52,11 @@ g_random_bpg <-
 
 g_random_bpg_inc <- as_incidence_matrix(g_random_bpg)
 
+g_random_bpg_layout <- g_random_bpg %>% layout_as_bipartite()
+
 g_random_bpg %>%
-  ggraph(layout = "bipartite") +
+  ggraph(layout = g_random_bpg_layout) +
   geom_edge_link(edge_color = "darkgray", edge_alpha = 0.25) +
-  geom_node_point(aes(color = type))
+  geom_node_point(aes(color = type)) +
+  ggtitle("Random Bipartite network graph")
 
