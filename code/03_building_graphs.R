@@ -11,18 +11,6 @@ g_prov_projection <- g_assemblages_proj$proj1
 
 g_artifact_projection <- g_assemblages_proj$proj2
 
-# g_prov_projection %>%
-#   ggraph(layout = "kk") +
-#   geom_edge_link(color = "gray", aes(alpha = weight)) +
-#   geom_node_point(color = "darkgreen") +
-#   ggtitle("Network of Proveniences")
-# 
-# g_artifact_projection %>%
-#   ggraph(layout = "kk") +
-#   geom_edge_link(color = "gray", aes(alpha = weight)) +
-#   geom_node_point(color = "darkblue") +
-#   ggtitle("Network of Artifact Types")
-
 g_random_proj <-
   bipartite.projection(g_random_bpg, multiplicity = TRUE)
 
