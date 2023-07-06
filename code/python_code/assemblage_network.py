@@ -40,14 +40,8 @@ pos = nx.bipartite_layout(bpg_assemblage_network, prov_nodes, align="horizontal"
 nx.draw_networkx(
     bpg_assemblage_network, pos=pos, node_size=10, node_color="lightgreen", alpha=0.01
 )
-# nx.draw_networkx_labels(bpg_assemblage_network, pos=pos, font_size=3)
-plt.show()
-# %%
 
-c = CircosPlot(
-    bpg_assemblage_network, node_grouping="bipartite", node_color="bipartite"
-)
-c.draw()
 plt.show()
+
 
 # %%
