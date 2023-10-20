@@ -1,4 +1,10 @@
 
+
+# Run previous scripts ----------------------------------------------------
+
+source("code/01_bipartite_graph.R")
+source("code/02_similarity_functions.R")
+
 # Project with igraph  ----------------------------------------------------
 
 
@@ -107,10 +113,12 @@ g_prov_jacc <-
 sim_artifact_jacc <- jaccard_sim_bin(g_assemblages_bpg_inc)
 
 g_artifact_jacc <-
-  graph_from_adjacency_matrix(sim_artifact_jacc,
-                              mode = "undirected",
-                              weighted = TRUE,
-                              diag = FALSE)
+  graph_from_adjacency_matrix(
+    sim_artifact_jacc,
+    mode = "undirected",
+    weighted = TRUE,
+    diag = FALSE
+  )
 
 
 sim_rand_t_jacc <- jaccard_sim_bin(t(g_random_bpg_inc))

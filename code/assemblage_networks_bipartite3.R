@@ -453,6 +453,30 @@ grid.arrange(
   ncol = 2
 )
 
+grid.arrange(
+  ggplot(data = data.frame(x = rowSums(
+    g_random_bpg_inc
+  )),
+  aes(x = x, y = after_stat(density))) +
+    geom_histogram(
+      color = "darkgray",
+      bins = 20
+    ) +
+    ggtitle("Artifact Types per Provenience"),
+  
+  ggplot(data = data.frame(x = colSums(
+    g_random_bpg_inc
+  )),
+  aes(x = x, y = after_stat(density))) +
+    geom_histogram(
+      color = "darkgray",
+      bins = 20
+    ) +
+    ggtitle("Occurence per Artifact Type"),
+  
+  ncol = 2
+)
+
 
 
 # Comparing similarity measures -------------------------------------------
@@ -463,7 +487,7 @@ prov_sims <-
              sd = prov_sd_sims)
 
 prov_sims %>% stack() %>%
-  # filter(values > 0) %>% # View non-zero entries
+  filter(values > 0) %>% # View non-zero entries
   ggplot(aes(x = values)) +
   geom_density(fill = "darkgreen",
                alpha = 0.4) +
@@ -480,14 +504,14 @@ artifact_sims <-
              sd = artifact_sd_sims)
 
 artifact_sims %>% stack() %>%
-  # filter(values > 0) %>% # View non-zero entries
+  filter(values > 0) %>% # View non-zero entries
   ggplot(aes(x = values)) +
   geom_density(fill = "darkblue",
                alpha = 0.4) +
   facet_grid(ind ~ ., scales = "free")
 
 artifact_sims %>% stack() %>%
-  # filter(values > 0) %>%
+  filter(values > 0) %>%
   ggplot(aes(x = ind, y = values, fill = ind)) +
   geom_violin()
 

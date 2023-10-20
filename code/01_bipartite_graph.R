@@ -1,3 +1,5 @@
+source("code/00_data_import.R")
+
 require(igraph)
 
 
