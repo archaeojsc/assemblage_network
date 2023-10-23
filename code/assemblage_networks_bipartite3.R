@@ -491,7 +491,7 @@ prov_sims %>% stack() %>%
   ggplot(aes(x = values)) +
   geom_density(fill = "darkgreen",
                alpha = 0.4) +
-  facet_grid(ind ~ ., scales = "free")
+  facet_grid(ind ~ ., scales = "fixed")
 
 prov_sims %>% stack() %>%
   filter(values > 0) %>%
@@ -511,6 +511,43 @@ artifact_sims %>% stack() %>%
   facet_grid(ind ~ ., scales = "free")
 
 artifact_sims %>% stack() %>%
+  filter(values > 0) %>%
+  ggplot(aes(x = ind, y = values, fill = ind)) +
+  geom_violin()
+
+
+## Random graph distributions----------------------------------------------
+
+rand_t_sims <-
+  data.frame(ssoc = rand_t_ssoc_sims,
+             jacc = rand_t_jacc_sims,
+             sd = rand_t_sd_sims)
+
+rand_t_sims %>% stack() %>%
+  filter(values > 0) %>% # View non-zero entries
+  ggplot(aes(x = values)) +
+  geom_density(fill = "darkgreen",
+               alpha = 0.4) +
+  facet_grid(ind ~ ., scales = "fixed")
+
+rand_t_sims %>% stack() %>%
+  # filter(values > 0) %>%
+  ggplot(aes(x = ind, y = values, fill = ind)) +
+  geom_violin()
+
+rand_b_sims <-
+  data.frame(ssoc = rand_b_ssoc_sims,
+             jacc = rand_b_jacc_sims,
+             sd = rand_b_sd_sims)
+
+rand_b_sims %>% stack() %>%
+  filter(values > 0) %>% # View non-zero entries
+  ggplot(aes(x = values)) +
+  geom_density(fill = "darkblue",
+               alpha = 0.4) +
+  facet_grid(ind ~ ., scales = "free")
+
+rand_b_sims %>% stack() %>%
   filter(values > 0) %>%
   ggplot(aes(x = ind, y = values, fill = ind)) +
   geom_violin()
