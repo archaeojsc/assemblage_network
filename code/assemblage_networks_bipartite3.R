@@ -519,9 +519,9 @@ artifact_sims %>% stack() %>%
 ## Random graph distributions----------------------------------------------
 
 rand_t_sims <-
-  data.frame(ssoc = rand_t_ssoc_sims,
-             jacc = rand_t_jacc_sims,
-             sd = rand_t_sd_sims)
+  data.frame(ssoc = sim_rand_t_oc,
+             jacc = sim_rand_t_jacc,
+             sd = sim_rand_t_sd)
 
 rand_t_sims %>% stack() %>%
   filter(values > 0) %>% # View non-zero entries
@@ -536,9 +536,9 @@ rand_t_sims %>% stack() %>%
   geom_violin()
 
 rand_b_sims <-
-  data.frame(ssoc = rand_b_ssoc_sims,
-             jacc = rand_b_jacc_sims,
-             sd = rand_b_sd_sims)
+  data.frame(ssoc = sim_rand_b_oc,
+             jacc = sim_rand_b_jacc,
+             sd = sim_rand_b_sd)
 
 rand_b_sims %>% stack() %>%
   filter(values > 0) %>% # View non-zero entries
