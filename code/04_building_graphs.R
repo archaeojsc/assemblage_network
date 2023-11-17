@@ -25,10 +25,8 @@ g_rand_t_projection <- g_random_proj$proj1
 g_rand_b_projection <- g_random_proj$proj2
 
 
-# Project with overlap coefficient ----------------------------------------
+# Project subgraphs from overlap coefficient ------------------------------
 
-
-sim_prov_oc <- overlap_coef_bin(t(g_assemblages_bpg_inc))
 
 g_prov_oc <-
   graph_from_adjacency_matrix(sim_prov_oc,
@@ -37,8 +35,6 @@ g_prov_oc <-
                               diag = FALSE)
 
 
-sim_artifact_oc <- overlap_coef_bin(g_assemblages_bpg_inc)
-
 g_artifact_oc <-
   graph_from_adjacency_matrix(sim_artifact_oc,
                               mode = "undirected",
@@ -46,15 +42,11 @@ g_artifact_oc <-
                               diag = FALSE)
 
 
-sim_rand_t_oc <- overlap_coef_bin(t(g_random_bpg_inc))
-
 g_rand_t_oc <-
   graph_from_adjacency_matrix(sim_rand_t_oc,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
-
-sim_rand_b_oc <- overlap_coef_bin(g_random_bpg_inc)
 
 g_rand_b_oc <-
   graph_from_adjacency_matrix(sim_rand_b_oc,
