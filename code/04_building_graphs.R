@@ -1,9 +1,9 @@
 
 
+
 # Run previous scripts ----------------------------------------------------
 
-source("code/01_bipartite_graph.R")
-source("code/02_similarity_functions.R")
+source("code/03_similarity_and_adjacency.R")
 
 # Project with igraph  ----------------------------------------------------
 
@@ -25,7 +25,7 @@ g_rand_t_projection <- g_random_proj$proj1
 g_rand_b_projection <- g_random_proj$proj2
 
 
-# Project subgraphs from overlap coefficient ------------------------------
+# Project sub-graphs from overlap coefficient ----------------------------
 
 
 g_prov_oc <-
@@ -55,9 +55,7 @@ g_rand_b_oc <-
                               diag = FALSE)
 
 
-# Project with Sorenson-Dice ----------------------------------------------
-
-sim_prov_sd <- soren_dice_sim_bin(t(g_assemblages_bpg_inc))
+# Project with Sorenson-Dice ---------------------------------------------
 
 g_prov_sd <-
   graph_from_adjacency_matrix(sim_prov_sd,
@@ -66,23 +64,17 @@ g_prov_sd <-
                               diag = FALSE)
 
 
-sim_artifact_sd <- soren_dice_sim_bin(g_assemblages_bpg_inc)
-
 g_artifact_sd <-
   graph_from_adjacency_matrix(sim_artifact_sd,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
 
-sim_rand_t_sd <- soren_dice_sim_bin(t(g_random_bpg_inc))
-
 g_rand_t_sd <-
   graph_from_adjacency_matrix(sim_rand_t_sd,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
-
-sim_rand_b_sd <- soren_dice_sim_bin(g_random_bpg_inc)
 
 g_rand_b_sd <-
   graph_from_adjacency_matrix(sim_rand_b_sd,
@@ -93,16 +85,12 @@ g_rand_b_sd <-
 
 # Project with Jaccard ----------------------------------------------------
 
-sim_prov_jacc <- jaccard_sim_bin(t(g_assemblages_bpg_inc))
-
 g_prov_jacc <-
   graph_from_adjacency_matrix(sim_prov_jacc,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
 
-
-sim_artifact_jacc <- jaccard_sim_bin(g_assemblages_bpg_inc)
 
 g_artifact_jacc <-
   graph_from_adjacency_matrix(
@@ -113,15 +101,11 @@ g_artifact_jacc <-
   )
 
 
-sim_rand_t_jacc <- jaccard_sim_bin(t(g_random_bpg_inc))
-
 g_rand_t_jacc <-
   graph_from_adjacency_matrix(sim_rand_t_jacc,
                               mode = "undirected",
                               weighted = TRUE,
                               diag = FALSE)
-
-sim_rand_b_jacc <- jaccard_sim_bin(g_random_bpg_inc)
 
 g_rand_b_jacc <-
   graph_from_adjacency_matrix(sim_rand_b_jacc,
