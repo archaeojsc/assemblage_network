@@ -1,6 +1,9 @@
 source("code/00_data_import.R")
 
 require(igraph)
+require(WGCNA)
+
+WGCNA::enableWGCNAThreads()
 
 
 # Create un-weighted bipartite assemblage network -------------------------
@@ -18,7 +21,7 @@ V(g_assemblages_bpg)$type <-
 
 # Create incidence matrix from bipartite graph -----------------------------
 
-g_assemblages_bpg_inc <- as_incidence_matrix(g_assemblages_bpg)
+g_assemblages_bpg_inc <- as_biadjacency_matrix(g_assemblages_bpg)
 
 
 # Create random bipartite graph (for comparisons) -------------------------
@@ -32,5 +35,5 @@ g_random_bpg <-
     directed = FALSE
   )
 
-g_random_bpg_inc <- as_incidence_matrix(g_random_bpg)
+g_random_bpg_inc <- as_biadjacency_matrix(g_random_bpg)
 
