@@ -3,7 +3,7 @@
 
 # Run previous scripts ----------------------------------------------------
 
-source("code/03_similarity_and_adjacency.R")
+source("code/03_similarity_and_adjacency.R", echo = TRUE)
 
 # Project with igraph  ----------------------------------------------------
 

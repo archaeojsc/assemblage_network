@@ -3,8 +3,8 @@
 
 # Run previous scripts ----------------------------------------------------
 
-source("code/01_bipartite_graph.R")
-source("code/02_similarity_functions.R")
+source("code/01_bipartite_graph.R", echo = TRUE)
+source("code/02_similarity_functions.R", echo = TRUE)
 
 # Overlap coefficient similarity ------------------------------------------
 

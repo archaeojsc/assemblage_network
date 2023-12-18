@@ -1,4 +1,4 @@
-source("code/00_data_import.R")
+source("code/00_data_import.R", echo = TRUE)
 
 require(igraph)
 require(WGCNA)
