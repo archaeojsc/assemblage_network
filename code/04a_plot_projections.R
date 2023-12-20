@@ -16,7 +16,6 @@ prov_strength <-
              sd = strength(g_prov_sd))
 
 prov_strength %>% stack() %>%
-  # filter(values > 0) %>% # View non-zero entries
   ggplot(aes(x = values)) +
   geom_density(fill = "darkgreen",
                alpha = 0.4) +
@@ -29,7 +28,6 @@ rand_t_strength <-
              sd = strength(g_rand_t_sd))
 
 rand_t_strength %>% stack() %>%
-  # filter(values > 0) %>% # View non-zero entries
   ggplot(aes(x = values)) +
   geom_density(fill = "darkgreen",
                alpha = 0.4) +
@@ -42,7 +40,6 @@ artifact_strength <-
              sd = strength(g_artifact_sd))
 
 artifact_strength %>% stack() %>%
-  # filter(values > 0) %>% # View non-zero entries
   ggplot(aes(x = values)) +
   geom_density(fill = "darkblue",
                alpha = 0.4) +
@@ -55,7 +52,6 @@ rand_b_strength <-
              sd = strength(g_rand_b_sd))
 
 rand_b_strength %>% stack() %>%
-  # filter(values > 0) %>% # View non-zero entries
   ggplot(aes(x = values)) +
   geom_density(fill = "darkblue",
                alpha = 0.4) +

@@ -94,7 +94,7 @@ prov_sims <-
              sd = prov_sd_sims)
 
 prov_sims %>% stack() %>%
-  # filter(values > 0) %>% # View non-zero entries
+  filter(values > 0) %>% # View non-zero entries
   ggplot(aes(x = values)) +
   geom_density(fill = "darkgreen",
                alpha = 0.4) +
@@ -102,7 +102,7 @@ prov_sims %>% stack() %>%
   ggtitle("Distribution of Similarity for Provenience")
 
 prov_sims %>% stack() %>%
-  # filter(values > 0) %>%
+  filter(values > 0) %>%
   ggplot(aes(x = ind, y = values, fill = ind)) +
   geom_violin() +
   ggtitle("Distribution of Similarity for Provenience")
@@ -113,7 +113,7 @@ artifact_sims <-
              sd = artifact_sd_sims)
 
 artifact_sims %>% stack() %>%
-  # filter(values > 0) %>% # View non-zero entries
+  filter(values > 0) %>% # View non-zero entries
   ggplot(aes(x = values)) +
   geom_density(fill = "darkblue",
                alpha = 0.4) +
@@ -135,7 +135,7 @@ rand_t_sims <-
              sd = rand_t_sd_sims)
 
 rand_t_sims %>% stack() %>%
-  # filter(values > 0) %>% # View non-zero entries
+  filter(values > 0) %>% # View non-zero entries
   ggplot(aes(x = values)) +
   geom_density(fill = "darkgreen",
                alpha = 0.4) +
@@ -143,7 +143,7 @@ rand_t_sims %>% stack() %>%
   ggtitle("Distribution of Similarity for Random 'Provenience'")
 
 rand_t_sims %>% stack() %>%
-  # filter(values > 0) %>%
+  filter(values > 0) %>%
   ggplot(aes(x = ind, y = values, fill = ind)) +
   geom_violin() +
   ggtitle("Distribution of Similarity for Random 'Provenience'")
@@ -154,7 +154,7 @@ rand_b_sims <-
              sd = rand_b_sd_sims)
 
 rand_b_sims %>% stack() %>%
-  # filter(values > 0) %>% # View non-zero entries
+  filter(values > 0) %>% # View non-zero entries
   ggplot(aes(x = values)) +
   geom_density(fill = "darkblue",
                alpha = 0.4) +
@@ -162,7 +162,8 @@ rand_b_sims %>% stack() %>%
   ggtitle("Distribution of Similarity for Random 'Artifacts'")
 
 rand_b_sims %>% stack() %>%
-  # filter(values > 0) %>%
+  filter(values > 0) %>%
   ggplot(aes(x = ind, y = values, fill = ind)) +
   geom_violin() +
   ggtitle("Distribution of Similarity for Random 'Artifacts'")
+
