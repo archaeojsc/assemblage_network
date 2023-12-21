@@ -1,6 +1,7 @@
 
 
 
+
 # Run previous scripts ----------------------------------------------------
 
 source("code/01_bipartite_graph.R", echo = TRUE)
@@ -101,11 +102,11 @@ prov_sims %>% stack() %>%
   facet_grid(ind ~ ., scales = "fixed") +
   ggtitle("Distribution of Similarity for Provenience")
 
-prov_sims %>% stack() %>%
-  filter(values > 0) %>%
-  ggplot(aes(x = ind, y = values, fill = ind)) +
-  geom_violin() +
-  ggtitle("Distribution of Similarity for Provenience")
+# prov_sims %>% stack() %>%
+#   filter(values > 0) %>%
+#   ggplot(aes(x = ind, y = values, fill = ind)) +
+#   geom_violin() +
+#   ggtitle("Distribution of Similarity for Provenience")
 
 artifact_sims <-
   data.frame(ssoc = artifact_ssoc_sims,
@@ -120,11 +121,11 @@ artifact_sims %>% stack() %>%
   facet_grid(ind ~ ., scales = "fixed") +
   ggtitle("Distribution of Similarity for Artifacts")
 
-artifact_sims %>% stack() %>%
-  # filter(values > 0) %>%
-  ggplot(aes(x = ind, y = values, fill = ind)) +
-  geom_violin() +
-  ggtitle("Distribution of Similarity for Artifacts")
+# artifact_sims %>% stack() %>%
+#   # filter(values > 0) %>%
+#   ggplot(aes(x = ind, y = values, fill = ind)) +
+#   geom_violin() +
+#   ggtitle("Distribution of Similarity for Artifacts")
 
 
 ## Random graph distributions----------------------------------------------
@@ -142,11 +143,11 @@ rand_t_sims %>% stack() %>%
   facet_grid(ind ~ ., scales = "fixed") +
   ggtitle("Distribution of Similarity for Random 'Provenience'")
 
-rand_t_sims %>% stack() %>%
-  filter(values > 0) %>%
-  ggplot(aes(x = ind, y = values, fill = ind)) +
-  geom_violin() +
-  ggtitle("Distribution of Similarity for Random 'Provenience'")
+# rand_t_sims %>% stack() %>%
+#   filter(values > 0) %>%
+#   ggplot(aes(x = ind, y = values, fill = ind)) +
+#   geom_violin() +
+#   ggtitle("Distribution of Similarity for Random 'Provenience'")
 
 rand_b_sims <-
   data.frame(ssoc = rand_b_ssoc_sims,
@@ -161,9 +162,8 @@ rand_b_sims %>% stack() %>%
   facet_grid(ind ~ ., scales = "fixed") +
   ggtitle("Distribution of Similarity for Random 'Artifacts'")
 
-rand_b_sims %>% stack() %>%
-  filter(values > 0) %>%
-  ggplot(aes(x = ind, y = values, fill = ind)) +
-  geom_violin() +
-  ggtitle("Distribution of Similarity for Random 'Artifacts'")
-
+# rand_b_sims %>% stack() %>%
+#   filter(values > 0) %>%
+#   ggplot(aes(x = ind, y = values, fill = ind)) +
+#   geom_violin() +
+#   ggtitle("Distribution of Similarity for Random 'Artifacts'")

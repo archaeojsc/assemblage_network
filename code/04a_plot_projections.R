@@ -57,3 +57,29 @@ rand_b_strength %>% stack() %>%
                alpha = 0.4) +
   facet_grid(ind ~ ., scales = "fixed") +
   ggtitle("Distribution of Node Strength for Random 'Artifacts' Graph")
+
+
+rand_t_degree <-
+  data.frame(ssoc = degree(g_rand_t_oc),
+             jacc = degree(g_rand_t_jacc),
+             sd = degree(g_rand_t_sd))
+
+rand_t_degree %>% stack() %>%
+  ggplot(aes(x = values)) +
+  geom_density(fill = "darkgreen",
+               alpha = 0.4) +
+  facet_grid(ind ~ ., scales = "fixed") +
+  ggtitle("Distribution of Node Degree for Random 'Provenience' Graph")
+
+rand_t_edges <-
+  data.frame(ssoc = E(g_rand_t_oc)$weight,
+             jacc = E(g_rand_t_jacc)$weight,
+             sd = E(g_rand_t_sd)$weight)
+
+rand_t_edges %>% stack() %>%
+  ggplot(aes(x = values)) +
+  geom_density(fill = "darkgreen",
+               alpha = 0.4) +
+  facet_grid(ind ~ ., scales = "fixed") +
+  ggtitle("Distribution of Edge Weights for Random 'Provenience' Graph")
+
