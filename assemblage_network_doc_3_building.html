@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="James Scott Cardinal">
-<meta name="dcterms.date" content="2023-05-25">
+<meta name="dcterms.date" content="2026-01-24">
 
 <title>From similarity to network: Building graphs for community detection</title>
 <style>
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -35,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -60,6 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -99,7 +100,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -108,13 +115,42 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -149,7 +185,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 25, 2023</p>
+      <p class="date">January 24, 2026</p>
     </div>
   </div>
   
@@ -157,15 +193,17 @@ div.csl-indent {
   </div>
   
 
+
 </header>
+
 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="archaeo_DS_mine.png" class="img-fluid figure-img" alt="Archaeology and Data Science"></p>
-<figcaption class="figure-caption">Why is there math in my archaeology? …or is the archaeology in my math? (Image by Author)</figcaption>
+<figcaption>Why is there math in my archaeology? …or is the archaeology in my math? (Image by Author)</figcaption>
 </figure>
 </div>
-<p>It has been a little while since my last installment (<a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a>). Projects, deadlines, and (of course) life has kept me overly busy. My thanks for your patience, and I’ll try and make it worth the wait.</p>
+<p>It has been a long while since my last installment (<a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a>). Projects, deadlines, and (of course) life has kept me overly busy. My thanks for your patience, and I’ll try and make it worth the wait.</p>
 <p>Last time, we talked about different similarity metrics for sets or combinatorial problems, and the particular strengths and idiosyncrasies of each. We were trying to find the best way to project our bipartite graph of archaeological provenience and artifact types into individual one-mode graphs. Our goal is to find communities in each of those projected graphs to find meaningful <em>assemblages</em> (communities of artifacts) and <em>contexts</em> (communities of provenience locations).</p>
 <p>That does, however, require that we talk about how we determine “best” for this particular scenario. Since our goal is community detection, we want to choose the metric that connects vertices that have the strongest associations while <em>avoiding</em> spurious or non-informative edges. I mentioned last time that we are, in part, looking to see if our projected graphs exhibit characteristics of a <em>scale-free</em> network. We’ll talk about that more later in this post, but it boils down to finding a network where most nodes have a few strong connections rather than a lot of weak ones.</p>
 <p>Since this is a fairly large and involved topic, I’ll break Part III into a few posts. This one (Part III.a.) will start it off by talking about:</p>
@@ -194,35 +232,47 @@ div.csl-indent {
 <p>In <a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a>, we went into some depth about what it means for sets to be <em>similar</em> and some ways to calculate a metric for that similarity. This time around, we’re going to look more closely into how to decide what it means to be similar <em>enough</em>. In other words, we want to find an analytically valid way to decide on a <em>threshold</em> of similarity that best captures the real connections between entities while avoiding spurious associations. That will also help to guide us in selecting which of the similarity metrics to use (i.e., overlap, Jaccard, or Sørensen–Dice) as we go on to start building our bipartite graph projections.</p>
 <section id="sec-a-quick-recap..." class="level3">
 <h3 class="anchored" data-anchor-id="sec-a-quick-recap...">A quick recap…</h3>
-<p>We started (in <a href="https://medium.com/p/648a2f20d389" title="Bipartite Graphs for Archaeological Assemblage Networks">Part I</a>) by building a bipartite graph between artifact types and their locations, shown in <a href="#fig-bipartite-graph">Figure&nbsp;1</a>. To keep things simple, we’re using an <em>un-</em>weighted bipartite graph to look at co-locations of artifact types.</p>
+<p>We started (in <a href="https://medium.com/p/648a2f20d389" title="Bipartite Graphs for Archaeological Assemblage Networks">Part I</a>) by building a bipartite graph between artifact types and their locations, shown in <a href="#fig-bipartite-graph" class="quarto-xref">Figure&nbsp;1</a>. To keep things simple, we’re using an <em>un-</em>weighted bipartite graph to look at co-locations of artifact types.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-bipartite-graph" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-bipartite-graph-1.png" class="img-fluid figure-img" alt="Bipartite graph plot of proveniences and artifact types." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: Bipartite network of Provenience and Artifact Type.</figcaption>
+<div id="fig-bipartite-graph" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Bipartite graph plot of proveniences and artifact types.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bipartite-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assemblage_network_doc_3_building_files/figure-html/fig-bipartite-graph-1.png" class="img-fluid figure-img" alt="Bipartite graph plot of proveniences and artifact types." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bipartite-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Bipartite network of Provenience and Artifact Type.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Looking at the bipartite graph, it seems apparent that there are some natural clusters or groupings. We found, though, that projecting this graph into its one-mode counterparts resulted in very densely connected networks that were difficult to interpret (see <a href="#fig-simple-projections">Figure&nbsp;2</a>).</p>
+<p>Looking at the bipartite graph, it seems apparent that there are some natural clusters or groupings. We found, though, that projecting this graph into its one-mode counterparts resulted in very densely connected networks that were difficult to interpret (see <a href="#fig-simple-projections" class="quarto-xref">Figure&nbsp;2</a>).</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-simple-projections" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-simple-projections-1.png" class="img-fluid figure-img" alt="Simple overlap projections for Proveniences and Artifact Types." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;2: Simple overlap projections for Proveniences and Artifact Types.</figcaption>
+<div id="fig-simple-projections" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Simple overlap projections for Proveniences and Artifact Types.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-projections-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assemblage_network_doc_3_building_files/figure-html/fig-simple-projections-1.png" class="img-fluid figure-img" alt="Simple overlap projections for Proveniences and Artifact Types." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-projections-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Simple overlap projections for Proveniences and Artifact Types.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Next, in <a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a>, we looked at different similarity metrics to find a better method of projection that the simple overlap provided in <code>igraph</code>. We looked at the similarities calculated with the Szymkiewicz-Simpson overlap coefficient, Jaccard similarity coefficient, and Sørensen–Dice coefficient for both provenience (<a href="#fig-sim-prov">Figure&nbsp;3</a>) and artifact types (<a href="#fig-sim-artifact">Figure&nbsp;4</a>).</p>
+<p>Next, in <a href="https://towardsdatascience.com/similarity-measures-and-graph-adjacency-with-sets-a33d16e527e1" title="Similarity Measures and Graph Adjacency with Sets">Part II</a>, we looked at different similarity metrics to find a better method of projection that the simple overlap provided in <code>igraph</code>. We looked at the similarities calculated with the Szymkiewicz-Simpson overlap coefficient, Jaccard similarity coefficient, and Sørensen–Dice coefficient for both provenience (<a href="#fig-sim-prov" class="quarto-xref">Figure&nbsp;3</a>) and artifact types (<a href="#fig-sim-artifact" class="quarto-xref">Figure&nbsp;4</a>).</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-sim-prov" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-sim-prov-1.png" class="img-fluid figure-img" alt="Similarity measures for proveniences." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;3: Similarity measures for proveniences.</figcaption>
+<div id="fig-sim-prov" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Similarity measures for proveniences.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sim-prov-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assemblage_network_doc_3_building_files/figure-html/fig-sim-prov-1.png" class="img-fluid figure-img" alt="Similarity measures for proveniences." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sim-prov-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Similarity measures for proveniences.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -230,10 +280,14 @@ div.csl-indent {
 <p>For proveniences, it looks like there are quite a few that have at least some similarities in their artifact content. Looking at the density of scores for each methods, it appears that in fact the <em>majority</em> of proveniences have non-zero similarity scores. There are discernible “peaks” at zero and, for Jaccard and Sørensen-Dice at least, most scores are below <span class="math inline">\(0.5\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-sim-artifact" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-sim-artifact-1.png" class="img-fluid figure-img" alt="Similarity measures for artifact types." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;4: Similarity measures for artifact types.</figcaption>
+<div id="fig-sim-artifact" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Similarity measures for artifact types.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sim-artifact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assemblage_network_doc_3_building_files/figure-html/fig-sim-artifact-1.png" class="img-fluid figure-img" alt="Similarity measures for artifact types." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sim-artifact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Similarity measures for artifact types.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -241,10 +295,14 @@ div.csl-indent {
 <p>Unlike the proveniences, the co-location of artifacts is obviously much more sparse and the density plot is dominated by the left-hand “spike” of zero similarities. Looking closely, though, we can notice some apparent “bumps” along the right tails (most obvious for the overlap coefficient) where we seem to have a fair number of higher similarity artifacts. In other words, some artifact types occur together quite often.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-sim-artifact-nonzero" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-sim-artifact-nonzero-1.png" class="img-fluid figure-img" alt="Non-zero similarity measures for artifact types." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;5: Non-zero similarity measures for artifact types.</figcaption>
+<div id="fig-sim-artifact-nonzero" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Non-zero similarity measures for artifact types.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sim-artifact-nonzero-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assemblage_network_doc_3_building_files/figure-html/fig-sim-artifact-nonzero-1.png" class="img-fluid figure-img" alt="Non-zero similarity measures for artifact types." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sim-artifact-nonzero-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Non-zero similarity measures for artifact types.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -269,24 +327,32 @@ div.csl-indent {
 </section>
 <section id="sec-detecting-scale-free-networks" class="level3">
 <h3 class="anchored" data-anchor-id="sec-detecting-scale-free-networks">Detecting scale-free networks</h3>
-<p>If a network is scale-free, then the distribution of node degree will approximate a power-law distribution of the form <span class="math inline">\(P_{\text{deg}}(k) \propto k^{-\gamma}\)</span> where <span class="math inline">\(k\)</span> is node degree and <span class="math inline">\(\gamma\)</span> is some exponent. We will know <span class="math inline">\(k\)</span>, but we would obviously need to find the appropriate value for <span class="math inline">\(\gamma\)</span> from our empirical distribution. To illustrate, lets look at the probability density function for various values of <span class="math inline">\(\gamma\)</span> (<a href="#fig-power-law">Figure&nbsp;6</a>). We have 251 artifact types in our archaeological sample data, so lets look at the ideal power-law distributions if each node could have a maximum of 251 degrees.</p>
+<p>If a network is scale-free, then the distribution of node degree will approximate a power-law distribution of the form <span class="math inline">\(P_{\text{deg}}(k) \propto k^{-\gamma}\)</span> where <span class="math inline">\(k\)</span> is node degree and <span class="math inline">\(\gamma\)</span> is some exponent. We will know <span class="math inline">\(k\)</span>, but we would obviously need to find the appropriate value for <span class="math inline">\(\gamma\)</span> from our empirical distribution. To illustrate, lets look at the probability density function for various values of <span class="math inline">\(\gamma\)</span> (<a href="#fig-power-law" class="quarto-xref">Figure&nbsp;6</a>). We have 251 artifact types in our archaeological sample data, so lets look at the ideal power-law distributions if each node could have a maximum of 251 degrees.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-power-law" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-power-law-1.png" class="img-fluid figure-img" alt="Power-law distribution for different values of gamma." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;6: Power-law distribution for different values of gamma.</figcaption>
+<div id="fig-power-law" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Power-law distribution for different values of gamma.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-power-law-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assemblage_network_doc_3_building_files/figure-html/fig-power-law-1.png" class="img-fluid figure-img" alt="Power-law distribution for different values of gamma." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-power-law-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Power-law distribution for different values of gamma.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Pretty easy to see that if our artifact type graph were scale free, the vast majority of the nodes would have a <em>very</em> small degree. Not so easy to see how much that probability is affected by <span class="math inline">\(\gamma\)</span>, though. It’s a lot easier to see the effect of <span class="math inline">\(\gamma\)</span> if we take the <span class="math inline">\(\log\)</span> of <span class="math inline">\(P_{\text{deg}}(k)\)</span> (<a href="#fig-power-law-log">Figure&nbsp;7</a>).</p>
+<p>Pretty easy to see that if our artifact type graph were scale free, the vast majority of the nodes would have a <em>very</em> small degree. Not so easy to see how much that probability is affected by <span class="math inline">\(\gamma\)</span>, though. It’s a lot easier to see the effect of <span class="math inline">\(\gamma\)</span> if we take the <span class="math inline">\(\log\)</span> of <span class="math inline">\(P_{\text{deg}}(k)\)</span> (<a href="#fig-power-law-log" class="quarto-xref">Figure&nbsp;7</a>).</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-power-law-log" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-power-law-log-1.png" class="img-fluid figure-img" alt="Log-scale power-law distribution for different values of gamma." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;7: Log-scale power-law distribution for different values of gamma.</figcaption>
+<div id="fig-power-law-log" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Log-scale power-law distribution for different values of gamma.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-power-law-log-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assemblage_network_doc_3_building_files/figure-html/fig-power-law-log-1.png" class="img-fluid figure-img" alt="Log-scale power-law distribution for different values of gamma." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-power-law-log-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Log-scale power-law distribution for different values of gamma.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -298,7 +364,7 @@ div.csl-indent {
 <p>This is, of course, not the only way to look for non-random structure in a graph network. It’s reasonable, then, to be wondering why we would expect our archaeological networks should follow this sort of power-law structure. This subject could easily be its own article, to be honest, but the short-form version is that it’s because there is a natural connection between information entropy, power-law distributions, and the information communicated about an archaeological site by individual artifact types.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The artifact types found on a site communicate information about the activities that occurred there, and the provenience (i.e., location) of those types tell us about the spatial organization of those activities.</p>
 <p>There are, actually, some surprising similarities with how different gene expressions correlate with phenotype. If you think about the co-location of artifact types being something like genetic expressions and a provenience being the individual sample, then the correspondence of artifact “expressions” between samples should indicate that they’re from the same “population” of characteristics (i.e., phenotype). The methods being presented in this series of articles originated with my experiments in adapting <a href="https://en.wikipedia.org/wiki/Weighted_correlation_network_analysis" title="Weighted correlation network analysis">weighted gene co-expression network analysis</a> to archaeological data.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Scale-free network construction is one of the crucial steps in those methods.</p>
 <p>The biggest difference between the genetic applications, and what we’re doing here archaeologically, is that we’re aiming to do this along each dimension of the problem. We’re first looking to see if there are groups of artifact types (i.e., assemblages) that are separable and reflect either different activities (e.g., domestic versus architectural artifacts) or different temporal occupations (e.g., 18th century versus 19th century). <em>Then</em> we’re going to go back and see of those assemblages are separated spatially by groups of proveniences (i.e., contexts).</p>
-<p>It’s a bi-clustering problem in some ways, but we have to first identify rough clusters <em>within</em> the locations or artifacts.</p>
+<p>It’s a bi-clustering problem in some ways, but we have to first identify rough clusters <em>within</em> either the locations or the artifacts. From there, we can look to see how those projected clusters relate to each other.</p>
 </section>
 </section>
 <section id="sec-from-similarity-to-adjacency" class="level2">
@@ -343,10 +409,14 @@ Power(S_{i,j}) = |S_{i,j}|^{\beta}
 <p>Increasing <span class="math inline">\(\beta\)</span> can be seen to push the smaller values towards zero, which increases the minimum value at which the adjacency score exceeds <span class="math inline">\(0.5\)</span> (thus, it’s a <em>soft</em> threshold). For example, at <span class="math inline">\(\beta=2\)</span> only similarity values of <span class="math inline">\(S_{i,j} \geq 0.71\)</span> would break the <span class="math inline">\(0.5\)</span> adjacency threshold and the weights of all lower values penalized. At <span class="math inline">\(\beta=3\)</span> it would take <span class="math inline">\(S_{i,j} \geq 0.79\)</span> and so on.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-power-adjacency" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="assemblage_network_doc_3_building_files/figure-html/fig-power-adjacency-1.png" class="img-fluid figure-img" alt="Power adjacency distribution for different values of beta." width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;8: Power adjacency distribution for different values of beta.</figcaption>
+<div id="fig-power-adjacency" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Power adjacency distribution for different values of beta.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-power-adjacency-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assemblage_network_doc_3_building_files/figure-html/fig-power-adjacency-1.png" class="img-fluid figure-img" alt="Power adjacency distribution for different values of beta." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-power-adjacency-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Power adjacency distribution for different values of beta.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -366,7 +436,7 @@ Power(S_{i,j}) = |S_{i,j}|^{\beta}
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Justeson1973" class="csl-entry" role="listitem">
 Justeson, John S. 1973. <span>“Limitations of Archaeological Inference: An Information-Theoretic Approach with Applications in Methodology.”</span> <em>American Antiquity</em> 38 (April): 131–49. <a href="https://doi.org/10.2307/279360">https://doi.org/10.2307/279360</a>.
 </div>
@@ -422,18 +492,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -465,11 +524,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -479,8 +577,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -492,7 +599,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -536,6 +766,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -561,6 +792,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -621,6 +878,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 
